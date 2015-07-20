@@ -5,7 +5,21 @@ h1 {
 }
 
 h4 {
+    color:white;
+    font-size: 22px;
     /*margin: ;*/
+}
+
+.container {
+    border: 2px solid gray;
+    border-radius: 10px;
+    margin: 10px;
+    padding: 15px 15px 50px;
+}
+
+#dateValue {
+    color: gray;
+    font-size: 18px;
 }
 
 .buttonCrop {
@@ -15,24 +29,31 @@ h4 {
 .basicDiv {
     border-radius: 10px;
     border: 1px solid #ccc;
-    padding: 13px 5px 5px;
     height: 90px;
     display: table;
+    background-color: #449D44;
 }
 
-.innerBasicDiv{
-    padding-top: 10px;
+.basicTitleOneLine{
+    margin-top: 20px;
+}
+
+.basicTitle {
+    margin-top: 7px;
 }
 
 .basicButton {
     border: none;
+    background-color: transparent;
 }
 
 .basicButton.btn-default:hover{
-    background-color: #fff;
+    background-color: transparent;
 }
 
-
+#trolley{
+    margin: 20px 20px 20px 60px;
+}
 
 /*#header {*/
 /*margin-top: 5px;*/

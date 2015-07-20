@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <title>Cucurbita Maxima</title>
-    <link rel="icon" href="https://avatars3.githubusercontent.com/u/6544448?s=460" type="image/png">
+    <link rel="icon" href="img/tomato_16.png" type="image/png">
 
     <!-- ************************* CSS ************************* -->
     <link rel="stylesheet" type="text/css" href="http://getbootstrap.com/dist/css/bootstrap.min.css">
@@ -43,7 +43,7 @@
 
 <BODY>
 
-<div class="container-fluid">
+<div class="container-fluid container">
     <div class="row col-sm-12 col-md-12 text-center">
         <h1>Cucurbita Maxima</h1><BR/>
 
@@ -55,42 +55,42 @@
 
         <div class="row col-sm-12 col-md-12">
             <div class="col-md-offset-1 row col-md-3 basicDiv">
-                <div class="col-md-6"><h4>Fiche <BR/> signalétique</h4></div>
+                <div class="col-md-6 basicTitle"><h4>Fiche signalétique</h4></div>
                 <div class="col-md-1">
-                    <button id="NoteCreate" class="btn btn-default basicButton" title="Saisir une fiche signalétique">
+                    <button id="NoteCreate" class="btn btn-default basicButton basicTitleOneLine" title="Saisir une fiche signalétique">
                         <img src="img/2.png" width="40px"/>
                     </button>
                 </div>
                 <div class="col-md-offset-1 col-md-1">
-                    <button id="NoteList" class="btn btn-default basicButton" title="Liste des fiches signalétiques">
+                    <button id="NoteList" class="btn btn-default basicButton basicTitleOneLine" title="Liste des fiches signalétiques">
                         <img src="img/10.png" width="40px"/>
                     </button>
                 </div>
             </div>
 
             <div class="col-md-offset-1 row col-md-3 basicDiv">
-                <div class="col-md-6"><h4>Semis et <BR/> Plantations</h4></div>
+                <div class="col-md-6 basicTitle"><h4>Semis et Plantations</h4></div>
                 <div class="col-md-1">
-                    <button id="SawingCreate" class="btn btn-default basicButton" title="Saisir un semis">
+                    <button id="SawingCreate" class="btn btn-default basicButton basicTitleOneLine" title="Saisir un semis">
                         <img src="img/11.png" width="40px"/>
                     </button>
                 </div>
                 <div class="col-md-offset-1 col-md-1">
-                    <button id="SawinList" class="btn btn-default basicButton" title="Inventaire">
+                    <button id="SawinList" class="btn btn-default basicButton basicTitleOneLine" title="Inventaire">
                         <img src="img/16.png" width="40px"/>
                     </button>
                 </div>
             </div>
 
             <div class="col-md-offset-1 row col-md-3 basicDiv">
-                <div class="col-md-6 innerBasicDiv"><h4>Récoltes</h4></div>
+                <div class="col-md-6 basicTitleOneLine"><h4>Récoltes</h4></div>
                 <div class="col-md-1">
-                    <button id="CropCreate" class="btn btn-default basicButton" title="Saisir une récolte">
+                    <button id="CropCreate" class="btn btn-default basicButton basicTitleOneLine" title="Saisir une récolte">
                         <img src="img/11.png" width="40px"/>
                     </button>
                 </div>
                 <div class="col-md-offset-1 col-md-1">
-                    <button id="CropList" class="btn btn-default basicButton" title="Production">
+                    <button id="CropList" class="btn btn-default basicButton basicTitleOneLine" title="Production">
                         <img src="img/16.png" width="40px"/>
                     </button>
                 </div>
@@ -100,7 +100,7 @@
         <div class="row col-sm-12 col-md-12">
             <BR/><BR/>
             <div class="col-md-offset-1 row col-md-3 basicDiv">
-                <div class="col-md-10 innerBasicDiv"><h4 title="Métadonnées : eau, pluie, sol" class="toolTipData">Données techniques</h4></div>
+                <div class="col-md-10 basicTitle"><h4 title="Métadonnées : eau, pluie, sol" class="toolTipData">Données techniques</h4></div>
                 <!--<div class="col-md-1">-->
                 <!--<button id="NoteCreate" class="btn btn-default basicButton" title="Saisir une fiche signalétique">-->
                 <!--<img src="img/2.png" width="40px"/>-->
@@ -114,7 +114,7 @@
             </div>
 
             <div class="col-md-offset-1 row col-md-3 basicDiv">
-                <div class="col-md-10 innerBasicDiv"><h4>Aromates Vivaces</h4></div>
+                <div class="col-md-10 basicTitle"><h4>Aromates Vivaces</h4></div>
                 <!--<div class="col-md-1">-->
                 <!--<button id="SpiceCreate" class="btn btn-default basicButton" title="Saisir un semis">-->
                 <!--<img src="img/11.png" width="40px"/>-->
@@ -128,12 +128,10 @@
             </div>
 
             <div class="col-md-offset-1 row col-md-3">
-                <img src="img/78.png"/>
+                <div id="trolley"><img src="img/78.png"/></div>
             </div>
         </div>
     </div>
-
-    <BR/><BR/><BR/><BR/>
 
 </div>
 
