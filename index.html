@@ -14,13 +14,13 @@
 
 
     <!-- ************************* JS ************************* -->
-    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-    <!--<script type="text/javascript" src="js/library/jquery-1.9.1.js"></script>-->
-    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
-    <!--<script type="text/javascript" src="js/library/jquery-ui-1.10.4.custom/js/jquery-ui-1.10.4.custom.min.js"></script>-->
+    <!--<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>-->
+    <script type="text/javascript" src="js/library/jquery-1.9.1.js"></script>
+    <!--<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>-->
+    <script type="text/javascript" src="js/library/jquery-ui-1.10.4.custom.min.js"></script>
 
-    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/js/bootstrap.min.js"></script>
-    <!--<script type="text/javascript" src="js/bootstrap-3.1.1-dist/js/bootstrap.js"></script>-->
+    <!--<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/js/bootstrap.min.js"></script>-->
+    <script type="text/javascript" src="js/bootstrap-3.1.1-dist/js/bootstrap.js"></script>
 
     <!--<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.2/jquery-ui.js"></script>-->
     <!--<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/d3/3.4.13/d3.min.js"></script>-->
@@ -31,7 +31,7 @@
 
     <!--<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/crossfilter/1.3.11/crossfilter.min.js"></script>-->
     <!--<script type="text/javascript" src="dc.js"></script>-->
-
+    <script type="text/javascript" src="js/library/jquery.i18n.properties-1.0.9.js"></script>
     <script type="text/javascript" src="js/cucurbitaMaxima.js"></script>
 
 
@@ -43,7 +43,7 @@
 
 <BODY>
 
-<div class="container-fluid container">
+<div class="container">
     <div class="row col-sm-12 col-md-12 text-center">
         <h1>Cucurbita Maxima</h1><BR/>
 
@@ -57,14 +57,14 @@
             <div class="col-md-offset-1 row col-md-3 basicDiv">
                 <div class="col-md-6 basicTitle"><h4>Fiche signalétique</h4></div>
                 <div class="col-md-1">
-                    <button id="NoteCreate" class="btn btn-default basicButton basicTitleOneLine" title="Saisir une fiche signalétique">
+                    <a href="html/noteCreate.php"><button id="NoteCreate" class="btn btn-default basicButton basicTitleOneLine" title="Saisir une fiche signalétique">
                         <img src="img/2.png" width="40px"/>
-                    </button>
+                    </button></a>
                 </div>
                 <div class="col-md-offset-1 col-md-1">
-                    <button id="NoteList" class="btn btn-default basicButton basicTitleOneLine" title="Liste des fiches signalétiques">
+                    <a href="html/noteList.php"><button id="NoteList" class="btn btn-default basicButton basicTitleOneLine" title="Liste des fiches signalétiques">
                         <img src="img/10.png" width="40px"/>
-                    </button>
+                    </button></a>
                 </div>
             </div>
 
@@ -141,10 +141,7 @@
 
 <script type="text/javascript">
     $(window).load(function() {
-        var dateValue = $.datepicker.formatDate('DD dd MM yy', new Date());
-        $("#dateValue").html(dateValue);
-//            readFile("test.csv");
-        initToolTip();
+        new CucurbitaMaximaHome().init();
     });
 
 </script>

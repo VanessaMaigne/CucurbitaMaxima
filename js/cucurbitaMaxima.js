@@ -1,13 +1,30 @@
-function initToolTip() {
-//    var toolTip = d3.tip()
-//        .attr('class', 'd3-tip')
-//        .offset([-10,0])
-//        .html(function (d) {
-//            alert("icisss");
-//            return "<span class='d3-tipTitle'>" + d.data.key + " : </span>" + d.data.value;
-//        });
+function CucurbitaMaximaHome(){
 
-    $(".basicButton, .toolTipData").tooltip({
-        placement: "top",
-        container:'body'});
+    this.dateValue = $.datepicker.formatDate('DD dd MM yy', new Date());
+
+    this.init = function(){
+        $("#dateValue").html(this.dateValue);
+    };
+
+    this.initToolTip = function() {
+        $(".basicButton, .toolTipData").tooltip({
+            placement: "top",
+            container:'body'});
+    };
 }
+
+//function Lapin(adjectif) {
+//  this.adjectif = adjectif;
+//  this.parler = function(tirade) {
+//    alert("Le lapin "+ this.adjectif + " dit '" + tirade, "'");
+//  };
+//}
+//
+//
+//var lapinTueur = new Lapin("tueur");
+//
+//Lapin.prototype.dents = "petites";
+//alert(lapinTueur.dents);
+//lapinTueur.dents = "longues, pointues et sanglantes";
+//alert(lapinTueur.dents);
+//alert(Lapin.prototype.dents);
