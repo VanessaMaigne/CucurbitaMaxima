@@ -18,6 +18,7 @@ function CucurbitaMaximaNoteList(){
 //    this.header;
 //    this.data;
     this.dataFile = jQuery.i18n.prop("dataFile");
+    this.lineNumber=0;
 
     this.init = function(){
         this.initToolTip();
@@ -29,13 +30,16 @@ function CucurbitaMaximaNoteList(){
             placement: "top",
             container:'body'});
     };
-};
+}
 
 CucurbitaMaximaNoteList.prototype.readFileAndDisplayContent = function() {
     var self = this;
     d3.csv(self.dataFile, function (error, csv) {
         // Header columns
         self.header = d3.keys(csv[0]);
+        if(self.lineNumber == csv.length) alert("Erreur sur le fichier, veuillez vérifier les droits d'accès.");
+        self.lineNumber = csv.length;
+
         self.displayNumber(csv.length);
         self.displayDataHeader();
         self.displayDataTable(csv, self.header);
@@ -88,12 +92,12 @@ CucurbitaMaximaNoteList.prototype.displayDataTable = function(csv) {
             tdElement.html("<span>" + d[keys[ii]] + "</span>");
             trElement.append(tdElement);
         });
-        var modifyImage = $('<td><img src="../img/15.png" width="30px"/></td>');
+        var modifyImage = $('<td><img src="../img/15.png" width="30px" title="Modifier la fiche"/></td>');
         modifyImage.on("click", function(){
             self.modifyElement(i);
         });
         trElement.append(modifyImage);
-        var removeImage = $('<td><img src="../img/118.png" width="30px"/></td>');
+        var removeImage = $('<td><img src="../img/118.png" width="30px" title="Supprimer la fiche"/></td>');
         removeImage.on("click", function(){
             self.removeElement(i);
         });
@@ -116,8 +120,7 @@ CucurbitaMaximaNoteList.prototype.removeElement = function(lineNumber){
             type:'GET',
             error: function()
             {
-                alert( "Erreur : suppression non effectuée !" );
-                //file not exists
+                alert( "Erreur : suppression non effectuée ! Veuillez vérifier les droits du fichier." );
             },
             success: function()
             {
