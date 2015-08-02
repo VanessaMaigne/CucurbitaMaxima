@@ -40,7 +40,7 @@
 
         <div id="dataDiv" class="col-sm-12 col-md-12">
             <div id="data-count" class="dc-data-count dc-chart">
-                <h5><span id="total-count"></span><span>&nbsp;lignes</span></h5>
+                <h5><span id="total-count"></span><span>&nbsp;fiche(s)</span></h5>
                 <BR/><BR/>
             </div>
 
@@ -48,6 +48,7 @@
                 <thead>
                 <tr id="headerData" class="header"></tr>
                 </thead>
+                <tbody id="dataContent"></tbody>
             </table>
         </div>
 
