@@ -4568,7 +4568,7 @@ dc = (function(){
             {
                 var rowGroupEnter = rowGroup
                     .append("tr")
-                    .attr("class", GROUP_CSS_CLASS)
+                    .attr("class", GROUP_CSS_CLASS);
 
                 _header.forEach(function(ff,ii) {
                     rowGroupEnter.append("td")

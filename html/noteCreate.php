@@ -88,15 +88,15 @@
 
     <?php
 
-    // Load properties file
-    $properties = parse_ini_file( "../cucurbitaMaxima.properties" );
-
-    $fp = fopen ($properties["dataFile"], "r+");
-    $content = fgets ($fp);
-    $nb_visites = $content + 1;
-    fputs ($fp, $nb_visites.",");
-    fclose ($fp);
-    echo 'Contenu : '.$content;
+//    // Load properties file
+//    $properties = parse_ini_file( "../cucurbitaMaxima.properties" );
+//
+//    $fp = fopen ($properties["dataFile"], "r+");
+//    $content = fgets ($fp);
+//    $nb_visites = $content + 1;
+//    fputs ($fp, $nb_visites.",");
+//    fclose ($fp);
+//    echo 'Contenu : '.$content;
     ?>
 
     <script type="text/javascript">
