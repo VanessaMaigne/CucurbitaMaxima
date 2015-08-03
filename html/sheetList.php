@@ -4,7 +4,7 @@
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Cucurbita Maxima Note</title>
+    <title>Cucurbita Maxima Sheet</title>
     <link rel="icon" href="../img/tomato_16.png" type="image/png">
 
     <!-- ************************* CSS ************************* -->
@@ -24,7 +24,7 @@
     <script type="text/javascript" src="../js/library/jquery.i18n.properties-1.0.9.js"></script>
     <script type="text/javascript" src="../js/library/d3.js"></script>
 
-    <script type="text/javascript" src="../js/cucurbitaMaximaNote.js"></script>
+    <script type="text/javascript" src="../js/cucurbitaMaximaSheet.js"></script>
 </HEAD>
 
 <BODY>
@@ -55,8 +55,7 @@
 
     <script type="text/javascript">
         $(window).load(function() {
-            var cucurbitaMaxima = new CucurbitaMaximaNoteList();
-            cucurbitaMaxima.init();
+            new CucurbitaMaximaSheet().list();
         });
     </script>
 

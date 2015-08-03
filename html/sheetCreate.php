@@ -4,7 +4,7 @@
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Cucurbita Maxima Note</title>
+    <title>Cucurbita Maxima Sheet</title>
     <link rel="icon" href="../img/tomato_16.png" type="image/png">
 
     <!-- ************************* CSS ************************* -->
@@ -22,7 +22,7 @@
     <script type="text/javascript" src="../js/bootstrap-3.1.1-dist/js/bootstrap.js"></script>
     <script type="text/javascript" src="../js/library/jquery.i18n.properties-1.0.9.js"></script>
 
-    <script type="text/javascript" src="../js/cucurbitaMaximaNote.js"></script>
+    <script type="text/javascript" src="../js/cucurbitaMaximaSheet.js"></script>
 </HEAD>
 
 <BODY>
@@ -107,7 +107,7 @@
             var dateValue = $.datepicker.formatDate('DD dd MM yy', new Date());
             $("#dateValue").html(dateValue);
 
-            var cucurbitaMaxima = new CucurbitaMaximaNoteCreate();
+            var cucurbitaMaxima = new CucurbitaMaximaSheetCreate();
             cucurbitaMaxima.init();
         });
 
