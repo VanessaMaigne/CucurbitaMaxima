@@ -29,10 +29,13 @@
 
 <div class="container">
     <div class="row col-sm-12 col-md-12">
-        <div class="col-sm-2 col-md-1"><BR/><a href="../index.html"><img src="../img/120.png" width="40px"/></a></div>
+        <div class="col-sm-2 col-md-1"><BR/><a href="../index.html"><img src="../img/120.png" class="basicButton" width="40px" title="Retour page d'accueil"/></a></div>
         <div class="text-center"><h2>Fiche signalétique végétale</h2><BR/></div>
 
         <form class="form-horizontal">
+            <BR/>
+            <div id="dateValue" class="row col-sm-12 col-md-12 text-left"></div>
+
             <div class="row col-sm-12 col-md-12"><h3>Classification</h3></div>
             <div class="form-group">
                 <div class="col-sm-2"><label for="reign">Règne </label></div>
@@ -84,7 +87,7 @@
     </div>
 
     <!--Github link-->
-    <a href="https://github.com/you"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/e7bbb0521b397edbd5fe43e7f760759336b5e05f/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f677265656e5f3030373230302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_green_007200.png"></a>
+<!--    <a href="https://github.com/you"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/e7bbb0521b397edbd5fe43e7f760759336b5e05f/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f677265656e5f3030373230302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_green_007200.png"></a>-->
 
     <?php
 
@@ -105,7 +108,7 @@
             $("#dateValue").html(dateValue);
 
             var cucurbitaMaxima = new CucurbitaMaximaNoteCreate();
-            cucurbitaMaxima.initToolTip();
+            cucurbitaMaxima.init();
         });
 
     </script>

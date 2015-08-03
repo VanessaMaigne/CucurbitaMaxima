@@ -7,8 +7,12 @@ jQuery.i18n.properties( {
 
 function CucurbitaMaximaNoteCreate(){
 
+    this.init = function(){
+        this.initToolTip();
+    };
+
     this.initToolTip = function() {
-        $(".basicButton, .toolTipData").tooltip({
+        $(".basicButton").tooltip({
             placement: "top",
             container:'body'});
     }
@@ -21,7 +25,6 @@ function CucurbitaMaximaNoteList(){
     this.lineNumber=0;
 
     this.init = function(){
-        this.initToolTip();
         this.readFileAndDisplayContent();
     };
 
@@ -43,6 +46,7 @@ CucurbitaMaximaNoteList.prototype.readFileAndDisplayContent = function() {
         self.displayNumber(csv.length);
         self.displayDataHeader();
         self.displayDataTable(csv, self.header);
+        self.initToolTip();
 
         // Data
 //        self.data = crossfilter(csv);
@@ -92,12 +96,12 @@ CucurbitaMaximaNoteList.prototype.displayDataTable = function(csv) {
             tdElement.html("<span>" + d[keys[ii]] + "</span>");
             trElement.append(tdElement);
         });
-        var modifyImage = $('<td><img src="../img/15.png" width="30px" title="Modifier la fiche"/></td>');
+        var modifyImage = $('<td><a href="../html/noteCreate.php?ln='+(i+1)+'"><img src="../img/15.png" width="30px" class="toolTipData" title="Modifier la fiche"/></a></td>');
         modifyImage.on("click", function(){
             self.modifyElement(i);
         });
         trElement.append(modifyImage);
-        var removeImage = $('<td><img src="../img/118.png" width="30px" title="Supprimer la fiche"/></td>');
+        var removeImage = $('<td><img src="../img/118.png" width="30px" class="toolTipData" title="Supprimer la fiche"/></td>');
         removeImage.on("click", function(){
             self.removeElement(i);
         });
@@ -108,7 +112,6 @@ CucurbitaMaximaNoteList.prototype.displayDataTable = function(csv) {
 };
 
 CucurbitaMaximaNoteList.prototype.modifyElement = function(element){
-    alert("modify "+element);
 };
 
 CucurbitaMaximaNoteList.prototype.removeElement = function(lineNumber){

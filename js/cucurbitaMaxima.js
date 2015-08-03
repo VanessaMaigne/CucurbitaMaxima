@@ -4,6 +4,7 @@ function CucurbitaMaximaHome(){
 
     this.init = function(){
         $("#dateValue").html(this.dateValue);
+        this.initToolTip();
     };
 
     this.initToolTip = function() {

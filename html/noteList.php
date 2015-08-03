@@ -22,11 +22,7 @@
     <script type="text/javascript" src="../js/library/jquery-ui-1.10.4.custom.min.js"></script>
     <script type="text/javascript" src="../js/bootstrap-3.1.1-dist/js/bootstrap.js"></script>
     <script type="text/javascript" src="../js/library/jquery.i18n.properties-1.0.9.js"></script>
-
     <script type="text/javascript" src="../js/library/d3.js"></script>
-    <script type="text/javascript" src="../js/library/d3.tip.min.js"></script>
-    <script type="text/javascript" src="../js/library/dc.js"></script>
-    <script type="text/javascript" src="../js/library/crossfilter.js"></script>
 
     <script type="text/javascript" src="../js/cucurbitaMaximaNote.js"></script>
 </HEAD>
@@ -35,7 +31,7 @@
 
 <div class="container">
     <div class="row col-sm-12 col-md-12">
-        <div class="col-sm-2 col-md-1"><BR/><a href="../index.html"><img src="../img/120.png" width="40px"/></a></div>
+        <div class="col-sm-2 col-md-1"><BR/><a href="../index.html"><img src="../img/120.png" class="basicButton" width="40px" title="Retour page d'accueil"/></a></div>
         <div class="text-center"><h2>Liste des fiches signalétiques végétales</h2><BR/></div>
 
         <div id="dataDiv" class="col-sm-12 col-md-12">
