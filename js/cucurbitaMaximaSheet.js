@@ -30,6 +30,7 @@ CucurbitaMaximaSheet.prototype.create = function(){
     var self = this;
     self.initToolTip();
     self.setHeader();
+    if(this.headerId == null) this.createDataHeaderId();
 
     if(params.ln)
         self.getContentAndfillForm(params.ln);
@@ -70,7 +71,7 @@ CucurbitaMaximaSheet.prototype.setHeader = function(){
  */
 CucurbitaMaximaSheet.prototype.saveForm = function(){
     var content = "";
-    if(this.headerId == null) this.createDataHeaderId();
+//    if(this.headerId == null) this.createDataHeaderId();
     $.each(this.headerId, function(i,d){
         content += $("#"+d).val()+",";
     });
@@ -126,10 +127,7 @@ CucurbitaMaximaSheet.prototype.getContentAndfillForm = function(lineNumber){
     $.ajax( {
         url:'../phpScript/getLineContent.php?fileName=sheetFile&ln='+lineNumber,
         type:'GET',
-        error: function()
-        {
-            alert( "Erreur : contenu non lisible. Veuillez vérifier le contenu et les droits du fichier." );
-        },
+        error: function(){ alert( "Erreur : contenu non lisible. Veuillez vérifier le contenu et les droits du fichier." ); },
         success: function(data)
         {
             self.fillForm(data);
@@ -138,9 +136,15 @@ CucurbitaMaximaSheet.prototype.getContentAndfillForm = function(lineNumber){
 };
 
 
+/**
+ * This method fills the form with values from the file line
+ * @param dataLine
+ */
 CucurbitaMaximaSheet.prototype.fillForm = function(dataLine){
     var values = dataLine.replace("\n", "").split(",");
-
+    $.each(this.headerId, function(i,d){
+        $("#"+d).val(values[i]);
+    });
 };
 
 /****************************************************/
