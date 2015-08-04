@@ -32,34 +32,34 @@
         <div class="col-sm-2 col-md-1"><BR/><a href="../index.html"><img src="../img/120.png" class="basicButton" width="40px" title="Retour page d'accueil"/></a></div>
         <div class="text-center"><h2>Fiche signalétique végétale</h2><BR/></div>
 
-        <form class="form-horizontal">
+        <form id="createForm" class="form-horizontal">
             <BR/>
             <div id="dateValue" class="row col-sm-12 col-md-12 text-left"></div>
 
             <div class="row col-sm-12 col-md-12"><h3>Classification</h3></div>
             <div class="form-group">
                 <div class="col-sm-2"><label for="reign">Règne </label></div>
-                <div class="col-sm-5"><input id="reign" class="form-control"/></div>
+                <div class="col-sm-5"><input id="reign" class="form-control" title="Règne"/></div>
             </div>
             <div class="form-group">
                 <div class="col-sm-2"><label for="division">Division = </label></div>
-                <div class="col-sm-5"><input id="division" class="form-control"/></div>
+                <div class="col-sm-5"><input id="division" class="form-control" title="Division"/></div>
             </div>
             <div class="form-group">
                 <div class="col-sm-2"><label for="class">Classe = </label></div>
-                <div class="col-sm-5"><input id="class" class="form-control" placeholder="Classe par défaut"/></div>
+                <div class="col-sm-5"><input id="class" class="form-control" placeholder="Classe par défaut" title="Classe"/></div>
             </div>
             <div class="form-group">
                 <div class="col-sm-2"><label for="order">Ordre = </label></div>
-                <div class="col-sm-5"><input id="order" class="form-control"/></div>
+                <div class="col-sm-5"><input id="order" class="form-control" title="Ordre"/></div>
             </div>
             <div class="form-group">
                 <div class="col-sm-2"><label for="family">Famille = </label></div>
-                <div class="col-sm-5"><input id="family" class="form-control"/></div>
+                <div class="col-sm-5"><input id="family" class="form-control" title="Famille"/></div>
             </div>
             <div class="form-group">
                 <div class="col-sm-2"><label for="gender">Genre = </label></div>
-                <div class="col-sm-5"><input id="gender" class="form-control"/></div>
+                <div class="col-sm-5"><input id="gender" class="form-control" title="Genre"/></div>
             </div>
             <div class="form-group">
                 <label for="exampleInputFile">Télécharger une photo</label>
@@ -78,12 +78,14 @@
                 <div class="col-sm-2"><label for="familyCP">Famille = </label></div>
                 <div class="col-sm-5"><input id="familyCP" class="form-control"/></div>
             </div>
-
-            <div class="col-md-offset-2 col-sm-5 text-center">
-                <button type="submit" class="btn btn-success">Enregistrer</button>
-                <button type="submit" class="btn btn-danger">Annuler</button>
-            </div>
         </form>
+
+        <div id="actionMessage" class="col-sm-2 col-md-2 text-center"></div>
+
+        <div class="col-sm-5 text-center">
+            <button id="saveForm" class="btn btn-success">Enregistrer</button>
+            <button id="resetForm" class="btn btn-danger">Annuler</button>
+        </div>
     </div>
 
     <!--Github link-->
@@ -107,8 +109,7 @@
             var dateValue = $.datepicker.formatDate('DD dd MM yy', new Date());
             $("#dateValue").html(dateValue);
 
-            var cucurbitaMaxima = new CucurbitaMaximaSheetCreate();
-            cucurbitaMaxima.init();
+            new CucurbitaMaximaSheet().create();
         });
 
     </script>

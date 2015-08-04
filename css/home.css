@@ -24,6 +24,11 @@ h5 {
     font-size: 18px;
 }
 
+#actionMessage {
+    color: #5cb85c;
+    font-size: 16px;
+}
+
 .container {
     border: 2px solid gray;
     border-radius: 10px;

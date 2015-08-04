@@ -2,11 +2,11 @@
 
 // Load properties file
 $properties = parse_ini_file( "../cucurbitaMaxima.properties" );
-$file = = $_GET['fileName'];
+$file = $_GET['fileName'];
 $lineNumber = $_GET['ln'];
 
 $arrayFile = file($properties[$file]);
-unset($arrayFile[$lineNumber]);
-file_put_contents($properties[$file], implode($arrayFile));
+echo $arrayFile[$lineNumber];
+fclose($properties[$file]);
 
 ?>

@@ -13,6 +13,8 @@ window.location.search.replace(/[?&]+([^=&]+)=([^&]*)/gi,function(str,key,value)
 function CucurbitaMaximaSheet(){
     this.dataFile = jQuery.i18n.prop("sheetFile");
     this.lineNumber=0;
+    this.header = null;
+    this.headerId = null;
 
     this.initToolTip = function() {
         $(".basicButton, .toolTipData").tooltip({
@@ -25,31 +27,120 @@ function CucurbitaMaximaSheet(){
 /** ******************** CREATE ****************** **/
 /****************************************************/
 CucurbitaMaximaSheet.prototype.create = function(){
-    this.initToolTip();
+    var self = this;
+    self.initToolTip();
+    self.setHeader();
 
     if(params.ln)
-        this.getContentAndfillForm(params.ln);
+        self.getContentAndfillForm(params.ln);
 
+    // Buttons
+    $("#saveForm").on("click", function(){
+        self.saveForm();
+    });
 };
 
-CucurbitaMaximaSheet.prototype.getContentAndfillForm = function(lineNumber){
+/**
+ * This method get the headers from the first line of the file.
+ * If the file is empty, we fill it with the headers getted from the form
+ */
+CucurbitaMaximaSheet.prototype.setHeader = function(){
     var self = this;
     $.ajax( {
-        url:'../phpScript/getLineContent.php?ln='+lineNumber,
+        url:'../phpScript/getLineContent.php?fileName=sheetFile&ln=0',
+        type:'GET',
+        error: function(){ alert( "Erreur. Veuillez vérifier le contenu et les droits du fichier." ); },
+        success: function(data)
+        {
+            self.header = data.split(",");
+            if(self.header == ""){
+                self.createDataHeader();
+                $.ajax( {
+                    url:'../phpScript/writeContent.php?fileName=sheetFile&content='+self.header,
+                    type:'GET',
+                    error: function(){ alert( "Erreur d'écriture. Veuillez vérifier le contenu et les droits du fichier." ); }
+                } );
+            }
+        }
+    } );
+};
+
+/**
+ * This method save the form's fields in the file. The header is already saved in file.
+ */
+CucurbitaMaximaSheet.prototype.saveForm = function(){
+    var content = "";
+    if(this.headerId == null) this.createDataHeaderId();
+    $.each(this.headerId, function(i,d){
+        content += $("#"+d).val()+",";
+    });
+
+    var url = '../phpScript/writeContent.php?fileName=sheetFile&content='+content;
+    if(params.ln)
+        url += "&ln="+params.ln;
+
+    // Write in file
+    $.ajax( {
+        url:url,
+        type:'GET',
+        error: function(){ alert( "Erreur : suppression non effectuée. Veuillez vérifier le contenu et les droits du fichier." ); },
+        success: function()
+        {
+            if(params.ln) $("#actionMessage").html("Fiche modifiée !");
+            else $("#actionMessage").html("Fiche créée !");
+        }
+    } );
+};
+
+/**
+ * This method create the headers from the form (title)
+ */
+CucurbitaMaximaSheet.prototype.createDataHeader = function(){
+    var self = this;
+    var fields = $("#createForm input.form-control");
+    self.header = new Array();
+    $.each(fields, function(i, d){
+        if(d.attributes.title && d.attributes.title.value) self.header.push(d.attributes.title.value);
+    });
+};
+
+/**
+ * This method create the headers from the form (id)
+ */
+CucurbitaMaximaSheet.prototype.createDataHeaderId = function(){
+    var self = this;
+    var fields = $("#createForm input.form-control");
+    self.headerId = new Array();
+    $.each(fields, function(i, d){
+        if(d.attributes.id && d.attributes.id.value) self.headerId.push(d.attributes.id.value);
+    });
+};
+
+/**
+ * This method modifies a sheet by getting the fields's values from the file and filling the form.
+ * @param lineNumber
+ */
+CucurbitaMaximaSheet.prototype.getContentAndfillForm = function(lineNumber){
+    var self = this;
+    lineNumber++;
+    $.ajax( {
+        url:'../phpScript/getLineContent.php?fileName=sheetFile&ln='+lineNumber,
         type:'GET',
         error: function()
         {
             alert( "Erreur : contenu non lisible. Veuillez vérifier le contenu et les droits du fichier." );
         },
-        success: function()
+        success: function(data)
         {
-            self.fillForm();
+            self.fillForm(data);
         }
     } );
 };
 
 
-CucurbitaMaximaSheet.prototype.fillForm = function(){
+CucurbitaMaximaSheet.prototype.fillForm = function(dataLine){
+    var values = dataLine.replace("\n", "").split(",");
+
 };
 
 /****************************************************/
@@ -59,6 +150,9 @@ CucurbitaMaximaSheet.prototype.list = function() {
     this.readFileAndDisplayContent();
 };
 
+/**
+ * This method read the file and display the content
+ */
 CucurbitaMaximaSheet.prototype.readFileAndDisplayContent = function() {
     var self = this;
     d3.csv(self.dataFile, function (error, csv) {
@@ -80,6 +174,9 @@ CucurbitaMaximaSheet.prototype.readFileAndDisplayContent = function() {
     });
 };
 
+/**
+ * This method displays the header.
+ */
 CucurbitaMaximaSheet.prototype.displayDataHeader = function() {
     var self = this;
     $("#headerData").empty();
@@ -97,6 +194,10 @@ CucurbitaMaximaSheet.prototype.displayDataHeader = function() {
     }
 };
 
+/**
+ * This method displays the file's content.
+ * @param csv
+ */
 CucurbitaMaximaSheet.prototype.displayDataTable = function(csv) {
     var self = this;
     $("#dataContent").empty();
@@ -128,6 +229,10 @@ CucurbitaMaximaSheet.prototype.displayDataTable = function(csv) {
     })
 };
 
+/**
+ * This method remove a sheet by its line number.
+ * @param lineNumber
+ */
 CucurbitaMaximaSheet.prototype.removeElement = function(lineNumber){
     var self = this;
     lineNumber++;

@@ -8,5 +8,6 @@ $lineNumber = $_GET['ln'];
 $arrayFile = file($properties[$file]);
 unset($arrayFile[$lineNumber]);
 file_put_contents($properties[$file], implode($arrayFile));
+fclose($properties[$file]);
 
 ?>
