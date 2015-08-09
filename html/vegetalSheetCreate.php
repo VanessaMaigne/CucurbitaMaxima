@@ -4,7 +4,7 @@
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Cucurbita Maxima Sheet</title>
+    <title>Cucurbita Maxima Vegetal Sheet</title>
     <link rel="icon" href="../img/tomato_16.png" type="image/png">
 
     <!-- ************************* CSS ************************* -->
@@ -22,14 +22,17 @@
     <script type="text/javascript" src="../js/bootstrap-3.1.1-dist/js/bootstrap.js"></script>
     <script type="text/javascript" src="../js/library/jquery.i18n.properties-1.0.9.js"></script>
 
-    <script type="text/javascript" src="../js/cucurbitaMaximaSheet.js"></script>
+    <script type="text/javascript" src="../js/cucurbitaMaximaVegetalSheet.js"></script>
 </HEAD>
 
 <BODY>
 
 <div class="container">
     <div class="row col-sm-12 col-md-12">
-        <div class="col-sm-2 col-md-1"><BR/><a href="../index.html"><img src="../img/120.png" class="basicButton" width="40px" title="Retour page d'accueil"/></a></div>
+        <div class="col-sm-2 col-md-2"><BR/>
+            <a href="../index.html"><img src="../img/120.png" class="basicButton" width="40px" title="Retour page d'accueil"/></a>
+            <a href="vegetalSheetList.php"><img src="../img/10.png" class="basicButton" width="40px" title="Liste des fiches"/></a>
+        </div>
         <div class="text-center"><h2>Fiche signalétique végétale</h2><BR/></div>
 
         <form id="createForm" class="form-horizontal">
@@ -109,7 +112,7 @@
             var dateValue = $.datepicker.formatDate('DD dd MM yy', new Date());
             $("#dateValue").html(dateValue);
 
-            new CucurbitaMaximaSheet().create();
+            new CucurbitaMaximaVegetalSheet().create();
         });
 
     </script>
