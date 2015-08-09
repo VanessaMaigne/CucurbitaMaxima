@@ -22,6 +22,7 @@
     <script type="text/javascript" src="../js/bootstrap-3.1.1-dist/js/bootstrap.js"></script>
     <script type="text/javascript" src="../js/library/jquery.i18n.properties-1.0.9.js"></script>
 
+    <script type="text/javascript" src="../js/cucurbitaMaxima.js"></script>
     <script type="text/javascript" src="../js/cucurbitaMaximaVegetalSheet.js"></script>
 </HEAD>
 
@@ -33,7 +34,7 @@
             <a href="../index.html"><img src="../img/120.png" class="basicButton" width="40px" title="Retour page d'accueil"/></a>
             <a href="vegetalSheetList.php"><img src="../img/10.png" class="basicButton" width="40px" title="Liste des fiches"/></a>
         </div>
-        <div class="text-center"><h2>Fiche signalétique végétale</h2><BR/></div>
+        <div class="text-center"><h2 class="vegetaleTitle">Fiche signalétique végétale</h2><BR/></div>
 
         <form id="createForm" class="form-horizontal">
             <BR/>
@@ -41,28 +42,28 @@
 
             <div class="row col-sm-12 col-md-12"><h3>Classification</h3></div>
             <div class="form-group">
-                <div class="col-sm-2"><label for="reign">Règne </label></div>
-                <div class="col-sm-5"><input id="reign" class="form-control" title="Règne"/></div>
+                <div class="col-sm-2"><label for="reign">Règne</label></div>
+                <div class="col-sm-5"><input id="reign" class="form-control"/></div>
             </div>
             <div class="form-group">
-                <div class="col-sm-2"><label for="division">Division = </label></div>
-                <div class="col-sm-5"><input id="division" class="form-control" title="Division"/></div>
+                <div class="col-sm-2"><label for="division">Division</label></div>
+                <div class="col-sm-5"><input id="division" class="form-control"/></div>
             </div>
             <div class="form-group">
-                <div class="col-sm-2"><label for="class">Classe = </label></div>
-                <div class="col-sm-5"><input id="class" class="form-control" placeholder="Classe par défaut" title="Classe"/></div>
+                <div class="col-sm-2"><label for="class">Classe</label></div>
+                <div class="col-sm-5"><input id="class" class="form-control" placeholder="Classe par défaut"/></div>
             </div>
             <div class="form-group">
-                <div class="col-sm-2"><label for="order">Ordre = </label></div>
-                <div class="col-sm-5"><input id="order" class="form-control" title="Ordre"/></div>
+                <div class="col-sm-2"><label for="order">Ordre</label></div>
+                <div class="col-sm-5"><input id="order" class="form-control"/></div>
             </div>
             <div class="form-group">
-                <div class="col-sm-2"><label for="family">Famille = </label></div>
-                <div class="col-sm-5"><input id="family" class="form-control" title="Famille"/></div>
+                <div class="col-sm-2"><label for="family">Famille</label></div>
+                <div class="col-sm-5"><input id="family" class="form-control"/></div>
             </div>
             <div class="form-group">
-                <div class="col-sm-2"><label for="gender">Genre = </label></div>
-                <div class="col-sm-5"><input id="gender" class="form-control" title="Genre"/></div>
+                <div class="col-sm-2"><label for="gender">Genre</label></div>
+                <div class="col-sm-5"><input id="gender" class="form-control"/></div>
             </div>
             <div class="form-group">
                 <label for="exampleInputFile">Télécharger une photo</label>
@@ -74,7 +75,7 @@
 
             <div class="row col-sm-12 col-md-12"><h3>Classification phylogénétique</h3></div>
             <div class="form-group">
-                <div class="col-sm-2"><label for="orderCP">Ordre = </label></div>
+                <div class="col-sm-2"><label for="orderCP">Ordre</label></div>
                 <div class="col-sm-5"><input id="orderCP" class="form-control"/></div>
             </div>
             <div class="form-group">
@@ -93,19 +94,6 @@
 
     <!--Github link-->
 <!--    <a href="https://github.com/you"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/e7bbb0521b397edbd5fe43e7f760759336b5e05f/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f677265656e5f3030373230302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_green_007200.png"></a>-->
-
-    <?php
-
-//    // Load properties file
-//    $properties = parse_ini_file( "../cucurbitaMaxima.properties" );
-//
-//    $fp = fopen ($properties["dataFile"], "r+");
-//    $content = fgets ($fp);
-//    $nb_visites = $content + 1;
-//    fputs ($fp, $nb_visites.",");
-//    fclose ($fp);
-//    echo 'Contenu : '.$content;
-    ?>
 
     <script type="text/javascript">
         $(window).load(function() {

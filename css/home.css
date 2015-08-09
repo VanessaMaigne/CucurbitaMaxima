@@ -4,11 +4,6 @@ h1 {
     /*color: #5BC0DE;*/
 }
 
-h2 {
-    color: #449D44;
-    font-size: 40px;
-}
-
 h3{
     color: #8ac007;
     font-size: 25px;
@@ -17,11 +12,6 @@ h3{
 h4 {
     color:white;
     font-size: 22px;
-}
-
-h5 {
-    color: #8ac007;
-    font-size: 18px;
 }
 
 #actionMessage {
@@ -39,6 +29,23 @@ h5 {
 #dateValue {
     color: gray;
     font-size: 18px;
+}
+
+
+.form-group{
+    padding-left: 20px;
+}
+
+.form-group img{
+    margin-left: 10px;
+}
+
+.formGroupImg{
+    margin-left: -4px;
+}
+
+.dc-table-group img{
+    cursor : pointer;
 }
 
 /* ***************************************** */
@@ -83,15 +90,32 @@ button a {
 
 
 /* ***************************************** */
-/* *************** NOTE PAGE *************** */
+/* *********** VEGETAL SHEET PAGE ********** */
 /* ***************************************** */
-.form-group{
-    padding-left: 20px;
+.vegetaleTitle {
+    color: #449D44;
+    font-size: 40px;
 }
 
-.dc-table-group img{
-    cursor : pointer;
+.vegetalNumberSheet {
+    color: #8ac007;
+    font-size: 18px;
 }
+
+
+/* ***************************************** */
+/* ************ SAWING SHEET PAGE ********** */
+/* ***************************************** */
+.sawingTitle {
+    color: #FF7F50;
+    font-size: 40px;
+}
+
+.sawingNumberSheet {
+    color: #F08080;
+    font-size: 18px;
+}
+
 
 /* ******************************************** */
 /* ****************** TOOLTIP ***************** */
@@ -100,7 +124,6 @@ button a {
 /* ************** BUTTON TOOLTIP ************** */
 .tooltip-inner {
     padding: 12px;
-    color: #8ac007;
     font-weight: bold;
     text-align: center;
     text-decoration: none;

@@ -1,17 +1,15 @@
-jQuery.i18n.properties( {
-    name:'cucurbitaMaxima',
-    path:'../',
-    language:null,
-    mode:'both'
-} );
+/**
+ * CucurbitaMaximaSawingSheet _ version 1.0
+ * ##################################################
+ *   Created by vmaigne@gmail.com _ august 2015
+ * ##################################################
+ * This file contains methods to create, display, remove, etc... the sawings
+ *
+ */
 
-// URL parameters
-var params={};
-window.location.search.replace(/[?&]+([^=&]+)=([^&]*)/gi,function(str,key,value){params[key] = value;});
-
-
-function CucurbitaMaximaSheet(){
-    this.dataFile = jQuery.i18n.prop("sheetFile");
+function CucurbitaMaximaSawingSheet(){
+    this.dataFileProperty = "sawingSheetFilePath";
+    this.dataFile = jQuery.i18n.prop(this.dataFileProperty);
     this.lineNumber=0;
     this.header = null;
     this.headerId = null;
@@ -23,14 +21,17 @@ function CucurbitaMaximaSheet(){
     }
 }
 
+
 /****************************************************/
 /** ******************** CREATE ****************** **/
 /****************************************************/
-CucurbitaMaximaSheet.prototype.create = function(){
+CucurbitaMaximaSawingSheet.prototype.create = function(){
     var self = this;
     self.initToolTip();
-    self.setHeader();
-    if(this.headerId == null) this.createDataHeaderId();
+    self.createSelects();
+    self.createCalendar();
+
+    self.createDataHeaders();
 
     if(params.ln)
         self.getContentAndfillForm(params.ln);
@@ -39,13 +40,69 @@ CucurbitaMaximaSheet.prototype.create = function(){
     $("#saveForm").on("click", function(){
         self.saveForm();
     });
+    $("#cycle").on("keyup", function(){
+        self.calculateCrop();
+    })
 };
 
 /**
- * This method get the headers from the first line of the file.
- * If the file is empty, we fill it with the headers getted from the form
+ * This method creates and displays the select for ground and type
+ * Values from cucurbitaMaxima.properties
  */
-CucurbitaMaximaSheet.prototype.setHeader = function(){
+CucurbitaMaximaSawingSheet.prototype.createSelects = function(){
+    // Ground select
+    var groundList = JSON.parse( jQuery.i18n.prop( "groundArray" ));
+//    var periodNameList = JSON.parse( jQuery.i18n.prop( "periodNamesList" ) );
+    $.each( groundList, function( i, d )
+    {
+//        var name = periodNameList[i] ? periodNameList[i] : d;
+        $( "#groundSelect" ).append( "<option value='" + d + "'>" + d + "</option>" );
+    } );
+
+    $( "#groundSelect" ).select2();
+//    $( "#periodSelect" ).select2( "val", jQuery.i18n.prop( "selectedPeriod" ) );
+//    this.selectedPeriod = $( "#periodSelect" ).select2( "val" );
+
+    // Type select
+    var typeList = JSON.parse( jQuery.i18n.prop( "typeArray" ));
+    $.each( typeList, function( i, d )
+    {
+        $( "#typeSelect" ).append( "<option value='" + d + "'>" + d + "</option>" );
+    } );
+
+    $( "#typeSelect" ).select2();
+};
+
+CucurbitaMaximaSawingSheet.prototype.createCalendar = function(){
+    var self = this;
+    $( "#plantDate" ).datepicker({
+        dateFormat: dateFormat,
+        setDate: new Date(),
+        onSelect: function() {
+            self.calculateCrop();
+        }
+    });
+};
+
+/**
+ * This method calculate the crop date by adding plant date and cycle
+ * cropDate = plantDate + cycle
+ */
+CucurbitaMaximaSawingSheet.prototype.calculateCrop = function(){
+    var pickerDate = $("#plantDate").datepicker('getDate');
+    var cropDate = new Date();
+    var cycleValue = $("#cycle").val() != "" ? parseInt($("#cycle").val()) : 0;
+    cropDate.setDate(pickerDate.getDate() + cycleValue);
+    $("#cropDate").html($.datepicker.formatDate("dd/mm/yy", cropDate));
+};
+
+//    $("#plantDate").datepicker('setDate', new Date());
+
+/**
+ * This method get the headers from the first line of the file.
+ * If the file is empty, it fills it with the headers getted from the form
+ */
+CucurbitaMaximaSawingSheet.prototype.setHeader = function(){
     var self = this;
     $.ajax( {
         url:'../phpScript/getLineContent.php?fileName=sheetFile&ln=0',
@@ -53,25 +110,39 @@ CucurbitaMaximaSheet.prototype.setHeader = function(){
         error: function(){ alert( "Erreur. Veuillez vérifier le contenu et les droits du fichier." ); },
         success: function(data)
         {
-            self.header = data.split(",");
-            if(self.header == ""){
-                self.createDataHeader();
+            var headerFromFile = data.split(",");
+            if(headerFromFile == ""){
                 $.ajax( {
                     url:'../phpScript/writeContent.php?fileName=sheetFile&content='+self.header,
                     type:'GET',
                     error: function(){ alert( "Erreur d'écriture. Veuillez vérifier le contenu et les droits du fichier." ); }
                 } );
-            }
+            } else self.header = headerFromFile;
         }
     } );
 };
 
 /**
+ * This method create the headers from the form (title & id) and from the file (if not empty) to replace the titles one.
+ * If the file is empty, it fills with the header from the form
+ */
+CucurbitaMaximaSawingSheet.prototype.createDataHeaders = function(){
+    var self = this;
+    var fields = $("#createForm input.form-control");
+    self.header = new Array();
+    self.headerId = new Array();
+    $.each(fields, function(i, d){
+        if(d.attributes.title && d.attributes.title.value) self.header.push(d.attributes.title.value);
+        if(d.attributes.id && d.attributes.id.value) self.headerId.push(d.attributes.id.value);
+    });
+    self.setHeader();
+};
+
+/**
  * This method save the form's fields in the file. The header is already saved in file.
  */
-CucurbitaMaximaSheet.prototype.saveForm = function(){
+CucurbitaMaximaSawingSheet.prototype.saveForm = function(){
     var content = "";
-//    if(this.headerId == null) this.createDataHeaderId();
     $.each(this.headerId, function(i,d){
         content += $("#"+d).val()+",";
     });
@@ -94,36 +165,11 @@ CucurbitaMaximaSheet.prototype.saveForm = function(){
 };
 
 /**
- * This method create the headers from the form (title)
- */
-CucurbitaMaximaSheet.prototype.createDataHeader = function(){
-    var self = this;
-    var fields = $("#createForm input.form-control");
-    self.header = new Array();
-    $.each(fields, function(i, d){
-        if(d.attributes.title && d.attributes.title.value) self.header.push(d.attributes.title.value);
-    });
-};
-
-/**
- * This method create the headers from the form (id)
- */
-CucurbitaMaximaSheet.prototype.createDataHeaderId = function(){
-    var self = this;
-    var fields = $("#createForm input.form-control");
-    self.headerId = new Array();
-    $.each(fields, function(i, d){
-        if(d.attributes.id && d.attributes.id.value) self.headerId.push(d.attributes.id.value);
-    });
-};
-
-/**
  * This method modifies a sheet by getting the fields's values from the file and filling the form.
  * @param lineNumber
  */
-CucurbitaMaximaSheet.prototype.getContentAndfillForm = function(lineNumber){
+CucurbitaMaximaSawingSheet.prototype.getContentAndfillForm = function(lineNumber){
     var self = this;
-    lineNumber++;
     $.ajax( {
         url:'../phpScript/getLineContent.php?fileName=sheetFile&ln='+lineNumber,
         type:'GET',
@@ -140,24 +186,25 @@ CucurbitaMaximaSheet.prototype.getContentAndfillForm = function(lineNumber){
  * This method fills the form with values from the file line
  * @param dataLine
  */
-CucurbitaMaximaSheet.prototype.fillForm = function(dataLine){
+CucurbitaMaximaSawingSheet.prototype.fillForm = function(dataLine){
     var values = dataLine.replace("\n", "").split(",");
     $.each(this.headerId, function(i,d){
         $("#"+d).val(values[i]);
     });
 };
 
+
 /****************************************************/
 /** ********************* LIST ******************* **/
 /****************************************************/
-CucurbitaMaximaSheet.prototype.list = function() {
+CucurbitaMaximaSawingSheet.prototype.list = function() {
     this.readFileAndDisplayContent();
 };
 
 /**
  * This method read the file and display the content
  */
-CucurbitaMaximaSheet.prototype.readFileAndDisplayContent = function() {
+CucurbitaMaximaSawingSheet.prototype.readFileAndDisplayContent = function() {
     var self = this;
     d3.csv(self.dataFile, function (error, csv) {
         // Header columns
@@ -181,7 +228,7 @@ CucurbitaMaximaSheet.prototype.readFileAndDisplayContent = function() {
 /**
  * This method displays the header.
  */
-CucurbitaMaximaSheet.prototype.displayDataHeader = function() {
+CucurbitaMaximaSawingSheet.prototype.displayDataHeader = function() {
     var self = this;
     $("#headerData").empty();
 
@@ -202,7 +249,7 @@ CucurbitaMaximaSheet.prototype.displayDataHeader = function() {
  * This method displays the file's content.
  * @param csv
  */
-CucurbitaMaximaSheet.prototype.displayDataTable = function(csv) {
+CucurbitaMaximaSawingSheet.prototype.displayDataTable = function(csv) {
     var self = this;
     $("#dataContent").empty();
 
@@ -221,7 +268,7 @@ CucurbitaMaximaSheet.prototype.displayDataTable = function(csv) {
             tdElement.html("<span>" + d[keys[ii]] + "</span>");
             trElement.append(tdElement);
         });
-        var modifyImage = $('<td><a href="../html/sheetCreate.php?ln='+(i+1)+'"><img src="../img/15.png" width="30px" class="toolTipData" title="Modifier la fiche"/></a></td>');
+        var modifyImage = $('<td><a href="../html/vegetalSheetCreate.php?ln='+(i+1)+'"><img src="../img/15.png" width="30px" class="toolTipData" title="Modifier la fiche"/></a></td>');
         trElement.append(modifyImage);
         var removeImage = $('<td><img src="../img/118.png" width="30px" class="toolTipData" title="Supprimer la fiche"/></td>');
         removeImage.on("click", function(){
@@ -237,7 +284,7 @@ CucurbitaMaximaSheet.prototype.displayDataTable = function(csv) {
  * This method remove a sheet by its line number.
  * @param lineNumber
  */
-CucurbitaMaximaSheet.prototype.removeElement = function(lineNumber){
+CucurbitaMaximaSawingSheet.prototype.removeElement = function(lineNumber){
     var self = this;
     lineNumber++;
     if(confirm("Confirmer la suppression de la fiche numéro "+lineNumber)){
