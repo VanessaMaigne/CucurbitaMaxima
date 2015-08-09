@@ -44,13 +44,20 @@ h5 {
 /* ***************************************** */
 /* *************** HOME PAGE *************** */
 /* ***************************************** */
-
 .basicDiv {
     border-radius: 10px;
     border: 1px solid #ccc;
     height: 90px;
     display: table;
-    background-color: #449D44;
+    /*background-color: #449D44;*/
+    background: -webkit-linear-gradient(#8ac007, #006400);
+    background: -moz-linear-gradient(#8ac007, #006400);
+    background: -ms-linear-gradient(#8ac007, #006400);
+    background: -o-linear-gradient(#8ac007, #006400);
+    background: linear-gradient(#8ac007, #006400) repeat scroll 0 0;
+    box-shadow: 1px 1px 10px #449D44 inset, 0 1px 0 rgba( 68, 157, 68, 0.4);
+    /*box-shadow: 0px 1px 1px 0px rgb(61, 194, 27);*/
+    color: rgb(255, 255, 255);
 }
 
 .basicTitleOneLine{
@@ -61,17 +68,17 @@ h5 {
     margin-top: 7px;
 }
 
-.basicButton {
+.basicButton, .basicButton.btn-default:hover {
     border: none;
-    background-color: transparent;
-}
-
-.basicButton.btn-default:hover{
     background-color: transparent;
 }
 
 #trolley{
     margin: 20px 20px 20px 60px;
+}
+
+button a {
+    cursor : pointer;
 }
 
 
