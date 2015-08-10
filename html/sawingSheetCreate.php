@@ -61,7 +61,8 @@
             </div>
             <div class="form-group">
                 <div class="col-sm-2"><label for="plantDate">Date de plantation</label></div>
-                <div class="col-sm-5"><input id="plantDate" class="form-control"/></div>
+                <div class="col-sm-2"><input id="plantDate" class="form-control"/></div>
+                <div class="col-sm-3" id="plantDateWeek"></div>
             </div>
             <div class="form-group">
                 <div class="col-sm-2"><label for="cycle">Cycle végétatif</label></div>
@@ -71,6 +72,7 @@
             <div class="form-group">
                 <div class="col-sm-2"><label>Récolte prévue le</label></div>
                 <div class="col-sm-5" id="cropDate"></div>
+                <BR/><BR/>
             </div>
 
             <div class="form-group">

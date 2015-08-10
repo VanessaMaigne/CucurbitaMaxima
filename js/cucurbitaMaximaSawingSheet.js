@@ -30,6 +30,7 @@ CucurbitaMaximaSawingSheet.prototype.create = function(){
     self.initToolTip();
     self.createSelects();
     self.createCalendar();
+    self.resetForm();
 
     self.createDataHeaders();
 
@@ -40,6 +41,10 @@ CucurbitaMaximaSawingSheet.prototype.create = function(){
     $("#saveForm").on("click", function(){
         self.saveForm();
     });
+    $("#resetForm").on("click", function(){
+        self.resetForm();
+    });
+
     $("#cycle").on("keyup", function(){
         self.calculateCrop();
     })
@@ -51,21 +56,19 @@ CucurbitaMaximaSawingSheet.prototype.create = function(){
  */
 CucurbitaMaximaSawingSheet.prototype.createSelects = function(){
     // Ground select
-    var groundList = JSON.parse( jQuery.i18n.prop( "groundArray" ));
+    this.groundList = JSON.parse( jQuery.i18n.prop( "groundArray" ));
 //    var periodNameList = JSON.parse( jQuery.i18n.prop( "periodNamesList" ) );
-    $.each( groundList, function( i, d )
+    $.each( this.groundList, function( i, d )
     {
 //        var name = periodNameList[i] ? periodNameList[i] : d;
         $( "#groundSelect" ).append( "<option value='" + d + "'>" + d + "</option>" );
     } );
 
     $( "#groundSelect" ).select2();
-//    $( "#periodSelect" ).select2( "val", jQuery.i18n.prop( "selectedPeriod" ) );
-//    this.selectedPeriod = $( "#periodSelect" ).select2( "val" );
 
     // Type select
-    var typeList = JSON.parse( jQuery.i18n.prop( "typeArray" ));
-    $.each( typeList, function( i, d )
+    this.typeList = JSON.parse( jQuery.i18n.prop( "typeArray" ));
+    $.each( this.typeList, function( i, d )
     {
         $( "#typeSelect" ).append( "<option value='" + d + "'>" + d + "</option>" );
     } );
@@ -79,6 +82,8 @@ CucurbitaMaximaSawingSheet.prototype.createCalendar = function(){
         dateFormat: dateFormat,
         setDate: new Date(),
         onSelect: function() {
+            var pickerDate = $("#plantDate").datepicker('getDate');
+            $("#plantDateWeek").html("(semaine : "+$.datepicker.iso8601Week(pickerDate) +")");
             self.calculateCrop();
         }
     });
@@ -89,11 +94,11 @@ CucurbitaMaximaSawingSheet.prototype.createCalendar = function(){
  * cropDate = plantDate + cycle
  */
 CucurbitaMaximaSawingSheet.prototype.calculateCrop = function(){
-    var pickerDate = $("#plantDate").datepicker('getDate');
-    var cropDate = new Date();
     var cycleValue = $("#cycle").val() != "" ? parseInt($("#cycle").val()) : 0;
+    var pickerDate = $("#plantDate").datepicker('getDate');
+    var cropDate = new Date(pickerDate);
     cropDate.setDate(pickerDate.getDate() + cycleValue);
-    $("#cropDate").html($.datepicker.formatDate("dd/mm/yy", cropDate));
+    $("#cropDate").html($.datepicker.formatDate("dd/mm/yy", cropDate) +" (semaine : "+$.datepicker.iso8601Week(new Date(cropDate)) +", année : "+cropDate.getFullYear()+")");
 };
 
 //    $("#plantDate").datepicker('setDate', new Date());
@@ -162,6 +167,21 @@ CucurbitaMaximaSawingSheet.prototype.saveForm = function(){
             else $("#actionMessage").html("Fiche créée !");
         }
     } );
+};
+
+/**
+ *
+ */
+CucurbitaMaximaSawingSheet.prototype.resetForm = function(){
+    $("#createForm")[0].reset();
+    // Selects
+    $( "#groundSelect" ).select2( "val", this.groundList[0] );
+    $( "#typeSelect" ).select2( "val", this.typeList[0] );
+    //Calendar & crop
+    $('#plantDate').datepicker().datepicker("setDate", new Date());
+    var pickerDate = $("#plantDate").datepicker('getDate');
+    $("#plantDateWeek").html("(semaine : "+$.datepicker.iso8601Week(pickerDate) +")");
+    this.calculateCrop();
 };
 
 /**
