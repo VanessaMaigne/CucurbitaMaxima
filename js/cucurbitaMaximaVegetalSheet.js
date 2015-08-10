@@ -37,6 +37,9 @@ CucurbitaMaximaVegetalSheet.prototype.create = function(){
     $("#saveForm").on("click", function(){
         self.saveForm();
     });
+    $("#resetForm").on("click", function(){
+        self.resetForm();
+    });
 };
 
 /**
@@ -103,6 +106,13 @@ CucurbitaMaximaVegetalSheet.prototype.saveForm = function(){
             else $("#actionMessage").html("Fiche créée !");
         }
     } );
+};
+
+/**
+ * This method reinit the form with empty fields and default values for selects
+ */
+CucurbitaMaximaVegetalSheet.prototype.resetForm = function(){
+    $("#createForm")[0].reset();
 };
 
 /**

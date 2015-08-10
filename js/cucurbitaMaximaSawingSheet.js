@@ -170,7 +170,7 @@ CucurbitaMaximaSawingSheet.prototype.saveForm = function(){
 };
 
 /**
- *
+ * This method reinit the form with empty fields and default values for selects
  */
 CucurbitaMaximaSawingSheet.prototype.resetForm = function(){
     $("#createForm")[0].reset();
