@@ -45,7 +45,7 @@
             <div class="form-group">
                 <div class="col-sm-2"><label for="nameSelect">Nom</label></div>
                 <div class="col-sm-5">
-                    <select id="nameSelect" style="width: 50%"></select>
+                    <select id="nameSelect" style="width: 100%"></select>
                 </div>
             </div>
             <div class="form-group">
@@ -92,25 +92,21 @@
             </div>
 
             <div class="form-group">
-                <div class="col-sm-2"><label for="distanceL"><img src="../img/distanceL.jpg" width="40px" title="Distance entre les semis"/></label></div>
-                <div class="col-sm-5"><input id="distanceL" class="form-control" placeholder="distance dans le rang"/></div>
+                <div class="col-sm-2"><label for="distanceL"><img src="../img/distanceL.jpg" width="40px"/></label></div>
+                <div class="col-sm-5"><input id="distanceL" class="form-control" placeholder="distance dans les rangs"/></div>
             </div>
             <div class="form-group">
-                <div class="col-sm-2"><label for="distanceR"><img src="../img/distanceR.png" width="33px" title="Distance entre les rangs"/></label></div>
+                <div class="col-sm-2"><label for="distanceR"><img src="../img/distanceR.png" width="33px"/></label></div>
                 <div class="col-sm-5"><input id="distanceR" class="form-control" placeholder="distance entre les rangs"/></div>
             </div>
 
             <div class="form-group">
-                <div class="col-sm-2"><label for="weather"><img src="../img/weather2.png" width="40px" title="Exposition"</label></div>
+                <div class="col-sm-2"><label for="weather"><img src="../img/weather2.png" width="40px"</label></div>
                 <div class="col-sm-5"><input id="weather" class="form-control" placeholder="exposition"/></div>
             </div>
             <div class="form-group">
-                <div class="col-sm-2"><label for="temperature" class="formGroupImg"><img src="../img/temperature.jpg" width="50px" title="Température (C°)"</label></div>
+                <div class="col-sm-2"><label for="temperature" class="formGroupImg"><img src="../img/temperature.jpg" width="50px"</label></div>
                 <div class="col-sm-5"><input id="temperature" class="form-control" placeholder="température (C°)"/></div>
-            </div>
-
-            <div class="form-group">
-                (TODO : voir pour phase lunaire, liée à la variété et non au nom, alerte si date de plantation ne colle pas)
             </div>
         </form>
 
