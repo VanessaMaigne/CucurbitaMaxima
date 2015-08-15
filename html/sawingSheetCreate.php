@@ -55,8 +55,8 @@
             <div class="form-group">
                 <div class="col-sm-2"><label for="moonBegin">Phase lunaire</label></div>
                 <div class="col-sm-1"><label for="moonBegin" class="note">période</label></div>
-                <div class="col-sm-2"><input id="moonBegin" class="form-control"/></div>
-                <div class="col-sm-2"><input id="moonEnd" class="form-control"/></div>
+                <div class="col-sm-2"><input id="moonBegin" class="form-control" placeholder="début de phase"/></div>
+                <div class="col-sm-2"><input id="moonEnd" class="form-control" placeholder="fin de phase"/></div>
             </div>
             <div class="form-group">
                 <div class="col-sm-offset-2 col-sm-1"><label for="moon" class="note">indication</label></div>
@@ -77,7 +77,8 @@
             <div class="form-group">
                 <div class="col-sm-2"><label for="plantDate">Date de plantation</label></div>
                 <div class="col-sm-2"><input id="plantDate" class="form-control"/></div>
-                <div class="col-sm-3" id="plantDateWeek"></div>
+                <div class="col-sm-2" id="plantDateWeek"></div>
+                <div class="col-sm-6" id="plantDateWarning"></div>
             </div>
             <div class="form-group">
                 <div class="col-sm-2"><label for="cycle">Cycle végétatif</label></div>

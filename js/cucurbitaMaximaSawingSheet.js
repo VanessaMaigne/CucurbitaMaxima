@@ -29,7 +29,7 @@ CucurbitaMaximaSawingSheet.prototype.create = function(){
     var self = this;
     self.initToolTip();
     self.createSelects();
-    self.createCalendar();
+    self.createCalendars();
     self.resetForm();
 
     self.createDataHeaders();
@@ -77,6 +77,10 @@ CucurbitaMaximaSawingSheet.prototype.createSelects = function(){
     extractColumnFromFileAndCallback("../data/vegetalSheet.csv", "Regne", this.fillNameSelect);
 };
 
+/**
+ * Callback for filling the name select after reading the vegetal sheets file
+ * @param nameList
+ */
 CucurbitaMaximaSawingSheet.prototype.fillNameSelect = function(nameList){
     $.each( nameList, function( i, d )
     {
@@ -85,7 +89,10 @@ CucurbitaMaximaSawingSheet.prototype.fillNameSelect = function(nameList){
     $( "#nameSelect" ).select2();
 };
 
-CucurbitaMaximaSawingSheet.prototype.createCalendar = function(){
+/**
+ * This method creates the calendars for moon period & plant date
+ */
+CucurbitaMaximaSawingSheet.prototype.createCalendars = function(){
     var self = this;
     $( "#plantDate" ).datepicker({
         dateFormat: dateFormat,
@@ -94,6 +101,27 @@ CucurbitaMaximaSawingSheet.prototype.createCalendar = function(){
             var pickerDate = $("#plantDate").datepicker('getDate');
             $("#plantDateWeek").html("(semaine : "+$.datepicker.iso8601Week(pickerDate) +")");
             self.calculateCrop();
+            self.checkPlantDateWithMoon();
+        }
+    });
+
+    $( "#moonBegin" ).datepicker({
+        dateFormat: dateFormat,
+        setDate: new Date(),
+        onSelect: function() {
+            var pickerDate = $("#moonBegin").datepicker('getDate');
+            $( "#moonEnd" ).datepicker( "option", "minDate", pickerDate );
+            self.checkPlantDateWithMoon();
+        }
+    });
+
+    $( "#moonEnd" ).datepicker({
+        dateFormat: dateFormat,
+        setDate: new Date(),
+        onSelect: function() {
+            var pickerDate = $("#moonEnd").datepicker('getDate');
+            $( "#moonBegin" ).datepicker( "option", "maxDate", pickerDate );
+            self.checkPlantDateWithMoon();
         }
     });
 };
@@ -110,7 +138,18 @@ CucurbitaMaximaSawingSheet.prototype.calculateCrop = function(){
     $("#cropDate").html($.datepicker.formatDate("dd/mm/yy", cropDate) +" (semaine : "+$.datepicker.iso8601Week(new Date(cropDate)) +", année : "+cropDate.getFullYear()+")");
 };
 
-//    $("#plantDate").datepicker('setDate', new Date());
+/**
+ * This method checks if the plant date is between the begin and the end of the moon period
+ */
+CucurbitaMaximaSawingSheet.prototype.checkPlantDateWithMoon = function(){
+    var pickerPlantDate = $("#plantDate").datepicker('getDate');
+    var pickerMoonBeginDate = $("#moonBegin").datepicker('getDate');
+    var pickerMoonEndDate = $("#moonEnd").datepicker('getDate');
+    if(pickerPlantDate != null && (pickerMoonBeginDate == null || pickerMoonBeginDate <= pickerPlantDate)
+        && (pickerMoonEndDate == null || pickerPlantDate <= pickerMoonEndDate))
+        $("#plantDateWarning").html("");
+    else $("#plantDateWarning").html("<img src='../img/25.png' width='25px'/>  Attention : date non conforme à la phase lunaire");
+};
 
 /**
  * This method get the headers from the first line of the file.
