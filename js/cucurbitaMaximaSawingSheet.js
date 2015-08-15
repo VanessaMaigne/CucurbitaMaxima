@@ -63,7 +63,6 @@ CucurbitaMaximaSawingSheet.prototype.createSelects = function(){
 //        var name = periodNameList[i] ? periodNameList[i] : d;
         $( "#groundSelect" ).append( "<option value='" + d + "'>" + d + "</option>" );
     } );
-
     $( "#groundSelect" ).select2();
 
     // Type select
@@ -72,8 +71,18 @@ CucurbitaMaximaSawingSheet.prototype.createSelects = function(){
     {
         $( "#typeSelect" ).append( "<option value='" + d + "'>" + d + "</option>" );
     } );
-
     $( "#typeSelect" ).select2();
+
+    // Name select
+    extractColumnFromFileAndCallback("../data/vegetalSheet.csv", "Regne", this.fillNameSelect);
+};
+
+CucurbitaMaximaSawingSheet.prototype.fillNameSelect = function(nameList){
+    $.each( nameList, function( i, d )
+    {
+        $( "#nameSelect" ).append( "<option value='" + d + "'>" + d + "</option>" );
+    } );
+    $( "#nameSelect" ).select2();
 };
 
 CucurbitaMaximaSawingSheet.prototype.createCalendar = function(){

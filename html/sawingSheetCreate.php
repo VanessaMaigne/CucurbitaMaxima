@@ -18,9 +18,12 @@
     <script type="text/javascript" src="../js/library/jquery-1.9.1.js"></script>
     <script type="text/javascript" src="../js/library/jquery-ui-1.10.4.custom.min.js"></script>
     <script type="text/javascript" src="../js/select2/select2.js"></script>
+    <script type="text/javascript" src="../js/library/d3.js"></script>
+    <script type="text/javascript" src="../js/library/crossfilter.js"></script>
     <script type="text/javascript" src="../js/bootstrap-3.1.1-dist/js/bootstrap.js"></script>
     <script type="text/javascript" src="../js/library/jquery.i18n.properties-1.0.9.js"></script>
 
+    <script type="text/javascript" src="../js/helper.js"></script>
     <script type="text/javascript" src="../js/cucurbitaMaxima.js"></script>
     <script type="text/javascript" src="../js/cucurbitaMaximaSawingSheet.js"></script>
 </HEAD>
@@ -40,23 +43,35 @@
         <form id="createForm" class="form-horizontal">
 
             <div class="form-group">
-                <div class="col-sm-2"><label for="name">Nom </label></div>
-                <div class="col-sm-5"><input id="name" class="form-control"/></div>
+                <div class="col-sm-2"><label for="nameSelect">Nom</label></div>
+                <div class="col-sm-5">
+                    <select id="nameSelect" style="width: 50%"></select>
+                </div>
             </div>
             <div class="form-group">
                 <div class="col-sm-2"><label for="variety">Variété</label></div>
                 <div class="col-sm-5"><input id="variety" class="form-control"/></div>
             </div>
             <div class="form-group">
+                <div class="col-sm-2"><label for="moonBegin">Phase lunaire</label></div>
+                <div class="col-sm-1"><label for="moonBegin" class="note">période</label></div>
+                <div class="col-sm-2"><input id="moonBegin" class="form-control"/></div>
+                <div class="col-sm-2"><input id="moonEnd" class="form-control"/></div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-1"><label for="moon" class="note">indication</label></div>
+                <div class="col-sm-4"><input id="moon" class="form-control"/></div>
+            </div>
+            <div class="form-group">
                 <div class="col-sm-2"><label for="groundSelect">Sol</label></div>
                 <div class="col-sm-5">
-                    <select id="groundSelect"></select>
+                    <select id="groundSelect" style="width: 50%"></select>
                 </div>
             </div>
             <div class="form-group">
                 <div class="col-sm-2"><label for="typeSelect">Type</label></div>
                 <div class="col-sm-5">
-                    <select id="typeSelect" title="Type de plantation"></select>
+                    <select id="typeSelect" style="width: 50%"></select>
                 </div>
             </div>
             <div class="form-group">
@@ -77,7 +92,7 @@
 
             <div class="form-group">
                 <div class="col-sm-2"><label for="distanceL"><img src="../img/distanceL.jpg" width="40px" title="Distance entre les semis"/></label></div>
-                <div class="col-sm-5"><input id="distanceL" class="form-control" placeholder="distance entre les semis"/></div>
+                <div class="col-sm-5"><input id="distanceL" class="form-control" placeholder="distance dans le rang"/></div>
             </div>
             <div class="form-group">
                 <div class="col-sm-2"><label for="distanceR"><img src="../img/distanceR.png" width="33px" title="Distance entre les rangs"/></label></div>
@@ -91,6 +106,10 @@
             <div class="form-group">
                 <div class="col-sm-2"><label for="temperature" class="formGroupImg"><img src="../img/temperature.jpg" width="50px" title="Température (C°)"</label></div>
                 <div class="col-sm-5"><input id="temperature" class="form-control" placeholder="température (C°)"/></div>
+            </div>
+
+            <div class="form-group">
+                (TODO : voir pour phase lunaire, liée à la variété et non au nom, alerte si date de plantation ne colle pas)
             </div>
         </form>
 

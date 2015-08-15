@@ -79,7 +79,7 @@
                 <div class="col-sm-5"><input id="orderCP" class="form-control"/></div>
             </div>
             <div class="form-group">
-                <div class="col-sm-2"><label for="familyCP">Famille = </label></div>
+                <div class="col-sm-2"><label for="familyCP">Famille</label></div>
                 <div class="col-sm-5"><input id="familyCP" class="form-control"/></div>
             </div>
         </form>

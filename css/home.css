@@ -31,9 +31,12 @@ h4 {
     font-size: 18px;
 }
 
-
 .form-group{
     padding-left: 20px;
+}
+
+.form-group label{
+    margin-top: 7px;
 }
 
 .form-group img{
@@ -47,6 +50,11 @@ h4 {
 .dc-table-group img{
     cursor : pointer;
 }
+
+.note {
+    color: gray;
+}
+
 
 /* ***************************************** */
 /* *************** HOME PAGE *************** */
