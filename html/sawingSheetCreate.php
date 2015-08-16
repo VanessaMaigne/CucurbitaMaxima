@@ -21,6 +21,7 @@
     <script type="text/javascript" src="../js/library/d3.js"></script>
     <script type="text/javascript" src="../js/library/crossfilter.js"></script>
     <script type="text/javascript" src="../js/bootstrap-3.1.1-dist/js/bootstrap.js"></script>
+    <script type="text/javascript" src="../js/bootstrap-validator-master/js/validator.js"></script>
     <script type="text/javascript" src="../js/library/jquery.i18n.properties-1.0.9.js"></script>
 
     <script type="text/javascript" src="../js/helper.js"></script>
@@ -40,7 +41,7 @@
         <div class="text-center"><h2 class="sawingTitle">Fiche de culture</h2><BR/><BR/></div>
 
 
-        <form id="createForm" class="form-horizontal">
+        <form id="createForm" data-toggle="validator" role="form" class="form-horizontal">
 
             <div class="form-group">
                 <div class="col-sm-2"><label for="nameSelect">Nom</label></div>
@@ -48,9 +49,13 @@
                     <select id="nameSelect" style="width: 100%"></select>
                 </div>
             </div>
-            <div class="form-group">
+            <div class="form-group has-feedback">
                 <div class="col-sm-2"><label for="variety">Variété</label></div>
-                <div class="col-sm-5"><input id="variety" class="form-control"/></div>
+                <div class="col-sm-5">
+                    <input id="variety" class="form-control" data-error="Veuillez remplir ce champ" required/>
+                    <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                </div>
+                <div class="col-sm-3 help-block with-errors"></div>
             </div>
             <div class="form-group">
                 <div class="col-sm-2"><label for="moonBegin">Phase lunaire</label></div>
@@ -78,11 +83,15 @@
                 <div class="col-sm-2"><label for="plantDate">Date de plantation</label></div>
                 <div class="col-sm-2"><input id="plantDate" class="form-control"/></div>
                 <div class="col-sm-2" id="plantDateWeek"></div>
-                <div class="col-sm-6" id="plantDateWarning"></div>
+                <div class="col-sm-6 warning" id="plantDateWarning"></div>
             </div>
-            <div class="form-group">
+            <div class="form-group has-feedback">
                 <div class="col-sm-2"><label for="cycle">Cycle végétatif</label></div>
-                <div class="col-sm-5"><input id="cycle" class="form-control" placeholder="en jours"/></div>
+                <div class="col-sm-5">
+                    <input id="cycle" class="form-control" placeholder="en jours" pattern="[0-9]+[,(0-9)+]*" data-error="Champ numérique uniquement (virgule pour les décimales)"/>
+                    <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                </div>
+                <div class="col-sm-5 help-block with-errors"></div>
             </div>
 
             <div class="form-group">
@@ -91,31 +100,44 @@
                 <BR/><BR/>
             </div>
 
-            <div class="form-group">
+            <div class="form-group has-feedback">
                 <div class="col-sm-2"><label for="distanceL"><img src="../img/distanceL.jpg" width="40px"/></label></div>
-                <div class="col-sm-5"><input id="distanceL" class="form-control" placeholder="distance dans les rangs"/></div>
+                <div class="col-sm-5">
+                    <input id="distanceL" class="form-control" placeholder="distance dans les rangs (cm)" pattern="[0-9]+[,(0-9)+]*" data-error="Champ numérique uniquement (virgule pour les décimales)"/>
+                    <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                </div>
+                <div class="col-sm-5 help-block with-errors"></div>
             </div>
-            <div class="form-group">
+            <div class="form-group has-feedback">
                 <div class="col-sm-2"><label for="distanceR"><img src="../img/distanceR.png" width="33px"/></label></div>
-                <div class="col-sm-5"><input id="distanceR" class="form-control" placeholder="distance entre les rangs"/></div>
+                <div class="col-sm-5">
+                    <input id="distanceR" class="form-control" placeholder="distance entre les rangs (cm)" pattern="[0-9]+[,(0-9)+]*" data-error="Champ numérique uniquement (virgule pour les décimales)"/>
+                    <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                </div>
+                <div class="col-sm-5 help-block with-errors"></div>
             </div>
 
-            <div class="form-group">
+            <div class="form-group has-feedback">
                 <div class="col-sm-2"><label for="weather"><img src="../img/weather2.png" width="40px"</label></div>
                 <div class="col-sm-5"><input id="weather" class="form-control" placeholder="exposition"/></div>
             </div>
-            <div class="form-group">
+            <div class="form-group has-feedback">
                 <div class="col-sm-2"><label for="temperature" class="formGroupImg"><img src="../img/temperature.jpg" width="50px"</label></div>
-                <div class="col-sm-5"><input id="temperature" class="form-control" placeholder="température (C°)"/></div>
+                <div class="col-sm-5">
+                    <input id="temperature" class="form-control" placeholder="température (C°)" pattern="[0-9]+[,(0-9)+]*" data-error="Champ numérique uniquement (virgule pour les décimales)"/>
+                    <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                </div>
+                <div class="col-sm-5 help-block with-errors"></div>
             </div>
+            <div id="actionMessage" class="col-sm-3 col-md-3 text-center"></div>
+
         </form>
 
-        <div id="actionMessage" class="col-sm-2 col-md-2 text-center"></div>
-
-        <div class="col-sm-5 text-center">
-            <button id="saveForm" class="btn btn-success">Enregistrer</button>
+        <div class="col-sm-4 text-center">
+            <button id="saveForm" class="btn btn-success" disable=false>Enregistrer</button>
             <button id="resetForm" class="btn btn-danger">Annuler</button>
         </div>
+
     </div>
 
     <!--Github link-->

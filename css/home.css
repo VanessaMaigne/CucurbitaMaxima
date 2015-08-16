@@ -96,6 +96,10 @@ button a {
     cursor : pointer;
 }
 
+.warning {
+    color: #FF7F50;
+}
+
 
 /* ***************************************** */
 /* *********** VEGETAL SHEET PAGE ********** */
@@ -129,7 +133,6 @@ button a {
 }
 
 #plantDateWarning {
-    color: #FF7F50;
     margin-top: 11px;
 }
 

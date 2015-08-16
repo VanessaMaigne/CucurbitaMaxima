@@ -37,9 +37,18 @@ CucurbitaMaximaSawingSheet.prototype.create = function(){
     if(params.ln)
         self.getContentAndfillForm(params.ln);
 
-    // Buttons
+    // Buttons & events
+    $("#createForm").on("submit", function(e){
+        if (e.isDefaultPrevented()) {
+            $("#actionMessage").html("<span class='warning'>Il reste des champs à corriger</span>");
+        } else {
+            e.preventDefault(); // Avoid to launch the event submit
+            self.saveForm();
+        }
+    });
+
     $("#saveForm").on("click", function(){
-        self.saveForm();
+        $("#createForm").submit();
     });
     $("#resetForm").on("click", function(){
         self.resetForm();
