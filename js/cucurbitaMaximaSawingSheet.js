@@ -10,9 +10,10 @@
 function CucurbitaMaximaSawingSheet(){
     this.dataFileProperty = "sawingSheetFilePath";
     this.dataFile = jQuery.i18n.prop(this.dataFileProperty);
+    this.isHeaderForSawingCreated = false;
     this.lineNumber=0;
-    this.header = null;
-    this.headerId = null;
+    this.header = JSON.parse(jQuery.i18n.prop("sawingHeaderFile"));
+    this.headerId = JSON.parse(jQuery.i18n.prop("sawingHeaderIdFile"));
 
     this.initToolTip = function() {
         $(".basicButton, .toolTipData").tooltip({
@@ -20,7 +21,7 @@ function CucurbitaMaximaSawingSheet(){
             container:'body'});
     }
 }
-
+extendClass(CucurbitaMaximaSawingSheet, CucurbitaMaxima);
 
 /****************************************************/
 /** ******************** CREATE ****************** **/
@@ -32,7 +33,8 @@ CucurbitaMaximaSawingSheet.prototype.create = function(){
     self.createCalendars();
     self.resetForm();
 
-    self.createDataHeaders();
+    if(!self.isHeaderForSawingCreated)
+        self.createDataHeader("sawingHeaderFile", "sawingHeaderIdFile");
 
     if(params.ln)
         self.getContentAndfillForm(params.ln);
@@ -66,10 +68,8 @@ CucurbitaMaximaSawingSheet.prototype.create = function(){
 CucurbitaMaximaSawingSheet.prototype.createSelects = function(){
     // Ground select
     this.groundList = JSON.parse( jQuery.i18n.prop( "groundArray" ));
-//    var periodNameList = JSON.parse( jQuery.i18n.prop( "periodNamesList" ) );
     $.each( this.groundList, function( i, d )
     {
-//        var name = periodNameList[i] ? periodNameList[i] : d;
         $( "#groundSelect" ).append( "<option value='" + d + "'>" + d + "</option>" );
     } );
     $( "#groundSelect" ).select2();
@@ -161,72 +161,6 @@ CucurbitaMaximaSawingSheet.prototype.checkPlantDateWithMoon = function(){
 };
 
 /**
- * This method get the headers from the first line of the file.
- * If the file is empty, it fills it with the headers getted from the form
- */
-CucurbitaMaximaSawingSheet.prototype.setHeader = function(){
-    var self = this;
-    $.ajax( {
-        url:'../phpScript/getLineContent.php?fileName=sheetFile&ln=0',
-        type:'GET',
-        error: function(){ alert( "Erreur. Veuillez vérifier le contenu et les droits du fichier." ); },
-        success: function(data)
-        {
-            var headerFromFile = data.split(",");
-            if(headerFromFile == ""){
-                $.ajax( {
-                    url:'../phpScript/writeContent.php?fileName=sheetFile&content='+self.header,
-                    type:'GET',
-                    error: function(){ alert( "Erreur d'écriture. Veuillez vérifier le contenu et les droits du fichier." ); }
-                } );
-            } else self.header = headerFromFile;
-        }
-    } );
-};
-
-/**
- * This method create the headers from the form (title & id) and from the file (if not empty) to replace the titles one.
- * If the file is empty, it fills with the header from the form
- */
-CucurbitaMaximaSawingSheet.prototype.createDataHeaders = function(){
-    var self = this;
-    var fields = $("#createForm input.form-control");
-    self.header = new Array();
-    self.headerId = new Array();
-    $.each(fields, function(i, d){
-        if(d.attributes.title && d.attributes.title.value) self.header.push(d.attributes.title.value);
-        if(d.attributes.id && d.attributes.id.value) self.headerId.push(d.attributes.id.value);
-    });
-    self.setHeader();
-};
-
-/**
- * This method save the form's fields in the file. The header is already saved in file.
- */
-CucurbitaMaximaSawingSheet.prototype.saveForm = function(){
-    var content = "";
-    $.each(this.headerId, function(i,d){
-        content += $("#"+d).val()+",";
-    });
-
-    var url = '../phpScript/writeContent.php?fileName=sheetFile&content='+content;
-    if(params.ln)
-        url += "&ln="+params.ln;
-
-    // Write in file
-    $.ajax( {
-        url:url,
-        type:'GET',
-        error: function(){ alert( "Erreur : suppression non effectuée. Veuillez vérifier le contenu et les droits du fichier." ); },
-        success: function()
-        {
-            if(params.ln) $("#actionMessage").html("Fiche modifiée !");
-            else $("#actionMessage").html("Fiche créée !");
-        }
-    } );
-};
-
-/**
  * This method reinit the form with empty fields and default values for selects
  */
 CucurbitaMaximaSawingSheet.prototype.resetForm = function(){
@@ -240,24 +174,6 @@ CucurbitaMaximaSawingSheet.prototype.resetForm = function(){
     $("#plantDateWeek").html("(semaine : "+$.datepicker.iso8601Week(pickerDate) +")");
     this.calculateCrop();
 };
-
-/**
- * This method modifies a sheet by getting the fields's values from the file and filling the form.
- * @param lineNumber
- */
-CucurbitaMaximaSawingSheet.prototype.getContentAndfillForm = function(lineNumber){
-    var self = this;
-    $.ajax( {
-        url:'../phpScript/getLineContent.php?fileName=sheetFile&ln='+lineNumber,
-        type:'GET',
-        error: function(){ alert( "Erreur : contenu non lisible. Veuillez vérifier le contenu et les droits du fichier." ); },
-        success: function(data)
-        {
-            self.fillForm(data);
-        }
-    } );
-};
-
 
 /**
  * This method fills the form with values from the file line

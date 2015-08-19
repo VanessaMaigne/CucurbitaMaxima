@@ -64,8 +64,8 @@
                 <div class="col-sm-2"><input id="moonEnd" class="form-control" placeholder="fin de phase"/></div>
             </div>
             <div class="form-group">
-                <div class="col-sm-offset-2 col-sm-1"><label for="moon" class="note">indication</label></div>
-                <div class="col-sm-4"><input id="moon" class="form-control"/></div>
+                <div class="col-sm-offset-2 col-sm-1"><label for="moonNote" class="note">indication</label></div>
+                <div class="col-sm-4"><input id="moonNote" class="form-control"/></div>
             </div>
             <div class="form-group">
                 <div class="col-sm-2"><label for="groundSelect">Sol</label></div>
@@ -103,7 +103,7 @@
             <div class="form-group has-feedback">
                 <div class="col-sm-2"><label for="distanceL"><img src="../img/distanceL.jpg" width="40px"/></label></div>
                 <div class="col-sm-5">
-                    <input id="distanceL" class="form-control" placeholder="distance dans les rangs (cm)" pattern="[0-9]+[,(0-9)+]*" data-error="Champ numérique uniquement (virgule pour les décimales)"/>
+                    <input id="distanceL" class="form-control" placeholder="distance sur les rangs (cm)" pattern="[0-9]+[,(0-9)+]*" data-error="Champ numérique uniquement (virgule pour les décimales)"/>
                     <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                 </div>
                 <div class="col-sm-5 help-block with-errors"></div>
@@ -124,7 +124,7 @@
             <div class="form-group has-feedback">
                 <div class="col-sm-2"><label for="temperature" class="formGroupImg"><img src="../img/temperature.jpg" width="50px"</label></div>
                 <div class="col-sm-5">
-                    <input id="temperature" class="form-control" placeholder="température (C°)" pattern="[0-9]+[,(0-9)+]*" data-error="Champ numérique uniquement (virgule pour les décimales)"/>
+                    <input id="temperature" class="form-control" placeholder="température (°C)" pattern="[0-9]+[,(0-9)+]*" data-error="Champ numérique uniquement (virgule pour les décimales)"/>
                     <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                 </div>
                 <div class="col-sm-5 help-block with-errors"></div>
