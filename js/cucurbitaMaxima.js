@@ -9,7 +9,7 @@
 
 jQuery.i18n.properties( {
     name:'cucurbitaMaxima',
-    path:'../',
+    path:'/git/CucurbitaMaxima/',
     language:null,
     mode:'both'
 } );

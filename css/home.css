@@ -73,6 +73,7 @@ h4 {
     box-shadow: 1px 1px 10px #449D44 inset, 0 1px 0 rgba( 68, 157, 68, 0.4);
     /*box-shadow: 0px 1px 1px 0px rgb(61, 194, 27);*/
     color: rgb(255, 255, 255);
+    padding-right: 0;
 }
 
 .basicTitleOneLine{
@@ -86,6 +87,9 @@ h4 {
 .basicButton, .basicButton.btn-default:hover {
     border: none;
     background-color: transparent;
+    margin-left: 0 !important;
+    margin-right: -7px !important;
+    padding: 0 !important;
 }
 
 #trolley{
@@ -100,6 +104,10 @@ button a {
     color: #FF7F50;
 }
 
+
+/* ***************************************** */
+/* *************** HOME PAGE *************** */
+/* ***************************************** */
 
 /* ***************************************** */
 /* *********** VEGETAL SHEET PAGE ********** */
