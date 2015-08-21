@@ -9,7 +9,7 @@
 
     <!-- ************************* CSS ************************* -->
     <link rel="stylesheet" type="text/css" href="../js/bootstrap-3.1.1-dist/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+<!--    <link rel="stylesheet" type="text/css" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">-->
     <!--    <link rel="stylesheet" type="text/css" href="../js/select2/select2.css"/>-->
     <link rel="stylesheet" type="text/css" href="../css/dc.css">
     <link rel="stylesheet" type="text/css" href="../css/home.css">
@@ -62,11 +62,21 @@
             <div id="monthly-volume-chart" class="dc-chart"></div>
         </div>
         <div class="row">
-            <div>
-                <div class="dc-data-count dc-chart">All records selected. Please click on the graph to apply filters.</div>
+            <div id="dataDiv" class="col-sm-12 col-md-12">
+                <div id="data-count" class="dc-data-count dc-chart">
+                    <span class="filter-count"></span><span>/</span><span
+                        class="total-count"></span><span>&nbsp;enregistrements</span>
+                </div>
+
+                <table id="data-table" class="table table-hover dc-data-table dc-chart">
+                    <thead>
+                    <tr id="headerData" class="header"></tr>
+                    </thead>
+                </table>
             </div>
-            <table class="table table-hover dc-data-table dc-chart">
-            </table>
+
+            <!--            <table class="table table-hover dc-data-table dc-chart">-->
+            <!--            </table>-->
         </div>
 
         <!--Github link-->
