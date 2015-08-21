@@ -1,2 +1,6 @@
-Nom,Variete,Phase lunaire debut,Phase lunaire fin,Phase lunaire note,Sol,Type,Date de plantation,Cycle vegetatif,Distance sur les rangs,Distance entre les rangs,Exposition,Temperature
-1dd,aaaaa,,,,Humifère,Semis,19/08/2015,,,,,,
+Nom,Variete,Phase lunaire debut,Phase lunaire fin,Phase lunaire note,Sol,Type,Date de plantation,Cycle vegetatif,Date de recolte prevue,Distance sur les rangs,Distance entre les rangs,Exposition,Temperature
+1dd,aa,,,,Humifère,Semis,20/08/2015,2,22/08/2015,1,2,soleil,3,
+1dd,aa,,,,Humifère,Semis,20/08/2015,2,22/08/2015,1,2,soleil,3,
+1dd,bbb,,,,Argileux,Bulbe,20/08/2015,3,23/08/2015,,,,,
+1dd,bbb,,,,Argileux,Bulbe,20/08/2015,3,23/08/2015,,,,,
+1dd,CCC,,,,Humifère,Semis,20/08/2015,4,24/08/2015,,,,,

@@ -39,7 +39,7 @@ function CucurbitaMaxima(){
 
 
 /****************************************************/
-/** *************** HEADERS IN FILE ************** **/
+/** *************** ACTIONS IN FILE ************** **/
 /****************************************************/
 /**
  * This method create the headers from the properties and from the file (if not empty) to replace the titles one.
@@ -69,6 +69,28 @@ CucurbitaMaxima.prototype.createDataHeader = function(){
                 self.isHeaderForSawingCreated = true;
             }
         }
+    });
+};
+
+/**
+ * This method extract values from a given column and launch the callback function on these values
+ * @param filePath
+ * @param columnName
+ * @param callback
+ */
+CucurbitaMaxima.prototype.extractColumnFromFileAndCallback = function(filePath, columnName, callback){
+    d3.csv(filePath, function (error, csv) {
+        var columnValues = new Array();
+
+        var data = crossfilter(csv);
+        data.dimension(function(d) {
+            return d[columnName];
+        }).filter(function(key) {
+                if(key != "") columnValues.push(key);
+            });
+
+        if(callback)
+            callback(columnValues);
     });
 };
 

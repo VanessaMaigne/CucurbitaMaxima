@@ -83,7 +83,7 @@ CucurbitaMaximaSawingSheet.prototype.createSelects = function(){
     $( "#typeSelect" ).select2();
 
     // Name select
-    extractColumnFromFileAndCallback("../data/vegetalSheet.csv", "Regne", this.fillNameSelect);
+    this.extractColumnFromFileAndCallback("../data/vegetalSheet.csv", "Regne", this.fillNameSelect);
 };
 
 /**
@@ -144,6 +144,7 @@ CucurbitaMaximaSawingSheet.prototype.calculateCrop = function(){
     var pickerDate = $("#plantDate").datepicker('getDate');
     var cropDate = new Date(pickerDate);
     cropDate.setDate(pickerDate.getDate() + cycleValue);
+    $("#cropDate").val($.datepicker.formatDate("dd/mm/yy", cropDate));
     $("#cropDate").html($.datepicker.formatDate("dd/mm/yy", cropDate) +" (semaine : "+$.datepicker.iso8601Week(new Date(cropDate)) +", année : "+cropDate.getFullYear()+")");
 };
 
