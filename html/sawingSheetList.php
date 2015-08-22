@@ -19,6 +19,7 @@
     <script type="text/javascript" src="../js/library/jquery.i18n.properties-1.0.9.js"></script>
     <script type="text/javascript" src="../js/library/d3.js"></script>
 
+    <script type="text/javascript" src="../js/helper.js"></script>
     <script type="text/javascript" src="../js/cucurbitaMaxima.js"></script>
     <script type="text/javascript" src="../js/cucurbitaMaximaSawingSheet.js"></script>
 </HEAD>
