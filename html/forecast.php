@@ -55,13 +55,15 @@
             <div id="day-of-week-chart" class="dc-chart"></div>
             <div id="fluctuation-chart" class="dc-chart"></div>
         </div>
-        <div class="row">
+        <div class="col-md-12">
             <div id="monthly-move-chart" class="dc-chart"></div>
         </div>
-        <div class="row">
+        <div class="col-md-12">
             <div id="monthly-volume-chart" class="dc-chart"></div>
         </div>
-        <div class="row">
+
+        <div class="col-md-12 forecastSubTitle"><BR/><BR/>Données du fichier</div>
+        <div class="col-md-12">
             <div id="dataDiv" class="col-sm-12 col-md-12">
                 <div id="data-count" class="dc-data-count dc-chart">
                     <span class="filter-count"></span><span>/</span><span
@@ -75,8 +77,6 @@
                 </table>
             </div>
 
-            <!--            <table class="table table-hover dc-data-table dc-chart">-->
-            <!--            </table>-->
         </div>
 
         <!--Github link-->

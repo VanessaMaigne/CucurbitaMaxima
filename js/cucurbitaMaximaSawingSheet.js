@@ -104,7 +104,7 @@ CucurbitaMaximaSawingSheet.prototype.fillNameSelect = function(nameList){
 CucurbitaMaximaSawingSheet.prototype.createCalendars = function(){
     var self = this;
     $( "#plantDate" ).datepicker({
-        dateFormat: dateFormat,
+        dateFormat: cucurbitaDateFormat,
         setDate: new Date(),
         onSelect: function() {
             var pickerDate = $("#plantDate").datepicker('getDate');
@@ -115,7 +115,7 @@ CucurbitaMaximaSawingSheet.prototype.createCalendars = function(){
     });
 
     $( "#moonBegin" ).datepicker({
-        dateFormat: dateFormat,
+        dateFormat: cucurbitaDateFormat,
         setDate: new Date(),
         onSelect: function() {
             var pickerDate = $("#moonBegin").datepicker('getDate');
@@ -125,7 +125,7 @@ CucurbitaMaximaSawingSheet.prototype.createCalendars = function(){
     });
 
     $( "#moonEnd" ).datepicker({
-        dateFormat: dateFormat,
+        dateFormat: cucurbitaDateFormat,
         setDate: new Date(),
         onSelect: function() {
             var pickerDate = $("#moonEnd").datepicker('getDate');

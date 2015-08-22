@@ -18,7 +18,8 @@ jQuery.i18n.properties( {
 var params={};
 window.location.search.replace(/[?&]+([^=&]+)=([^&]*)/gi,function(str,key,value){params[key] = value;});
 
-var dateFormat = "dd/mm/yy";
+var cucurbitaDateFormat = "dd/mm/yy";
+var cucurbitaDateFormatForD3 = d3.time.format('%d/%m/%Y');
 
 
 function CucurbitaMaxima(){
