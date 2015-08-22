@@ -10,11 +10,13 @@
 function CucurbitaMaximaSawingSheet(){
     this.dataFileProperty = "sawingSheetFilePath";
     this.dataFile = jQuery.i18n.prop(this.dataFileProperty);
-    this.isHeaderForSawingCreated = false;
     this.lineNumber=0;
     this.header = JSON.parse(jQuery.i18n.prop("sawingHeaderFile"));
     this.headerId = JSON.parse(jQuery.i18n.prop("sawingHeaderIdFile"));
     this.headerToDisplay = JSON.parse(jQuery.i18n.prop("sawingHeaderFileToDisplay"));
+
+    this.vegetalFilePath = "../data/vegetalSheet.csv";
+    this.vegetalHeaderForSawingSelect=jQuery.i18n.prop("vegetalHeaderForSawingSelect");
 
     this.initToolTip = function() {
         $(".basicButton, .toolTipData").tooltip({
@@ -34,28 +36,14 @@ CucurbitaMaximaSawingSheet.prototype.create = function(){
     self.createCalendars();
     self.resetForm();
 
-    if(!self.isHeaderForSawingCreated)
-        self.createDataHeader("sawingHeaderFile", "sawingHeaderIdFile");
+    if(!self.booleanForHeaderCreation["sawing"])
+        self.createDataHeader("sawing");
 
     if(params.ln)
         self.getContentAndfillForm(params.ln);
 
-    // Buttons & events
-    $("#createForm").on("submit", function(e){
-        if (e.isDefaultPrevented()) {
-            $("#actionMessage").html("<span class='warning'>Il reste des champs à corriger</span>");
-        } else {
-            e.preventDefault(); // Avoid to launch the event submit
-            self.saveForm();
-        }
-    });
-
-    $("#saveForm").on("click", function(){
-        $("#createForm").submit();
-    });
-    $("#resetForm").on("click", function(){
-        self.resetForm();
-    });
+    // Events on #createForm form
+    self.initForm();
 
     $("#cycle").on("keyup", function(){
         self.calculateCrop();
@@ -84,7 +72,7 @@ CucurbitaMaximaSawingSheet.prototype.createSelects = function(){
     $( "#typeSelect" ).select2();
 
     // Name select
-    this.extractColumnFromFileAndCallback("../data/vegetalSheet.csv", "Regne", this.fillNameSelect);
+    this.extractColumnFromFileAndCallback(this.vegetalFilePath, this.vegetalHeaderForSawingSelect, this.fillNameSelect);
 };
 
 /**
@@ -92,6 +80,7 @@ CucurbitaMaximaSawingSheet.prototype.createSelects = function(){
  * @param nameList
  */
 CucurbitaMaximaSawingSheet.prototype.fillNameSelect = function(nameList){
+    $( "#nameSelect" ).append( "<option disabled>Sélectionnez un nom binomial</option>" );
     $.each( nameList, function( i, d )
     {
         $( "#nameSelect" ).append( "<option value='" + d + "'>" + d + "</option>" );

@@ -11,8 +11,9 @@ function CucurbitaMaximaVegetalSheet(){
     this.dataFileProperty = "vegetalSheetFilePath";
     this.dataFile = jQuery.i18n.prop(this.dataFileProperty);
     this.lineNumber=0;
-    this.header = null;
-    this.headerId = null;
+    this.header = JSON.parse(jQuery.i18n.prop("vegetalHeaderFile"));
+    this.headerId = JSON.parse(jQuery.i18n.prop("vegetalHeaderIdFile"));
+    this.headerToDisplay = JSON.parse(jQuery.i18n.prop("vegetalHeaderFile"));
 
     this.initToolTip = function() {
         $(".basicButton, .toolTipData").tooltip({
@@ -23,24 +24,22 @@ function CucurbitaMaximaVegetalSheet(){
 
 extendClass(CucurbitaMaximaVegetalSheet, CucurbitaMaxima);
 
+
 /****************************************************/
 /** ******************** CREATE ****************** **/
 /****************************************************/
 CucurbitaMaximaVegetalSheet.prototype.create = function(){
     var self = this;
     self.initToolTip();
-    self.createDataHeader("#createForm");
+
+    if(!self.booleanForHeaderCreation["vegetal"])
+        self.createDataHeader("vegetal");
 
     if(params.ln)
         self.getContentAndfillForm(params.ln);
 
-    // Buttons
-    $("#saveForm").on("click", function(){
-        self.saveForm();
-    });
-    $("#resetForm").on("click", function(){
-        self.resetForm();
-    });
+    // Events on #createForm form
+    self.initForm();
 };
 
 /**

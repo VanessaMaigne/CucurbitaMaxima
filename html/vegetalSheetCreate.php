@@ -8,20 +8,16 @@
     <link rel="icon" href="../img/tomato_16.png" type="image/png">
 
     <!-- ************************* CSS ************************* -->
-    <!--<link rel="stylesheet" type="text/css" href="http://getbootstrap.com/dist/css/bootstrap.min.css">-->
     <link rel="stylesheet" type="text/css" href="../js/bootstrap-3.1.1-dist/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="../css/home.css">
 
-
     <!-- ************************* JS ************************* -->
-    <!--<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>-->
-    <!--<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>-->
-    <!--<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/js/bootstrap.min.js"></script>-->
     <script type="text/javascript" src="../js/library/jquery-1.9.1.js"></script>
     <script type="text/javascript" src="../js/library/jquery-ui-1.10.4.custom.min.js"></script>
-    <script type="text/javascript" src="../js/bootstrap-3.1.1-dist/js/bootstrap.js"></script>
-    <script type="text/javascript" src="../js/library/jquery.i18n.properties-1.0.9.js"></script>
     <script type="text/javascript" src="../js/library/d3.js"></script>
+    <script type="text/javascript" src="../js/bootstrap-3.1.1-dist/js/bootstrap.js"></script>
+    <script type="text/javascript" src="../js/bootstrap-validator-master/js/validator.js"></script>
+    <script type="text/javascript" src="../js/library/jquery.i18n.properties-1.0.9.js"></script>
 
     <script type="text/javascript" src="../js/helper.js"></script>
     <script type="text/javascript" src="../js/cucurbitaMaxima.js"></script>
@@ -38,7 +34,8 @@
         </div>
         <div class="text-center"><h2 class="vegetaleTitle">Fiche signalétique végétale</h2><BR/></div>
 
-        <form id="createForm" class="form-horizontal">
+        <form id="createForm" data-toggle="validator" role="form" class="form-horizontal">
+
             <BR/>
             <div id="dateValue" class="row col-sm-12 col-md-12 text-left"></div>
 
@@ -67,13 +64,21 @@
                 <div class="col-sm-2"><label for="gender">Genre</label></div>
                 <div class="col-sm-5"><input id="gender" class="form-control"/></div>
             </div>
-            <div class="form-group">
-                <label for="exampleInputFile">Télécharger une photo</label>
-                <input type="file" id="exampleInputFile">
-                <p class="help-block">Taille maximale des photos : .</p>
-            </div>
+<!--            <div class="form-group">-->
+<!--                <label for="exampleInputFile">Télécharger une photo</label>-->
+<!--                <input type="file" id="exampleInputFile">-->
+<!--                <p class="help-block">Taille maximale des photos : .</p>-->
+<!--            </div>-->
 
             <div class="row col-sm-12 col-md-12"><h3>Nom binomial </h3></div>
+            <div class="form-group has-feedback">
+                <div class="col-sm-2"><label for="binomialName">Nom</label></div>
+                <div class="col-sm-5">
+                    <input id="binomialName" class="form-control" data-error="Veuillez remplir ce champ" required/>
+                    <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                </div>
+                <div class="col-sm-3 help-block with-errors"></div>
+            </div>
 
             <div class="row col-sm-12 col-md-12"><h3>Classification phylogénétique</h3></div>
             <div class="form-group">

@@ -10,8 +10,6 @@
 
 function CucurbitaMaximaForecast(){
     this.dataFile = jQuery.i18n.prop("sawingSheetFilePath");
-    this.forecastNameColumn = jQuery.i18n.prop("sawingForecastDate");
-
     this.forecastSawingGroup=jQuery.i18n.prop("forecastSawingDataGroup");
     this.forecastSawingData=JSON.parse(jQuery.i18n.prop("forecastSawingData"));
     this.forecastSawingDataDate=jQuery.i18n.prop("forecastSawingDataDate");

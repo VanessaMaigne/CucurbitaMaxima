@@ -23,11 +23,12 @@ var cucurbitaDateFormatForD3 = d3.time.format('%d/%m/%Y');
 
 
 function CucurbitaMaxima(){
-
-    this.dateValue = $.datepicker.formatDate('DD dd MM yy', new Date());
+    var localFormat = d3.time.format('%A %e %B %Y %Hh%M');
+    this.dateValue = localFormat(new Date());
 
     this.init = function(){
-        $("#dateValue").html(this.dateValue);
+        var season = getSeason();
+        $("#dateValue").html(this.dateValue+", "+season);
         this.initToolTip();
     };
 
@@ -38,6 +39,10 @@ function CucurbitaMaxima(){
     };
 }
 
+CucurbitaMaxima.prototype.booleanForHeaderCreation = new Object();
+CucurbitaMaxima.prototype.booleanForHeaderCreation["sawing"] = false;
+CucurbitaMaxima.prototype.booleanForHeaderCreation["vegetal"] = false;
+
 
 /****************************************************/
 /** *************** ACTIONS IN FILE ************** **/
@@ -46,7 +51,7 @@ function CucurbitaMaxima(){
  * This method create the headers from the properties and from the file (if not empty) to replace the titles one.
  * If the file is empty, it fills with the header from the properties
  */
-CucurbitaMaxima.prototype.createDataHeader = function(){
+CucurbitaMaxima.prototype.createDataHeader = function(type){
     var self = this;
 
     $.ajax( {
@@ -62,12 +67,12 @@ CucurbitaMaxima.prototype.createDataHeader = function(){
                     type:'GET',
                     error: function(){ alert( "Erreur d'écriture. Veuillez vérifier le contenu et les droits du fichier." );},
                     success: function(){
-                        self.isHeaderForSawingCreated = true;
+                        self.booleanForHeaderCreation[type] = true;
                     }
                 } );
             } else {
                 self.header = headerFromFile;
-                self.isHeaderForSawingCreated = true;
+                self.booleanForHeaderCreation[type] = true;
             }
         }
     });
@@ -99,6 +104,30 @@ CucurbitaMaxima.prototype.extractColumnFromFileAndCallback = function(filePath, 
 /****************************************************/
 /** ******************** FORM ******************** **/
 /****************************************************/
+
+/**
+ * This method init form with submit, reset and save events
+ */
+CucurbitaMaxima.prototype.initForm = function(){
+    var self = this;
+
+    // Buttons & events
+    $("#createForm").on("submit", function(e){
+        if (e.isDefaultPrevented()) {
+            $("#actionMessage").html("<span class='warning'>Il reste des champs à corriger</span>");
+        } else {
+            e.preventDefault(); // Avoid to launch the event submit
+            self.saveForm();
+        }
+    });
+
+    $("#saveForm").on("click", function(){
+        $("#createForm").submit();
+    });
+    $("#resetForm").on("click", function(){
+        self.resetForm();
+    });
+};
 
 /**
  * This method save the form's fields in the file. The header is already saved in file.
