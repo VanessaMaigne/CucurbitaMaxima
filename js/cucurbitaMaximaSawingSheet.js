@@ -14,6 +14,7 @@ function CucurbitaMaximaSawingSheet(){
     this.lineNumber=0;
     this.header = JSON.parse(jQuery.i18n.prop("sawingHeaderFile"));
     this.headerId = JSON.parse(jQuery.i18n.prop("sawingHeaderIdFile"));
+    this.headerToDisplay = JSON.parse(jQuery.i18n.prop("sawingHeaderFileToDisplay"));
 
     this.initToolTip = function() {
         $(".basicButton, .toolTipData").tooltip({
@@ -226,10 +227,8 @@ CucurbitaMaximaSawingSheet.prototype.displayDataHeader = function() {
     var self = this;
     $("#headerData").empty();
 
-    if(self.header && self.header.length > 0){
-        $("#headerData").append("<th>Numéro</th>");
-
-        $.each(self.header, function(i, d) {
+    if(self.headerToDisplay && self.headerToDisplay.length > 0){
+        $.each(self.headerToDisplay, function(i, d) {
             var thElement = $("<th></th>");
             thElement.html("<span>" + d + "</span>");
             $("#headerData").append(thElement);
@@ -254,13 +253,12 @@ CucurbitaMaximaSawingSheet.prototype.displayDataTable = function(csv) {
         var trElement = $("<tr></tr>");
         trElement.attr("class", "dc-table-group");
 
-        // Line number
-        trElement.append($('<td>'+(i+1)+'</td>'));
-
         keys.forEach(function(ff,ii) {
-            var tdElement = $("<td></td>");
-            tdElement.html("<span>" + d[keys[ii]] + "</span>");
-            trElement.append(tdElement);
+            if(-1 != jQuery.inArray(ff, self.headerToDisplay)){
+                var tdElement = $("<td></td>");
+                tdElement.html("<span>" + d[keys[ii]] + "</span>");
+                trElement.append(tdElement);
+            }
         });
         var modifyImage = $('<td><a href="../html/vegetalSheetCreate.php?ln='+(i+1)+'"><img src="../img/15.png" width="30px" class="toolTipData" title="Modifier la fiche"/></a></td>');
         trElement.append(modifyImage);

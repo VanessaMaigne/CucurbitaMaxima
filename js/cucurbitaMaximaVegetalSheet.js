@@ -21,7 +21,7 @@ function CucurbitaMaximaVegetalSheet(){
     }
 }
 
-extendClass(CucurbitaMaximaSawingSheet, CucurbitaMaxima);
+extendClass(CucurbitaMaximaVegetalSheet, CucurbitaMaxima);
 
 /****************************************************/
 /** ******************** CREATE ****************** **/
@@ -101,8 +101,6 @@ CucurbitaMaximaVegetalSheet.prototype.displayDataHeader = function() {
     $("#headerData").empty();
 
     if(self.header && self.header.length > 0){
-        $("#headerData").append("<th>Numéro</th>");
-
         $.each(self.header, function(i, d) {
             var thElement = $("<th></th>");
             thElement.html("<span>" + d + "</span>");
@@ -127,9 +125,6 @@ CucurbitaMaximaVegetalSheet.prototype.displayDataTable = function(csv) {
         var keys = d3.keys(d);
         var trElement = $("<tr></tr>");
         trElement.attr("class", "dc-table-group");
-
-        // Line number
-        trElement.append($('<td>'+(i+1)+'</td>'));
 
         keys.forEach(function(ff,ii) {
             var tdElement = $("<td></td>");
