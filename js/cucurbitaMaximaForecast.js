@@ -46,7 +46,7 @@ CucurbitaMaximaForecast.prototype.display = function(){
 
 
 
-    d3.csv(this.dataFile, function (data) {
+    d3.csv(this.dataFile, function (csv) {
 //    d3.csv('../data/ndx.csv', function (data) {
 //        var columnValues = new Array();
 
@@ -57,11 +57,11 @@ CucurbitaMaximaForecast.prototype.display = function(){
 //                if(key != "") columnValues.push(key);
 //            });
 
-        self.header = d3.keys(data[0]);
+        self.header = d3.keys(csv[0]);
 
         // Since its a csv file we need to format the data a bit.
         var dateFormat = d3.time.format('%m/%d/%Y');
-        var numberFormat = d3.format('.2f');
+//        var numberFormat = d3.format('.2f');
 
 //        data.forEach(function (d) {
 //            d.dd = dateFormat.parse(d.date);
@@ -70,8 +70,65 @@ CucurbitaMaximaForecast.prototype.display = function(){
 //            d.open = +d.open;
 //        });
 
-        var ndx = crossfilter(data);
-        var all = ndx.groupAll();
+//        Nom,Variete,Phase lunaire debut,Phase lunaire fin,Phase lunaire note,Sol,Type,Date de plantation,Cycle vegetatif,Date de recolte prevue,Distance sur les rangs,Distance entre les rangs,Exposition,Temperature
+//        Pdt,Charlotte,,,,Humifère,Semis,20/08/2015,2,22/08/2015,1,2,soleil,30,
+
+
+        var data = crossfilter(csv);
+        var dimensionHeader = data.dimension(function(d) {
+            return d;
+        });
+
+        // Dimension by month
+        var moveMonths = data.dimension(function (d) {
+//            return d.month;
+//            return d3.time.hour(d["Date de recolte prevue"]);
+//              return dateFormat.parse(d["Date de recolte prevue"]);
+            return d["Temperature"];
+        });
+        // Group by total movement within month
+//        var monthlyMoveGroup = moveMonths.group().reduceSum(function (d) {
+//            return Math.abs(d.close - d.open);
+//            return d["Date de recolte prevue"];
+//        });
+
+        var monthlyMoveGroup = moveMonths.group().reduceCount(function(d) {
+//            return d["Date de recolte prevue"];
+            return d["Temperature"];
+        });
+
+//"date","open","high","low","close","volume","oi"
+//11/01/1985,115.48,116.78,115.48,116.28,900900,0
+//11/04/1985,116.28,117.07,115.82,116.04,753400,0
+
+
+        // Group by total volume within move, and scale down result
+        var volumeByMonthGroup = moveMonths.group();//.reduceSum(function (d) {
+//            return d.volume / 500000;
+//        });
+        var indexAvgByMonthGroup = moveMonths.group().reduce(
+            function (p, v) {
+                ++p.days;
+                ++p.total;
+                p.avg = Math.round(p.total / p.days);
+                return p;
+            },
+            function (p, v) {
+                --p.days;
+                --p.total;
+                p.avg = p.days ? Math.round(p.total / p.days) : 0;
+                return p;
+            },
+            function () {
+                return {days: 0, total: 0, avg: 0};
+            }
+        );
+
+
+//        self.createDataTable("#data-count", "#data-table", "#headerData", data, data.groupAll(), dimensionHeader);
+        self.createAreaChart("#monthly-move-chart", moveMonths, volumeByMonthGroup, monthlyMoveGroup, indexAvgByMonthGroup);
+
+//        var all = ndx.groupAll();
 
         // Dimension by year
 //        var yearlyDimension = ndx.dimension(function (d) {
@@ -120,35 +177,6 @@ CucurbitaMaximaForecast.prototype.display = function(){
 //            return d.dd;
 //        });
 
-        // Dimension by month
-//        var moveMonths = ndx.dimension(function (d) {
-//            return d.month;
-//        });
-        // Group by total movement within month
-//        var monthlyMoveGroup = moveMonths.group().reduceSum(function (d) {
-//            return Math.abs(d.close - d.open);
-//        });
-        // Group by total volume within move, and scale down result
-//        var volumeByMonthGroup = moveMonths.group().reduceSum(function (d) {
-//            return d.volume / 500000;
-//        });
-//        var indexAvgByMonthGroup = moveMonths.group().reduce(
-//            function (p, v) {
-//                ++p.days;
-//                p.total += (v.open + v.close) / 2;
-//                p.avg = Math.round(p.total / p.days);
-//                return p;
-//            },
-//            function (p, v) {
-//                --p.days;
-//                p.total -= (v.open + v.close) / 2;
-//                p.avg = p.days ? Math.round(p.total / p.days) : 0;
-//                return p;
-//            },
-//            function () {
-//                return {days: 0, total: 0, avg: 0};
-//            }
-//        );
 
         // Create categorical dimension
 //        var gainOrLoss = ndx.dimension(function (d) {
@@ -190,22 +218,152 @@ CucurbitaMaximaForecast.prototype.display = function(){
 
 
 //        data = crossfilter(csv);
-        var dimensionHeader = ndx.dimension(function(d) {
-            return d;
-        });
-
-        self.createDataTable("#data-count", "#data-table", "#headerData", ndx, ndx.groupAll(), dimensionHeader);
-
         dc.renderAll();
 
     });
 };
 
 /****************************************************/
+/** ***************** AREA & RANGE *************** **/
+/****************************************************/
+CucurbitaMaximaForecast.prototype.createAreaChart = function(chartId, moveMonths, volumeByMonthGroup, monthlyMoveGroup, indexAvgByMonthGroup){
+    var volumeChart = dc.barChart('#monthly-volume-chart')
+        .width(990)
+        .height(40)
+        .margins({top: 0, right: 50, bottom: 20, left: 40})
+        .dimension(moveMonths)
+        .group(volumeByMonthGroup)
+        //        .centerBar(true)
+        //        .gap(1)
+        .x(d3.scale.linear().domain([-2, 50]))
+//        .x(d3.time.scale().domain([new Date(2015, 0, 1), new Date(2015, 11, 31)]))
+        //        .round(d3.time.month.round)
+        //        .alwaysUseRounding(true)
+        //        .xUnits(d3.time.days);
+        ;
+
+
+    dc.lineChart(chartId)
+//        .renderArea(true)
+        .width(960)
+        .height(150)
+        .transitionDuration(1000)
+        .margins({top: 30, right: 50, bottom: 25, left: 40})
+        .dimension(moveMonths)
+        .group(volumeByMonthGroup)
+//        .stack(monthlyMoveGroup, 'Monthly Index Move', function (d) {
+//            return d.value;
+//        })
+
+        .mouseZoomable(true)
+        .rangeChart(volumeChart)
+        .transitionDuration(500)
+        .elasticY(true)
+        .renderHorizontalGridLines(true)
+        .legend(dc.legend().x(800).y(10).itemHeight(13).gap(5))
+//        .title(function (d) {
+//            var value = d.value.avg ? d.value.avg : d.value;
+//            if (isNaN(value)) {
+//                value = 0;
+//            }
+//            return dateFormat(d.key) + '\n' + value;
+//        })
+        .x(d3.scale.linear().domain([-2, 50]))
+//        .x(d3.time.scale().domain([new Date(2015, 1, 18), new Date(2015, 12, 24)]))
+        .xAxis();
+           //        .round(d3.time.month.round)
+//         .xUnits(d3.time.days)
+        //        .brushOn(false)
+//        .group(indexAvgByMonthGroup, 'Monthly Index Average')
+//        .valueAccessor(function (d) {
+//            return d.value.avg;
+//        })
+//        .stack(monthlyMoveGroup, 'Monthly Index Move', function (d) {
+//            return d.value;
+//        })
+        //        .group(monthlyMoveGroup, 'Monthly Index Average')
+        //        .valueAccessor(function (d) {
+        //            return d.value.avg;
+        //        })
+
+
+//    this.moveChart /* dc.lineChart('#monthly-move-chart', 'chartGroup') */
+    /*    dc.lineChart(chartId)
+     .renderArea(true)
+     .width(990)
+     .height(200)
+     .transitionDuration(1000)
+     .margins({top: 30, right: 50, bottom: 25, left: 40})
+     .dimension(moveMonths)
+     //        .mouseZoomable(true)
+     // Specify a "range chart" to link its brush extent with the zoom of the current "focus chart".
+     //        .rangeChart(volumeChart)
+     //        .x(d3.time.scale().domain([new Date(1985, 0, 1), new Date(2012, 11, 31)]))
+     .x(d3.time.scale().domain([new Date(2015, 0, 1), new Date(2015, 11, 31)]))
+     //        .round(d3.time.month.round)
+     //        .xUnits(d3.time.days)
+     .elasticY(true)
+     .renderHorizontalGridLines(true)
+     //##### Legend
+
+     // Position the legend relative to the chart origin and specify items' height and separation.
+     .legend(dc.legend().x(800).y(10).itemHeight(13).gap(5))
+     //        .brushOn(false)
+     // Add the base layer of the stack with group. The second parameter specifies a series name for use in the
+     // legend.
+     // The `.valueAccessor` will be used for the base layer
+     .group(indexAvgByMonthGroup, 'Monthly Index Average')
+     .valueAccessor(function (d) {
+     return d.value.avg;
+     })
+     // Stack additional layers with `.stack`. The first paramenter is a new group.
+     // The second parameter is the series name. The third is a value accessor.
+     .stack(monthlyMoveGroup, 'Monthly Index Move', function (d) {
+     return d.value;
+     })
+     //        .group(monthlyMoveGroup, 'Monthly Index Average')
+     //        .valueAccessor(function (d) {
+     //            return d.value.avg;
+     //        })
+
+     // Title can be called by any stack layer.
+     .title(function (d) {
+     var value = d.value.avg ? d.value.avg : d.value;
+     if (isNaN(value)) {
+     value = 0;
+     }
+     return dateFormat(d.key) + '\n' + value;
+     });
+
+     */
+};
+
+
+CucurbitaMaximaForecast.prototype.createRangeChart = function(){
+    this.volumeChart.width(990) /* dc.barChart('#monthly-volume-chart', 'chartGroup'); */
+        .height(40)
+        .margins({top: 0, right: 50, bottom: 20, left: 40})
+        .dimension(moveMonths)
+        .group(volumeByMonthGroup)
+        .centerBar(true)
+        .gap(1)
+        .x(d3.time.scale().domain([new Date(1985, 0, 1), new Date(2012, 11, 31)]))
+        .round(d3.time.month.round)
+        .alwaysUseRounding(true)
+        .xUnits(d3.time.months);
+};
+
+
+/****************************************************/
 /** ****************** DATA TABLE **************** **/
 /****************************************************/
 CucurbitaMaximaForecast.prototype.createDataTable = function(countId, tableId, tableHeaderId, allD, allG, tableD) {
     var self = this;
+    var dataColumns = new Array();
+    $.each(this.forecastSawingData, function(i,d){
+        dataColumns.push(function(e){return e[d]});
+    });
+
     this.createDataTableHeader(tableHeaderId);
 
     dc.dataCount(countId)
@@ -216,19 +374,10 @@ CucurbitaMaximaForecast.prototype.createDataTable = function(countId, tableId, t
         .dimension(tableD)
         .group(function(d) { return d[self.forecastSawingGroup]; })
         .size(allG.value())
-//        .columns([ function(d){return d["Variete"]},function(d){return d["Sol"]}, function(d){return d["Type"]}, function(d){return d["Date de plantation"]}])
-//        .columns(function(d){
-//            var bob = new Array();
-//            bob.push(d["Variete"]);
-//            return bob;
-//        })
-        .columns(function(){
-    return function(d){return d["Variete"]},function(d){return d["Sol"]}, function(d){return d["Type"]}, function(d){return d["Date de plantation"]}];
-//    return pif;
-})
-    .renderlet(function (table) {
-        table.selectAll(".dc-table-group").classed("info", true);
-    });
+        .columns(dataColumns)
+        .renderlet(function (table) {
+            table.selectAll(".dc-table-group").classed("info", true);
+        });
 
 };
 
@@ -238,6 +387,11 @@ CucurbitaMaximaForecast.prototype.createDataTableHeader = function(tableHeaderId
     });
 };
 
+
+
+/****************************************************/
+/** ****************** PIE **************** **/
+/****************************************************/
 
 CucurbitaMaximaForecast.prototype.createPie = function(){
     this.gainOrLossChart /* dc.pieChart('#gain-loss-chart', 'chartGroup') */
@@ -340,66 +494,67 @@ CucurbitaMaximaForecast.prototype.createBar = function(){
         function (v) { return v + '%'; });
     this.fluctuationChart.yAxis().ticks(5);
 };
+/*
 
-CucurbitaMaximaForecast.prototype.createAreaChart = function(){
-    this.moveChart /* dc.lineChart('#monthly-move-chart', 'chartGroup') */
-        .renderArea(true)
-        .width(990)
-        .height(200)
-        .transitionDuration(1000)
-        .margins({top: 30, right: 50, bottom: 25, left: 40})
-        .dimension(moveMonths)
-        .mouseZoomable(true)
-        // Specify a "range chart" to link its brush extent with the zoom of the current "focus chart".
-        .rangeChart(volumeChart)
-        .x(d3.time.scale().domain([new Date(1985, 0, 1), new Date(2012, 11, 31)]))
-        .round(d3.time.month.round)
-        .xUnits(d3.time.months)
-        .elasticY(true)
-        .renderHorizontalGridLines(true)
-        //##### Legend
+ CucurbitaMaximaForecast.prototype.createAreaChart = function(){
+ this.moveChart
+ .renderArea(true)
+ .width(990)
+ .height(200)
+ .transitionDuration(1000)
+ .margins({top: 30, right: 50, bottom: 25, left: 40})
+ .dimension(moveMonths)
+ .mouseZoomable(true)
+ // Specify a "range chart" to link its brush extent with the zoom of the current "focus chart".
+ .rangeChart(volumeChart)
+ .x(d3.time.scale().domain([new Date(1985, 0, 1), new Date(2012, 11, 31)]))
+ .round(d3.time.month.round)
+ .xUnits(d3.time.months)
+ .elasticY(true)
+ .renderHorizontalGridLines(true)
+ //##### Legend
 
-        // Position the legend relative to the chart origin and specify items' height and separation.
-        .legend(dc.legend().x(800).y(10).itemHeight(13).gap(5))
-        .brushOn(false)
-        // Add the base layer of the stack with group. The second parameter specifies a series name for use in the
-        // legend.
-        // The `.valueAccessor` will be used for the base layer
-        .group(indexAvgByMonthGroup, 'Monthly Index Average')
-        .valueAccessor(function (d) {
-            return d.value.avg;
-        })
-        // Stack additional layers with `.stack`. The first paramenter is a new group.
-        // The second parameter is the series name. The third is a value accessor.
-        .stack(monthlyMoveGroup, 'Monthly Index Move', function (d) {
-            return d.value;
-        })
-        // Title can be called by any stack layer.
-        .title(function (d) {
-            var value = d.value.avg ? d.value.avg : d.value;
-            if (isNaN(value)) {
-                value = 0;
-            }
-            return dateFormat(d.key) + '\n' + numberFormat(value);
-        });
-};
-
-
-CucurbitaMaximaForecast.prototype.createRangeChart = function(){
-    this.volumeChart.width(990) /* dc.barChart('#monthly-volume-chart', 'chartGroup'); */
-        .height(40)
-        .margins({top: 0, right: 50, bottom: 20, left: 40})
-        .dimension(moveMonths)
-        .group(volumeByMonthGroup)
-        .centerBar(true)
-        .gap(1)
-        .x(d3.time.scale().domain([new Date(1985, 0, 1), new Date(2012, 11, 31)]))
-        .round(d3.time.month.round)
-        .alwaysUseRounding(true)
-        .xUnits(d3.time.months);
-};
+ // Position the legend relative to the chart origin and specify items' height and separation.
+ .legend(dc.legend().x(800).y(10).itemHeight(13).gap(5))
+ .brushOn(false)
+ // Add the base layer of the stack with group. The second parameter specifies a series name for use in the
+ // legend.
+ // The `.valueAccessor` will be used for the base layer
+ .group(indexAvgByMonthGroup, 'Monthly Index Average')
+ .valueAccessor(function (d) {
+ return d.value.avg;
+ })
+ // Stack additional layers with `.stack`. The first paramenter is a new group.
+ // The second parameter is the series name. The third is a value accessor.
+ .stack(monthlyMoveGroup, 'Monthly Index Move', function (d) {
+ return d.value;
+ })
+ // Title can be called by any stack layer.
+ .title(function (d) {
+ var value = d.value.avg ? d.value.avg : d.value;
+ if (isNaN(value)) {
+ value = 0;
+ }
+ return dateFormat(d.key) + '\n' + numberFormat(value);
+ });
+ };
 
 
+ CucurbitaMaximaForecast.prototype.createRangeChart = function(){
+ this.volumeChart.width(990)
+ .height(40)
+ .margins({top: 0, right: 50, bottom: 20, left: 40})
+ .dimension(moveMonths)
+ .group(volumeByMonthGroup)
+ .centerBar(true)
+ .gap(1)
+ .x(d3.time.scale().domain([new Date(1985, 0, 1), new Date(2012, 11, 31)]))
+ .round(d3.time.month.round)
+ .alwaysUseRounding(true)
+ .xUnits(d3.time.months);
+ };
+
+ */
 
 
 CucurbitaMaximaForecast.prototype.createBubble = function()
