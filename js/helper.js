@@ -9,22 +9,38 @@ var extendClass = function(child, parent) {
     child.prototype = new Surrogate();
 };
 
-
 /**
  * Method return the actual season
- * http://www.sitepoint.com/forums/showthread.php?305954-Need-JavaScript-to-go-with-the-seasons-Background
  */
 function getSeason(){
     var today = new Date();
-    var month = today.getMonth();
-    if (today.getDate() > 20) month++;
-    var season = Math.floor(month/3);
-    var seasons = ["Hiver", "Printemps", "Eté", "Automne"];
-    return seasons[season];
-//    switch (season) {
-//        case 1: alert('fall'); break;
-//        case 2: alert('winter'); break;
-//        case 3: alert('spring'); break;
-//        default: alert('summer'); break;
-//    }
+    var result = new Object();
+
+    if(today >= $.datepicker.parseDate("dd/mm", "21/03") && today < $.datepicker.parseDate("dd/mm", "21/06")){
+        result.name = "Printemps";
+        result.period = "("+$.datepicker.formatDate("dd MM", $.datepicker.parseDate("dd/mm", "21/03"))+", "+$.datepicker.formatDate("dd MM", $.datepicker.parseDate("dd/mm", "21/06"))+")";
+    }
+    if(today >= $.datepicker.parseDate("dd/mm", "21/06") && today < $.datepicker.parseDate("dd/mm", "23/09")){
+        result.name = "Eté";
+        result.period = "("+$.datepicker.formatDate("dd MM", $.datepicker.parseDate("dd/mm", "21/06"))+", "+$.datepicker.formatDate("dd MM", $.datepicker.parseDate("dd/mm", "23/09"))+")";
+    }
+    if(today >= $.datepicker.parseDate("dd/mm", "23/09") && today < $.datepicker.parseDate("dd/mm", "22/12")){
+        result.name = "Automne";
+        result.period = "("+$.datepicker.formatDate("dd MM", $.datepicker.parseDate("dd/mm", "23/09"))+", "+$.datepicker.formatDate("dd MM", $.datepicker.parseDate("dd/mm", "22/12"))+")";
+    }
+    if(today >= $.datepicker.parseDate("dd/mm", "22/12") && today < $.datepicker.parseDate("dd/mm", "21/03")){
+        result.name = "Hiver";
+        result.period = "("+$.datepicker.formatDate("dd MM", $.datepicker.parseDate("dd/mm", "22/12"))+", "+$.datepicker.formatDate("dd MM", $.datepicker.parseDate("dd/mm", "21/03"))+")";
+    }
+    return result;
+}
+
+/**
+ * Method remove accent from text
+ * @param Texte
+ */
+function replaceSpec(Texte){
+    var TabSpec = {"à":"a","á":"a","â":"a","ã":"a","ä":"a","å":"a","ò":"o","ó":"o","ô":"o","õ":"o","ö":"o","ø":"o","è":"e","é":"e","ê":"e","ë":"e","ç":"c","ì":"i","í":"i","î":"i","ï":"i","ù":"u","ú":"u","û":"u","ü":"u","ÿ":"y","ñ":"n","-":" ","_":" "};
+    var reg=/[àáâãäåòóôõöøèéêëçìíîïùúûüÿñ_-]/gi;
+    return Texte.replace(reg,function(){ return TabSpec[arguments[0].toLowerCase()];}).toLowerCase();
 }

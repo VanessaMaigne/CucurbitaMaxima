@@ -28,7 +28,9 @@ function CucurbitaMaxima(){
 
     this.init = function(){
         var season = getSeason();
-        $("#dateValue").html(this.dateValue+", "+season);
+        $("#season").attr("src","img/"+replaceSpec(season.name)+".png");
+        $("#season").attr("title", season.name+" "+season.period);
+        $("#dateValue").html(this.dateValue);
         this.initToolTip();
     };
 }
