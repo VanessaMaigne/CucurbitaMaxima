@@ -4,7 +4,7 @@
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Cucurbita Maxima Forecast</title>
+    <title>Cucurbita Maxima Statistics</title>
     <link rel="icon" href="../img/tomato_16.png" type="image/png">
 
     <!-- ************************* CSS ************************* -->
@@ -28,7 +28,7 @@
 
     <script type="text/javascript" src="../js/helper.js"></script>
     <script type="text/javascript" src="../js/cucurbitaMaxima.js"></script>
-    <script type="text/javascript" src="../js/cucurbitaMaximaForecast.js"></script>
+    <script type="text/javascript" src="../js/cucurbitaMaximaStatistics.js"></script>
 </HEAD>
 
 
@@ -84,7 +84,7 @@
 
         <script type="text/javascript">
             $(window).load(function() {
-                new CucurbitaMaximaForecast().display();
+                new CucurbitaMaximaStatistics().display();
             });
 
         </script>

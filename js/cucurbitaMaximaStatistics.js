@@ -8,7 +8,7 @@
  * https://dc-js.github.io/dc.js/docs/stock.html
  */
 
-function CucurbitaMaximaForecast(){
+function CucurbitaMaximaStatistics(){
     this.dataFile = jQuery.i18n.prop("sawingSheetFilePath");
     this.forecastSawingGroup=jQuery.i18n.prop("forecastSawingDataGroup");
     this.forecastSawingData=JSON.parse(jQuery.i18n.prop("forecastSawingData"));
@@ -29,12 +29,12 @@ function CucurbitaMaximaForecast(){
             container:'body'});
     }
 }
-extendClass(CucurbitaMaximaForecast, CucurbitaMaxima);
+extendClass(CucurbitaMaximaStatistics, CucurbitaMaxima);
 
 /****************************************************/
 /** ******************** DISPLAY ***************** **/
 /****************************************************/
-CucurbitaMaximaForecast.prototype.display = function(){
+CucurbitaMaximaStatistics.prototype.display = function(){
     var self = this;
 
 //    this.gainOrLossChart = dc.pieChart('#gain-loss-chart');
@@ -219,7 +219,7 @@ CucurbitaMaximaForecast.prototype.display = function(){
 /****************************************************/
 /** ***************** AREA & RANGE *************** **/
 /****************************************************/
-CucurbitaMaximaForecast.prototype.createAreaChart = function(chartId, subChartId, dateDimension, dateGroup, monthlyMoveGroup, indexAvgByMonthGroup){
+CucurbitaMaximaStatistics.prototype.createAreaChart = function(chartId, subChartId, dateDimension, dateGroup, monthlyMoveGroup, indexAvgByMonthGroup){
     var minDate = cucurbitaDateFormatForD3.parse(dateDimension.bottom(1)[0][this.forecastSawingDataDate]);
     var maxDate = cucurbitaDateFormatForD3.parse(dateDimension.top(1)[0][this.forecastSawingDataDate]);
     var newMinDate = new Date(minDate);
@@ -343,7 +343,7 @@ CucurbitaMaximaForecast.prototype.createAreaChart = function(chartId, subChartId
 };
 
 
-CucurbitaMaximaForecast.prototype.createRangeChart = function(){
+CucurbitaMaximaStatistics.prototype.createRangeChart = function(){
     this.volumeChart.width(990) /* dc.barChart('#monthly-volume-chart', 'chartGroup'); */
         .height(40)
         .margins({top: 0, right: 50, bottom: 20, left: 40})
@@ -361,7 +361,7 @@ CucurbitaMaximaForecast.prototype.createRangeChart = function(){
 /****************************************************/
 /** ****************** DATA TABLE **************** **/
 /****************************************************/
-CucurbitaMaximaForecast.prototype.createDataTable = function(countId, tableId, tableHeaderId, allD, allG, tableD) {
+CucurbitaMaximaStatistics.prototype.createDataTable = function(countId, tableId, tableHeaderId, allD, allG, tableD) {
     var self = this;
     var dataColumns = new Array();
     $.each(this.forecastSawingData, function(i,d){
@@ -385,7 +385,7 @@ CucurbitaMaximaForecast.prototype.createDataTable = function(countId, tableId, t
 
 };
 
-CucurbitaMaximaForecast.prototype.createDataTableHeader = function(tableHeaderId) {
+CucurbitaMaximaStatistics.prototype.createDataTableHeader = function(tableHeaderId) {
     $.each(this.forecastSawingData, function(i,d){
         $(tableHeaderId).append('<th class="dc-table-head" data-col="'+i+'">'+d+'</th>');
     });
@@ -397,7 +397,7 @@ CucurbitaMaximaForecast.prototype.createDataTableHeader = function(tableHeaderId
 /** ****************** PIE **************** **/
 /****************************************************/
 
-CucurbitaMaximaForecast.prototype.createPie = function(){
+CucurbitaMaximaStatistics.prototype.createPie = function(){
     this.gainOrLossChart /* dc.pieChart('#gain-loss-chart', 'chartGroup') */
         // (_optional_) define chart width, `default = 200`
         .width(180)
@@ -436,7 +436,7 @@ CucurbitaMaximaForecast.prototype.createPie = function(){
          */;
 };
 
-CucurbitaMaximaForecast.prototype.createPie2 = function(){
+CucurbitaMaximaStatistics.prototype.createPie2 = function(){
 
     this.quarterChart /* dc.pieChart('#quarter-chart', 'chartGroup') */
         .width(180)
@@ -448,7 +448,7 @@ CucurbitaMaximaForecast.prototype.createPie2 = function(){
 
 };
 
-CucurbitaMaximaForecast.prototype.createRow = function(){
+CucurbitaMaximaStatistics.prototype.createRow = function(){
     this.dayOfWeekChart /* dc.rowChart('#day-of-week-chart', 'chartGroup') */
         .width(180)
         .height(180)
@@ -469,7 +469,7 @@ CucurbitaMaximaForecast.prototype.createRow = function(){
 
 };
 
-CucurbitaMaximaForecast.prototype.createBar = function(){
+CucurbitaMaximaStatistics.prototype.createBar = function(){
     this.fluctuationChart /* dc.barChart('#volume-month-chart', 'chartGroup') */
         .width(420)
         .height(180)
@@ -561,7 +561,7 @@ CucurbitaMaximaForecast.prototype.createBar = function(){
  */
 
 
-CucurbitaMaximaForecast.prototype.createBubble = function()
+CucurbitaMaximaStatistics.prototype.createBubble = function()
 {
     this.yearlyBubbleChart /* dc.bubbleChart('#yearly-bubble-chart', 'chartGroup') */
         // (_optional_) define chart width, `default = 200`
