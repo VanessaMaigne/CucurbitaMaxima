@@ -10,6 +10,7 @@
 function CucurbitaMaximaSawingSheet(){
     this.dataFileProperty = "sawingSheetFilePath";
     this.dataFile = jQuery.i18n.prop(this.dataFileProperty);
+    this.createFileName=jQuery.i18n.prop("sawingCreateFilePath");
     this.lineNumber=0;
     this.header = JSON.parse(jQuery.i18n.prop("sawingHeaderFile"));
     this.headerId = JSON.parse(jQuery.i18n.prop("sawingHeaderIdFile"));
@@ -17,14 +18,10 @@ function CucurbitaMaximaSawingSheet(){
 
     this.vegetalFilePath = "../data/vegetalSheet.csv";
     this.vegetalHeaderForSawingSelect=jQuery.i18n.prop("vegetalHeaderForSawingSelect");
-
-    this.initToolTip = function() {
-        $(".basicButton, .toolTipData").tooltip({
-            placement: "top",
-            container:'body'});
-    }
 }
+
 extendClass(CucurbitaMaximaSawingSheet, CucurbitaMaxima);
+
 
 /****************************************************/
 /** ******************** CREATE ****************** **/
@@ -80,12 +77,14 @@ CucurbitaMaximaSawingSheet.prototype.createSelects = function(){
  * @param nameList
  */
 CucurbitaMaximaSawingSheet.prototype.fillNameSelect = function(nameList){
-    $( "#nameSelect" ).append( "<option disabled>Sélectionnez un nom binomial</option>" );
     $.each( nameList, function( i, d )
     {
         $( "#nameSelect" ).append( "<option value='" + d + "'>" + d + "</option>" );
     } );
-    $( "#nameSelect" ).select2();
+    $( "#nameSelect" ).select2({
+        placeholder: "Select a state",
+        allowClear: true
+    });
 };
 
 /**
@@ -165,124 +164,3 @@ CucurbitaMaximaSawingSheet.prototype.resetForm = function(){
     $("#plantDateWeek").html("(semaine : "+$.datepicker.iso8601Week(pickerDate) +")");
     this.calculateCrop();
 };
-
-/**
- * This method fills the form with values from the file line
- * @param dataLine
- */
-CucurbitaMaximaSawingSheet.prototype.fillForm = function(dataLine){
-    var values = dataLine.replace("\n", "").split(",");
-    $.each(this.headerId, function(i,d){
-        $("#"+d).val(values[i]);
-    });
-};
-
-
-/****************************************************/
-/** ********************* LIST ******************* **/
-/****************************************************/
-CucurbitaMaximaSawingSheet.prototype.list = function() {
-    this.readFileAndDisplayContent();
-};
-
-/**
- * This method read the file and display the content
- */
-CucurbitaMaximaSawingSheet.prototype.readFileAndDisplayContent = function() {
-    var self = this;
-    d3.csv(self.dataFile, function (error, csv) {
-        // Header columns
-        self.header = d3.keys(csv[0]);
-        if(self.lineNumber == csv.length) alert("Erreur sur le fichier, veuillez vérifier les droits d'accès.");
-        self.lineNumber = csv.length;
-
-        $("#total-count").html(csv.length);
-        self.displayDataHeader();
-        self.displayDataTable(csv, self.header);
-        self.initToolTip();
-
-        // Data
-//        self.data = crossfilter(csv);
-//        var dimensionHeader = self.data.dimension(function(d) {
-//            return d;
-//        });
-    });
-};
-
-/**
- * This method displays the header.
- */
-CucurbitaMaximaSawingSheet.prototype.displayDataHeader = function() {
-    var self = this;
-    $("#headerData").empty();
-
-    if(self.headerToDisplay && self.headerToDisplay.length > 0){
-        $.each(self.headerToDisplay, function(i, d) {
-            var thElement = $("<th></th>");
-            thElement.html("<span>" + d + "</span>");
-            $("#headerData").append(thElement);
-        });
-        var thElement = $("<th colspan='2'>Actions</th>");
-        $("#headerData").append(thElement);
-    }
-};
-
-/**
- * This method displays the file's content.
- * @param csv
- */
-CucurbitaMaximaSawingSheet.prototype.displayDataTable = function(csv) {
-    var self = this;
-    $("#dataContent").empty();
-
-    if(csv.length <= 0) $("#dataContent").html("<center>Aucune fiche enregistrée.</center>");
-
-    $.each(csv, function(i, d) {
-        var keys = d3.keys(d);
-        var trElement = $("<tr></tr>");
-        trElement.attr("class", "dc-table-group");
-
-        keys.forEach(function(ff,ii) {
-            if(-1 != jQuery.inArray(ff, self.headerToDisplay)){
-                var tdElement = $("<td></td>");
-                tdElement.html("<span>" + d[keys[ii]] + "</span>");
-                trElement.append(tdElement);
-            }
-        });
-        var modifyImage = $('<td><a href="../html/vegetalSheetCreate.php?ln='+(i+1)+'"><img src="../img/15.png" width="30px" class="toolTipData" title="Modifier la fiche"/></a></td>');
-        trElement.append(modifyImage);
-        var removeImage = $('<td><img src="../img/118.png" width="30px" class="toolTipData" title="Supprimer la fiche"/></td>');
-        removeImage.on("click", function(){
-            self.removeElement(i);
-        });
-        trElement.append(removeImage);
-
-        $("#dataContent").append(trElement);
-    })
-};
-
-/**
- * This method remove a sheet by its line number.
- * @param lineNumber
- */
-CucurbitaMaximaSawingSheet.prototype.removeElement = function(lineNumber){
-    var self = this;
-    lineNumber++;
-    if(confirm("Confirmer la suppression de la fiche numéro "+lineNumber)){
-        $.ajax( {
-            url:'../phpScript/removeLine.php?fileName=sheetFile&ln='+lineNumber,
-            type:'GET',
-            error: function()
-            {
-                alert( "Erreur : suppression non effectuée ! Veuillez vérifier les droits du fichier." );
-            },
-            success: function()
-            {
-                self.readFileAndDisplayContent();
-            }
-        } );
-    }
-};
-
-
-

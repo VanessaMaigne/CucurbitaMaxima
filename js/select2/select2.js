@@ -17,6 +17,9 @@ Unless required by applicable law or agreed to in writing, software distributed 
 Apache License or the GPL Licesnse is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
 CONDITIONS OF ANY KIND, either express or implied. See the Apache License and the GPL License for
 the specific language governing permissions and limitations under the Apache License and the GPL License.
+
+https://select2.github.io/
+
 */
 (function ($) {
     if(typeof $.fn.each2 == "undefined") {

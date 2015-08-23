@@ -74,7 +74,7 @@
             <div class="form-group has-feedback">
                 <div class="col-sm-2"><label for="binomialName">Nom</label></div>
                 <div class="col-sm-5">
-                    <input id="binomialName" class="form-control" data-error="Veuillez remplir ce champ" required/>
+                    <input id="binomialName" class="form-control" value="L.1357" data-error="Veuillez remplir ce champ" required/>
                     <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                 </div>
                 <div class="col-sm-3 help-block with-errors"></div>
