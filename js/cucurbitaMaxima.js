@@ -23,14 +23,27 @@ var cucurbitaDateFormatForD3 = d3.time.format('%d/%m/%Y');
 
 
 function CucurbitaMaxima(){
-    var localFormat = d3.time.format('%A %e %B %Y %Hh%M');
+    var localFormat = d3.time.format('%A %e %B %Y&nbsp;&nbsp;%Hh%M');
     this.dateValue = localFormat(new Date());
+    this.moonArray =JSON.parse(jQuery.i18n.prop("moonArray"));
+    this.moonArrayNameImg =JSON.parse(jQuery.i18n.prop("moonArrayNameImg"));
 
     this.init = function(){
         var season = getSeason();
         $("#season").attr("src","img/"+replaceSpec(season.name)+".png");
         $("#season").attr("title", season.name+" "+season.period);
         $("#dateValue").html(this.dateValue);
+
+        // Animate zones climatiques image
+//        var small={width:"150px",height:"150px"};
+//        var large={width:"400px",height:"400"};
+//        var count=1;
+//        $("#climateZones").css(small).on('click',function () {
+//            $(this).animate((count==1)?large:small);
+//            count = 1-count;
+//        });
+
+        this.calculateMoon();
         this.initToolTip();
     };
 }
@@ -43,6 +56,52 @@ CucurbitaMaxima.prototype.initToolTip = function() {
     $(".basicButton, .toolTipData").tooltip({
         placement: "top",
         container:'body'});
+
+    $("#banner img").tooltip({
+        placement: "bottom",
+        container:'body'});
+
+    var toolTip = d3.tip()
+        .attr('class', 'd3-tip')
+        .html(function (d) {
+//            return "<span class='d3-tipTitle' style='color:" + d.color + "'>" + d.name + "</span>";
+            return d;
+        });
+
+    d3.selectAll("#moon").call(toolTip);
+//    d3.selectAll("#moon")
+//        .on('mouseover', toolTip.show)
+//        .on('mouseout', toolTip.hide);
+
+};
+
+/****************************************************/
+/** ********************* HOME ******************* **/
+/****************************************************/
+/**
+ * //        https://github.com/mourner/suncalc
+ // http://www.aphayes.pwp.blueyonder.co.uk/sun_moon.html
+ //        https://stardate.org/nightsky/moon
+ */
+CucurbitaMaxima.prototype.calculateMoon = function() {
+    var self = this;
+    var now=new Date();
+    var Year=getFullYear(now);
+    var JDE=MoonQuarters(Year,now.getMonth()+1,now.getDate());
+
+    var title="";
+    var quarter = new Object();
+    $.each(JDE, function(i,d){
+        var JDEc=jdtocd(d);
+        var quarterDate = $.datepicker.parseDate("dd/mm", JDEc[2]+"/"+JDEc[1]);
+        if(now > quarterDate) {
+            quarter.name = self.moonArray[i];
+            quarter.image = self.moonArrayNameImg[i];
+        }
+        title += self.moonArray[i]+" : "+datestring(JDEc[0],JDEc[1],JDEc[2]);
+    });
+    $("#moon").attr("title", '<span class="specialToolTipTitle">'+quarter.name+'</span>'+title+'<br>');
+    $("#moon").attr("src", "img/"+quarter.image);
 };
 
 

@@ -44,3 +44,23 @@ function replaceSpec(Texte){
     var reg=/[àáâãäåòóôõöøèéêëçìíîïùúûüÿñ_-]/gi;
     return Texte.replace(reg,function(){ return TabSpec[arguments[0].toLowerCase()];}).toLowerCase();
 }
+
+
+/**
+ * Method to get the year for the moon calculate
+ * @param now
+ */
+function getFullYear(now) {
+  var year = now.getYear();
+  if (year==0) {year=2000};
+  if (year<1900) {year=year+1900};
+  return year;
+}
+
+function datestring(year,month,day) {
+// provides a locale independent format - year:month:day
+  var datestr = "";  datestr += year;
+  datestr += ((month < 10) ? "/0" : "/") + month;
+  datestr += ((day < 10) ? "/0" : "/") + day;
+  return datestr;
+}

@@ -37,7 +37,7 @@
         <div class="col-sm-2 col-md-2"><BR/>
             <a href="../index.html"><img src="../img/120.png" class="basicButton" width="40px" title="Retour page d'accueil"/></a>&nbsp;&nbsp;
             <a href="sawingSheetList.php"><img src="../img/16.png" class="basicButton" width="40px" title="Liste des fiches"/></a>&nbsp;&nbsp;
-            <a href="forecast.php"><img src="../img/78.png" class="basicButton" width="40px" title="Prévision des récoltes"/></a>
+            <a href="statistics.php"><img src="../img/78.png" class="basicButton" width="40px" title="Prévision des récoltes"/></a>
         </div>
         <div class="text-center"><h2 class="sawingTitle">Fiche de culture</h2><BR/><BR/></div>
 

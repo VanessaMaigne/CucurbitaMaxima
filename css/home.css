@@ -1,6 +1,6 @@
 h1 {
     color: #449D44;
-    font-size: 80px;
+    font-size: 60px;
     /*color: #5BC0DE;*/
 }
 
@@ -17,19 +17,6 @@ h4 {
 #actionMessage {
     color: #5cb85c;
     font-size: 16px;
-}
-
-.container {
-    border: 2px solid gray;
-    border-radius: 10px;
-    margin: 10px 20px 15px;
-    padding: 15px 15px 50px;
-}
-
-#dateValue {
-    color: gray;
-    font-size: 18px;
-    margin-top: 8px;
 }
 
 .form-group{
@@ -60,6 +47,34 @@ h4 {
 /* ***************************************** */
 /* *************** HOME PAGE *************** */
 /* ***************************************** */
+.containerHome {
+    border: 2px solid gray;
+    border-radius: 10px;
+    min-height: 500px;
+    margin-top: 10px;
+    padding-top : 10px;
+}
+
+#dateValue {
+    color: gray;
+    font-size: 24px;
+    margin: 6px 0 0 -50px;
+}
+
+#banner {
+    color: #696969;
+}
+
+.bottomBanner {
+    color: #449D44;
+    font-size: 12px;
+}
+
+#climateZones{
+    margin-top: -9px;
+    /*cursor: pointer;*/
+}
+
 .basicDiv {
     border-radius: 10px;
     border: 1px solid #ccc;
@@ -93,7 +108,7 @@ h4 {
     padding: 0 !important;
 }
 
-#trolley{
+#actions{
     margin: 20px 20px 20px 60px;
 }
 
@@ -105,10 +120,6 @@ button a {
     color: #FF7F50;
 }
 
-
-/* ***************************************** */
-/* *************** HOME PAGE *************** */
-/* ***************************************** */
 
 /* ***************************************** */
 /* *********** VEGETAL SHEET PAGE ********** */
@@ -182,6 +193,10 @@ button a {
 
 .tooltip.right .tooltip-arrow {
     border-right-color: rgba(0, 0, 0, 0.6);
+}
+
+.specialToolTipTitle{
+    color: #449D44;
 }
 
 /* ************** D3-TIP ************** */
