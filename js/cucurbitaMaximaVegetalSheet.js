@@ -28,6 +28,7 @@ CucurbitaMaximaVegetalSheet.prototype.create = function(){
 
     var dateValue = $.datepicker.formatDate('DD dd MM yy', new Date());
     $("#smallDateValue").html(dateValue);
+    $("#reign").focus();
 
     self.initToolTip();
 

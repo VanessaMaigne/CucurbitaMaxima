@@ -184,6 +184,11 @@ CucurbitaMaxima.prototype.initForm = function(){
     var self = this;
 
     // Buttons & events
+    $("#createForm input").on("blur", function(d){
+        var value = $(this).val();
+        $(this).val(value.charAt(0).toUpperCase()+value.substring(1));
+    });
+
     $("#createForm").on("submit", function(e){
         if (e.isDefaultPrevented()) {
             $("#actionMessage").html("<span class='warning'>Il reste des champs à corriger</span>");

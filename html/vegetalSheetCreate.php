@@ -71,7 +71,7 @@
             <div class="form-group has-feedback">
                 <div class="col-sm-3"><label for="binomialName">Nom</label></div>
                 <div class="col-sm-8">
-                    <input id="binomialName" class="form-control" value="L.1753" data-error="Veuillez remplir ce champ" required/>
+                    <input id="binomialName" class="form-control" value="L., 1753" data-error="Veuillez remplir ce champ" required/>
                     <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                 </div>
                 <div class="col-sm-3 help-block with-errors"></div>
@@ -88,19 +88,13 @@
                 <img src="../img/PremiersMelons.JPG" width="100px"/>
                 <img src="../img/PremiersMelons.JPG" width="100px"/>
             </div>
-
-            <div id="actionMessage" class="col-md-12 text-center"></div>
-            <div class="col-md-12 text-center">
-                <button id="saveForm" class="btn btn-success">Enregistrer</button><BR/><BR/>
-                <button id="resetForm" class="btn btn-danger">Annuler</button>
-            </div>
         </div>
 
 
         <!-- ************ Left column ************ -->
         <div class="col-sm-5 col-md-5">
-            <BR/><BR/><BR/><BR/><BR/><BR/><BR/>
             <div class="row col-sm-12 col-md-12"><h3>Classification phylogénétique</h3></div>
+            <BR/><BR/><BR/><BR/><BR/><BR/><BR/><BR/><BR/>
             <div class="form-group">
                 <div class="col-sm-3"><label for="orderCP">Ordre</label></div>
                 <div class="col-sm-7"><input id="orderCP" class="form-control"/></div>
@@ -114,7 +108,14 @@
                 <input type="file" id="exampleInputFile">
                 <p class="help-block">Taille maximale des photos : .</p>
             </div>
+
+            <div id="actionMessage" class="col-md-12 text-center"></div>
+            <div class="col-md-12 text-center">
+                <button id="saveForm" class="btn btn-success">Enregistrer</button>
+                <button id="resetForm" class="btn btn-danger">Annuler</button>
+            </div>
         </div>
+
     </form>
 
 </div>
