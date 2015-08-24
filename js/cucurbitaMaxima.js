@@ -60,27 +60,15 @@ CucurbitaMaxima.prototype.initToolTip = function() {
     $("#banner img").tooltip({
         placement: "bottom",
         container:'body'});
-
-    var toolTip = d3.tip()
-        .attr('class', 'd3-tip')
-        .html(function (d) {
-//            return "<span class='d3-tipTitle' style='color:" + d.color + "'>" + d.name + "</span>";
-            return d;
-        });
-
-    d3.selectAll("#moon").call(toolTip);
-//    d3.selectAll("#moon")
-//        .on('mouseover', toolTip.show)
-//        .on('mouseout', toolTip.hide);
-
 };
+
 
 /****************************************************/
 /** ********************* HOME ******************* **/
 /****************************************************/
 /**
  * //        https://github.com/mourner/suncalc
- // http://www.aphayes.pwp.blueyonder.co.uk/sun_moon.html
+// http://www.aphayes.pwp.blueyonder.co.uk/sun_moon.html
  //        https://stardate.org/nightsky/moon
  */
 CucurbitaMaxima.prototype.calculateMoon = function() {
@@ -98,9 +86,9 @@ CucurbitaMaxima.prototype.calculateMoon = function() {
             quarter.name = self.moonArray[i];
             quarter.image = self.moonArrayNameImg[i];
         }
-        title += self.moonArray[i]+" : "+datestring(JDEc[0],JDEc[1],JDEc[2]);
+        title += self.moonArray[i]+" : "+datestring(JDEc[0],JDEc[1],JDEc[2])+", ";
     });
-    $("#moon").attr("title", '<span class="specialToolTipTitle">'+quarter.name+'</span>'+title+'<br>');
+    $("#moon").attr("title", title);
     $("#moon").attr("src", "img/"+quarter.image);
 };
 
