@@ -26,91 +26,105 @@
 
 <BODY>
 
-<div class="container">
-    <div class="row col-sm-12 col-md-12">
+<div class="container containerHome">
+    <div>
         <div class="col-sm-2 col-md-2"><BR/>
-            <a href="../index.html"><img src="../img/120.png" class="basicButton" width="40px" title="Retour page d'accueil"/></a>
-            <a href="vegetalSheetList.php"><img src="../img/10.png" class="basicButton" width="40px" title="Liste des fiches"/></a>
+            <a href="../index.html"><img src="../img/120.png" class="basicButton" width="50px" title="Retour page d'accueil"/></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <a href="vegetalSheetList.php"><img src="../img/10.png" class="basicButton" width="50px" title="Liste des fiches"/></a>
         </div>
-        <div class="text-center"><h2 class="vegetaleTitle">Fiche signalétique végétale</h2><BR/></div>
 
-        <form id="createForm" data-toggle="validator" role="form" class="form-horizontal">
+        <div class="col-sm-8 col-md-8 text-center"><h2 class="vegetaleTitle">Fiche signalétique végétale</h2><BR/></div>
+        <div id="smallDateValue" class="col-sm-2 col-md-2 text-right"></div>
+    </div>
 
-            <BR/>
-            <div id="dateValue" class="row col-sm-12 col-md-12 text-left"></div>
 
-            <div class="row col-sm-12 col-md-12"><h3>Classification</h3></div>
-            <div class="form-group">
-                <div class="col-sm-2"><label for="reign">Règne</label></div>
-                <div class="col-sm-5"><input id="reign" class="form-control"/></div>
-            </div>
-            <div class="form-group">
-                <div class="col-sm-2"><label for="division">Division</label></div>
-                <div class="col-sm-5"><input id="division" class="form-control"/></div>
-            </div>
-            <div class="form-group">
-                <div class="col-sm-2"><label for="class">Classe</label></div>
-                <div class="col-sm-5"><input id="class" class="form-control" placeholder="Classe par défaut"/></div>
-            </div>
-            <div class="form-group">
-                <div class="col-sm-2"><label for="order">Ordre</label></div>
-                <div class="col-sm-5"><input id="order" class="form-control"/></div>
-            </div>
-            <div class="form-group">
-                <div class="col-sm-2"><label for="family">Famille</label></div>
-                <div class="col-sm-5"><input id="family" class="form-control"/></div>
-            </div>
-            <div class="form-group">
-                <div class="col-sm-2"><label for="gender">Genre</label></div>
-                <div class="col-sm-5"><input id="gender" class="form-control"/></div>
-            </div>
-<!--            <div class="form-group">-->
-<!--                <label for="exampleInputFile">Télécharger une photo</label>-->
-<!--                <input type="file" id="exampleInputFile">-->
-<!--                <p class="help-block">Taille maximale des photos : .</p>-->
-<!--            </div>-->
+    <form id="createForm" data-toggle="validator" role="form" class="form-horizontal">
 
-            <div class="row col-sm-12 col-md-12"><h3>Nom binomial </h3></div>
+        <!-- ************ Right column ************ -->
+        <div class="col-sm-5 col-md-4">
+            <div class="col-sm-12 col-md-12"><h3>Classification</h3></div>
+            <div class="form-group">
+                <div class="col-sm-3"><label for="reign">Règne</label></div>
+                <div class="col-sm-8"><input id="reign" class="form-control"/></div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-3"><label for="division">Division</label></div>
+                <div class="col-sm-8"><input id="division" class="form-control"/></div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-3"><label for="class">Classe</label></div>
+                <div class="col-sm-8"><input id="class" class="form-control"/></div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-3"><label for="order">Ordre</label></div>
+                <div class="col-sm-8"><input id="order" class="form-control"/></div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-3"><label for="family">Famille</label></div>
+                <div class="col-sm-8"><input id="family" class="form-control"/></div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-3"><label for="gender">Genre</label></div>
+                <div class="col-sm-8"><input id="gender" class="form-control"/></div>
+            </div>
+            <div class="col-sm-12 col-md-12"><h3>Nom binomial </h3></div>
             <div class="form-group has-feedback">
-                <div class="col-sm-2"><label for="binomialName">Nom</label></div>
-                <div class="col-sm-5">
-                    <input id="binomialName" class="form-control" value="L.1357" data-error="Veuillez remplir ce champ" required/>
+                <div class="col-sm-3"><label for="binomialName">Nom</label></div>
+                <div class="col-sm-8">
+                    <input id="binomialName" class="form-control" value="L.1753" data-error="Veuillez remplir ce champ" required/>
                     <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                 </div>
                 <div class="col-sm-3 help-block with-errors"></div>
             </div>
+        </div>
 
+
+        <!-- ************ Photos ************ -->
+        <div class="col-sm-2 col-md-3">
+            <BR/>
+            <div id="containerImages">
+                <img src="../img/PremiersMelons.JPG" width="100px"/>
+                <img src="../img/PremiersMelons.JPG" width="100px"/>
+                <img src="../img/PremiersMelons.JPG" width="100px"/>
+                <img src="../img/PremiersMelons.JPG" width="100px"/>
+            </div>
+
+            <div id="actionMessage" class="col-md-12 text-center"></div>
+            <div class="col-md-12 text-center">
+                <button id="saveForm" class="btn btn-success">Enregistrer</button><BR/><BR/>
+                <button id="resetForm" class="btn btn-danger">Annuler</button>
+            </div>
+        </div>
+
+
+        <!-- ************ Left column ************ -->
+        <div class="col-sm-5 col-md-5">
+            <BR/><BR/><BR/><BR/><BR/><BR/><BR/>
             <div class="row col-sm-12 col-md-12"><h3>Classification phylogénétique</h3></div>
             <div class="form-group">
-                <div class="col-sm-2"><label for="orderCP">Ordre</label></div>
-                <div class="col-sm-5"><input id="orderCP" class="form-control"/></div>
+                <div class="col-sm-3"><label for="orderCP">Ordre</label></div>
+                <div class="col-sm-7"><input id="orderCP" class="form-control"/></div>
             </div>
             <div class="form-group">
-                <div class="col-sm-2"><label for="familyCP">Famille</label></div>
-                <div class="col-sm-5"><input id="familyCP" class="form-control"/></div>
+                <div class="col-sm-3"><label for="familyCP">Famille</label></div>
+                <div class="col-sm-7"><input id="familyCP" class="form-control"/></div>
             </div>
-        </form>
-
-        <div id="actionMessage" class="col-sm-2 col-md-2 text-center"></div>
-
-        <div class="col-sm-5 text-center">
-            <button id="saveForm" class="btn btn-success">Enregistrer</button>
-            <button id="resetForm" class="btn btn-danger">Annuler</button>
+            <div class="form-group help-block"><BR/>
+                <label for="exampleInputFile">Télécharger une photo (non opérationnel)</label>
+                <input type="file" id="exampleInputFile">
+                <p class="help-block">Taille maximale des photos : .</p>
+            </div>
         </div>
-    </div>
+    </form>
 
-    <!--Github link-->
-<!--    <a href="https://github.com/you"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/e7bbb0521b397edbd5fe43e7f760759336b5e05f/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f677265656e5f3030373230302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_green_007200.png"></a>-->
+</div>
 
-    <script type="text/javascript">
-        $(window).load(function() {
-            var dateValue = $.datepicker.formatDate('DD dd MM yy', new Date());
-            $("#dateValue").html(dateValue);
+<script type="text/javascript">
+    $(window).load(function() {
+        new CucurbitaMaximaVegetalSheet().create();
+    });
 
-            new CucurbitaMaximaVegetalSheet().create();
-        });
-
-    </script>
+</script>
 
 </BODY>
 </HTML>

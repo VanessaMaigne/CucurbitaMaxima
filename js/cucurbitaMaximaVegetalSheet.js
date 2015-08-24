@@ -25,6 +25,10 @@ extendClass(CucurbitaMaximaVegetalSheet, CucurbitaMaxima);
 /****************************************************/
 CucurbitaMaximaVegetalSheet.prototype.create = function(){
     var self = this;
+
+    var dateValue = $.datepicker.formatDate('DD dd MM yy', new Date());
+    $("#smallDateValue").html(dateValue);
+
     self.initToolTip();
 
     if(!self.booleanForHeaderCreation["vegetal"])

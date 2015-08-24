@@ -48,16 +48,15 @@ function CucurbitaMaxima(){
     };
 }
 
+// Prototype variables
 CucurbitaMaxima.prototype.booleanForHeaderCreation = new Object();
 CucurbitaMaxima.prototype.booleanForHeaderCreation["sawing"] = false;
 CucurbitaMaxima.prototype.booleanForHeaderCreation["vegetal"] = false;
+CucurbitaMaxima.prototype.separator = "|";
+CucurbitaMaxima.prototype.dsv = d3.dsv(CucurbitaMaxima.prototype.separator, "text/plain");
 
 CucurbitaMaxima.prototype.initToolTip = function() {
-    $(".basicButton, .toolTipData").tooltip({
-        placement: "top",
-        container:'body'});
-
-    $("#banner img").tooltip({
+    $(".basicButton, .toolTipData, #banner img").tooltip({
         placement: "bottom",
         container:'body'});
 };
@@ -67,9 +66,9 @@ CucurbitaMaxima.prototype.initToolTip = function() {
 /** ********************* HOME ******************* **/
 /****************************************************/
 /**
- * //        https://github.com/mourner/suncalc
-// http://www.aphayes.pwp.blueyonder.co.uk/sun_moon.html
- //        https://stardate.org/nightsky/moon
+ * https://github.com/mourner/suncalc
+ * http://www.aphayes.pwp.blueyonder.co.uk/sun_moon.html
+ * https://stardate.org/nightsky/moon
  */
 CucurbitaMaxima.prototype.calculateMoon = function() {
     var self = this;
@@ -111,8 +110,9 @@ CucurbitaMaxima.prototype.createDataHeader = function(type){
         {
             var headerFromFile = data.split(",");
             if(headerFromFile == ""){
+                var content = self.header.join(self.separator);
                 $.ajax( {
-                    url:'../phpScript/writeContent.php?fileNameProperties='+self.dataFileProperty+'&content='+self.header,
+                    url:'../phpScript/writeContent.php?fileNameProperties='+self.dataFileProperty+'&content='+content,
                     type:'GET',
                     error: function(){ alert( "Erreur d'écriture. Veuillez vérifier le contenu et les droits du fichier." );},
                     success: function(){
@@ -172,22 +172,6 @@ CucurbitaMaxima.prototype.removeElement = function(lineNumber){
     }
 };
 
-/**
- * This method read the file and display the content
- */
-CucurbitaMaxima.prototype.readFileAndDisplayContent = function() {
-    var self = this;
-    d3.csv(self.dataFile, function (error, csv) {
-        // Header columns
-        self.header = d3.keys(csv[0]);
-
-        $("#total-count").html(csv.length);
-        self.displayDataHeader();
-        self.displayDataTable(csv, self.header);
-        self.initToolTip();
-    });
-};
-
 
 /****************************************************/
 /** ******************** FORM ******************** **/
@@ -222,8 +206,9 @@ CucurbitaMaxima.prototype.initForm = function(){
  */
 CucurbitaMaxima.prototype.saveForm = function(){
     var content = "";
+    var self=this;
     $.each(this.headerId, function(i,d){
-        content += $("#"+d).val()+",";
+        content += $("#"+d).val()+self.separator;
     });
 
     var url = '../phpScript/writeContent.php?fileNameProperties='+this.dataFileProperty+'&content='+content;
@@ -265,7 +250,7 @@ CucurbitaMaxima.prototype.getContentAndfillForm = function(lineNumber){
  * @param dataLine
  */
 CucurbitaMaxima.prototype.fillForm = function(dataLine){
-    var values = dataLine.replace("\n", "").split(",");
+    var values = dataLine.replace("\n", "").split(this.separator);
     $.each(this.headerId, function(i,d){
         $("#"+d).val(values[i]);
     });
@@ -280,6 +265,19 @@ CucurbitaMaxima.prototype.fillForm = function(dataLine){
  */
 CucurbitaMaxima.prototype.list = function() {
     this.readFileAndDisplayContent();
+};
+
+/**
+ * This method read the file and display the content
+ */
+CucurbitaMaxima.prototype.readFileAndDisplayContent = function() {
+    var self = this;
+    this.dsv(self.dataFile, function (error, csv) {
+        $("#total-count").html(csv.length);
+        self.displayDataHeader();
+        self.displayDataTable(csv);
+        self.initToolTip();
+    });
 };
 
 /**
