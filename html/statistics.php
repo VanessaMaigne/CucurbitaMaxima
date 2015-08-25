@@ -39,9 +39,9 @@
         <div class="col-sm-2 col-md-2"><BR/>
             <a href="../index.html"><img src="../img/120.png" class="basicButton" width="40px" title="Retour page d'accueil"/></a>
         </div>
-        <div class="text-center"><h2 class="forecastTitle">Prévisions des récoltes</h2><BR/><BR/></div>
+        <div class="text-center"><h2 class="statisticTitle">Prévisions des récoltes</h2><BR/><BR/></div>
 
-        <div class="col-md-12 forecastSubTitle">Prévisions générales</div>
+        <div class="col-md-12 statisticSubTitle">Prévisions générales</div>
         <div id="timeSerie" class="col-md-12"></div>
 
 
@@ -62,7 +62,7 @@
             <div id="monthly-volume-chart" class="dc-chart"></div>
         </div>
 
-        <div class="col-md-12 forecastSubTitle"><BR/><BR/>Données du fichier</div>
+        <div class="col-md-12 statisticSubTitle"><BR/><BR/>Données du fichier</div>
         <div class="col-md-12">
             <div id="dataDiv" class="col-sm-12 col-md-12">
                 <div id="data-count" class="dc-data-count dc-chart">

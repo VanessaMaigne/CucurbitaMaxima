@@ -187,8 +187,9 @@ button a {
 /* *************** FORECAST PAGE *********** */
 /* ***************************************** */
 .forecastTitle {
-    color: #008080;
+    color: #B22222;
     font-size: 40px;
+    margin-left: -60px;
 }
 
 .forecastSubTitle {
@@ -198,15 +199,29 @@ button a {
 
 
 /* ***************************************** */
+/* ************** STATISTIC PAGE *********** */
+/* ***************************************** */
+.statisticTitle {
+    color: #008080;
+    font-size: 40px;
+}
+
+.statisticSubTitle {
+    color: #5F9EA0;
+    font-size: 25px;
+}
+
+
+/* ***************************************** */
 /* ********** TECHNICAL INFORMATIONS ******* */
 /* ***************************************** */
 .technicalTitle {
-    color: #B22222;
+    /*color: #B22222;*/
     font-size: 40px;
 }
 
 .technicalSubTitle {
-    color: #FF4500;
+    /*color: #FF4500;*/
     font-size: 25px;
 }
 

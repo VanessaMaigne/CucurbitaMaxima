@@ -49,7 +49,7 @@ CucurbitaMaximaStatistics.prototype.display = function(){
 
 
 
-    d3.csv(this.dataFile, function (csv) {
+    this.dsv(this.dataFile, function (csv) {
 //    d3.csv('../data/ndx.csv', function (data) {
         self.header = d3.keys(csv[0]);
 
