@@ -42,6 +42,11 @@
 
         <!-- ************ Right column ************ -->
         <div class="col-sm-5 col-md-4">
+            <div class="col-sm-12 col-md-12"><h3><span class="vegetaleSubTitle">Nom vernaculaire</span></h3></div>
+            <div class="form-group">
+                <div class="col-sm-11"><input id="vernacularName" class="form-control"/></div>
+            </div>
+
             <div class="col-sm-12 col-md-12"><h3>Classification</h3></div>
             <div class="form-group">
                 <div class="col-sm-3"><label for="reign">Règne</label></div>
@@ -67,15 +72,6 @@
                 <div class="col-sm-3"><label for="gender">Genre</label></div>
                 <div class="col-sm-8"><input id="gender" class="form-control"/></div>
             </div>
-            <div class="col-sm-12 col-md-12"><h3>Nom binomial </h3></div>
-            <div class="form-group has-feedback">
-                <div class="col-sm-3"><label for="binomialName">Nom</label></div>
-                <div class="col-sm-8">
-                    <input id="binomialName" class="form-control" value="L., 1753" data-error="Veuillez remplir ce champ" required/>
-                    <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
-                </div>
-                <div class="col-sm-3 help-block with-errors"></div>
-            </div>
         </div>
 
 
@@ -93,8 +89,17 @@
 
         <!-- ************ Left column ************ -->
         <div class="col-sm-5 col-md-5">
+            <div class="col-sm-12 col-md-12"><h3>Nom binomial </h3></div>
+            <div class="form-group has-feedback">
+                <div class="col-md-10">
+                    <input id="binomialName" class="form-control" value="L., 1753" data-error="Veuillez remplir ce champ" required/>
+                    <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                </div>
+                <div class="col-sm-3 help-block with-errors"></div>
+            </div>
+
             <div class="row col-sm-12 col-md-12"><h3>Classification phylogénétique</h3></div>
-            <BR/><BR/><BR/><BR/><BR/><BR/><BR/><BR/><BR/>
+            <div class="row col-sm-12 col-md-12 text-center vegetaleSubTitle2">classification APG III (2009)<BR/><BR/></div>
             <div class="form-group">
                 <div class="col-sm-3"><label for="orderCP">Ordre</label></div>
                 <div class="col-sm-7"><input id="orderCP" class="form-control"/></div>
