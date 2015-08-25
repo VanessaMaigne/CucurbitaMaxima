@@ -9,6 +9,24 @@ var extendClass = function(child, parent) {
     child.prototype = new Surrogate();
 };
 
+
+/**
+ * Method extract the path for the properties file from the url
+ * @param hostIndicator
+ */
+function getPropertiesFilePath(hostIndicator){
+// Calcul path for properties file
+    var pathName = window.location.pathname.toLocaleLowerCase();
+    var urlArray = window.location.pathname.split("/");
+    var index = pathName.split("/").indexOf(hostIndicator);
+
+    var pathForProperties = "";
+    for(var i=0; i<=index; i++){
+        pathForProperties+=urlArray[i]+"/";
+    }
+    return pathForProperties;
+}
+
 /**
  * Method return the actual season
  */
@@ -51,16 +69,16 @@ function replaceSpec(Texte){
  * @param now
  */
 function getFullYear(now) {
-  var year = now.getYear();
-  if (year==0) {year=2000};
-  if (year<1900) {year=year+1900};
-  return year;
+    var year = now.getYear();
+    if (year==0) {year=2000};
+    if (year<1900) {year=year+1900};
+    return year;
 }
 
 function datestring(year,month,day) {
 // provides a locale independent format - year:month:day
-  var datestr = "";  datestr += year;
-  datestr += ((month < 10) ? "/0" : "/") + month;
-  datestr += ((day < 10) ? "/0" : "/") + day;
-  return datestr;
+    var datestr = "";  datestr += year;
+    datestr += ((month < 10) ? "/0" : "/") + month;
+    datestr += ((day < 10) ? "/0" : "/") + day;
+    return datestr;
 }

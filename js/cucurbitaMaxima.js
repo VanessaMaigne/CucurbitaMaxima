@@ -7,16 +7,18 @@
  *
  */
 
-jQuery.i18n.properties( {
-    name:'cucurbitaMaxima',
-    path:'/git/CucurbitaMaxima/',
-    language:null,
-    mode:'both'
-} );
-
 // URL parameters
 var params={};
 window.location.search.replace(/[?&]+([^=&]+)=([^&]*)/gi,function(str,key,value){params[key] = value;});
+
+// Properties
+var pathForPropertiesFile = getPropertiesFilePath("cucurbitamaxima");
+jQuery.i18n.properties( {
+    name:'cucurbitaMaxima',
+    path:pathForPropertiesFile,
+    language:null,
+    mode:'both'
+} );
 
 var cucurbitaDateFormat = "dd/mm/yy";
 var cucurbitaDateFormatForD3 = d3.time.format('%d/%m/%Y');
