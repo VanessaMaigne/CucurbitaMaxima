@@ -77,12 +77,13 @@ CucurbitaMaximaSawingSheet.prototype.createSelects = function(){
  * @param nameList
  */
 CucurbitaMaximaSawingSheet.prototype.fillNameSelect = function(nameList){
+    $( "#nameSelect" ).append( "<option value=''></option>" );
     $.each( nameList, function( i, d )
     {
         $( "#nameSelect" ).append( "<option value='" + d + "'>" + d + "</option>" );
     } );
     $( "#nameSelect" ).select2({
-        placeholder: "Select a state",
+        placeholder: "Yo pépé, pioche un nom binomial !",
         allowClear: true
     });
 };

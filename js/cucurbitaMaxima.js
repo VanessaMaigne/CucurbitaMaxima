@@ -136,7 +136,7 @@ CucurbitaMaxima.prototype.createDataHeader = function(type){
  * @param callback
  */
 CucurbitaMaxima.prototype.extractColumnFromFileAndCallback = function(filePath, columnName, callback){
-    d3.csv(filePath, function (error, csv) {
+    this.dsv(filePath, function (error, csv) {
         var columnValues = new Array();
 
         var data = crossfilter(csv);

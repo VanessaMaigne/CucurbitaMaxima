@@ -38,8 +38,7 @@
 
     <div id="dataDiv" class="col-sm-12 col-md-12">
         <div id="data-count" class="dc-data-count dc-chart">
-            <h5 class="vegetalNumberSheet"><span id="total-count"></span><span>&nbsp;fiche(s)</span></h5>
-            <BR/><BR/>
+            <BR/><h5 class="vegetalNumberSheet"><span id="total-count"></span><span>&nbsp;fiche(s)</span></h5><BR/>
         </div>
 
         <table id="data-table" class="table table-hover dc-data-table dc-chart">

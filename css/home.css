@@ -162,6 +162,7 @@ button a {
 .sawingTitle {
     color: #FF7F50;
     font-size: 40px;
+    margin-left: -60px;
 }
 
 .sawingNumberSheet {
