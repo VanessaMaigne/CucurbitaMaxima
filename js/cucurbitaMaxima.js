@@ -23,6 +23,7 @@ jQuery.i18n.properties( {
 var cucurbitaDateFormat = "dd/mm/yy";
 var cucurbitaDateFormatForD3 = d3.time.format('%d/%m/%Y');
 
+//$.datepicker.setDefaults( $.datepicker.regional[ "fr" ] );
 
 function CucurbitaMaxima(){
     var localFormat = d3.time.format('%A %e %B %Y&nbsp;&nbsp;%Hh%M');
@@ -112,7 +113,7 @@ CucurbitaMaxima.prototype.createDataHeader = function(type){
         {
             var headerFromFile = data.split(",");
             if(headerFromFile == ""){
-                var content = self.header.join(self.separator);
+                var content = self.header.join(self.separator)+self.separator+"CreationDate";
                 $.ajax( {
                     url:'../phpScript/writeContent.php?fileNameProperties='+self.dataFileProperty+'&content='+content,
                     type:'GET',
@@ -217,6 +218,7 @@ CucurbitaMaxima.prototype.saveForm = function(){
     $.each(this.headerId, function(i,d){
         content += $("#"+d).val()+self.separator;
     });
+    content += self.separator+d3.time.format('%e/%d/%Y_%H:%M')(new Date());
 
     var url = '../phpScript/writeContent.php?fileNameProperties='+this.dataFileProperty+'&content='+content;
     if(params.ln)

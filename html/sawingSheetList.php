@@ -26,35 +26,41 @@
 
 <BODY>
 
-<div class="container">
-    <div class="row col-sm-12 col-md-12">
-        <div class="col-sm-2 col-md-1"><BR/><a href="../index.html"><img src="../img/120.png" class="basicButton" width="40px" title="Retour page d'accueil"/></a></div>
-        <div class="text-center"><h2 class="sawingTitle">Liste des fiches de culture</h2><BR/></div>
-
-        <div id="dataDiv" class="col-sm-12 col-md-12">
-            <div id="data-count" class="dc-data-count dc-chart">
-                <h5 class="sawingNumberSheet"><span id="total-count"></span><span>&nbsp;fiche(s)</span></h5>
-                <BR/><BR/>
-            </div>
-
-            <table id="data-table" class="table table-hover dc-data-table dc-chart">
-                <thead>
-                <tr id="headerData" class="header"></tr>
-                </thead>
-                <tbody id="dataContent"></tbody>
-            </table>
+<div class="container containerHome">
+    <div>
+        <div class="col-md-3"><BR/>
+            <a href="../index.html"><img src="../img/120.png" class="basicButton" width="50px" title="Retour page d'accueil"/></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <a href="sawingSheetCreate.php"><img src="../img/11.png" class="basicButton" width="50px" title="Saisir une fiche"/></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <a href="statistics.php"><img src="../img/78.png" class="basicButton" width="50px" title="Prévision des récoltes"/></a>
         </div>
 
+        <div class="col-md-9 text-center"><h2 class="sawingTitle">Liste des fiches de culture</h2><BR/><BR/></div>
     </div>
 
-    <!--Github link-->
-    <!--    <a href="https://github.com/you"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/e7bbb0521b397edbd5fe43e7f760759336b5e05f/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f677265656e5f3030373230302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_green_007200.png"></a>-->
 
-    <script type="text/javascript">
-        $(window).load(function() {
-            new CucurbitaMaximaSawingSheet().list();
-        });
-    </script>
+    <div id="dataDiv" class="col-sm-12 col-md-12">
+        <div id="data-count" class="dc-data-count dc-chart">
+            <h5 class="sawingNumberSheet"><span id="total-count"></span><span>&nbsp;fiche(s)</span></h5>
+        </div>
+
+        <table id="data-table" class="table table-hover dc-data-table dc-chart">
+            <thead>
+            <tr id="headerData" class="header"></tr>
+            </thead>
+            <tbody id="dataContent"></tbody>
+        </table>
+    </div>
+
+</div>
+
+<!--Github link-->
+<!--    <a href="https://github.com/you"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/e7bbb0521b397edbd5fe43e7f760759336b5e05f/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f677265656e5f3030373230302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_green_007200.png"></a>-->
+
+<script type="text/javascript">
+    $(window).load(function() {
+        new CucurbitaMaximaSawingSheet().list();
+    });
+</script>
 
 </BODY>
 </HTML>
