@@ -54,6 +54,7 @@ h4 {
     margin-top: 10px;
     padding-top : 10px;
     position: relative;
+    margin-bottom: 10px;
 }
 
 #dateValue {
@@ -183,6 +184,20 @@ button a {
 
 .forecastSubTitle {
     color: #5F9EA0;
+    font-size: 25px;
+}
+
+
+/* ***************************************** */
+/* ********** TECHNICAL INFORMATIONS ******* */
+/* ***************************************** */
+.technicalTitle {
+    color: #B22222;
+    font-size: 40px;
+}
+
+.technicalSubTitle {
+    color: #FF4500;
     font-size: 25px;
 }
 
