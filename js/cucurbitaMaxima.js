@@ -202,7 +202,7 @@ CucurbitaMaxima.prototype.initForm = function(){
     });
 
     $("#saveForm").on("click", function(){
-        $("#createForm").submit();
+//        $("#createForm").submit();
     });
     $("#resetForm").on("click", function(){
         self.resetForm();

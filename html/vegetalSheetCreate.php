@@ -95,7 +95,7 @@
                     <input id="binomialName" class="form-control" value="L., 1753" data-error="Veuillez remplir ce champ" required/>
                     <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
                 </div>
-                <div class="col-sm-3 help-block with-errors"></div>
+                <div class="col-md-10 help-block with-errors"></div>
             </div>
 
             <div class="row col-sm-12 col-md-12"><h3>Classification phylogénétique</h3></div>
