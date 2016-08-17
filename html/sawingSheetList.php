@@ -28,13 +28,13 @@
 
 <div class="container containerHome">
     <div>
-        <div class="col-md-3"><BR/>
+        <div class="col-xs-5 col-md-3"><BR/>
             <a href="../index.html"><img src="../img/120.png" class="basicButton" width="50px" title="Retour page d'accueil"/></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <a href="sawingSheetCreate.php"><img src="../img/11.png" class="basicButton" width="50px" title="Saisir une fiche"/></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <a href="statistics.php"><img src="../img/78.png" class="basicButton" width="50px" title="Prévision des récoltes"/></a>
         </div>
 
-        <div class="col-md-9 text-center"><h2 class="sawingTitle">Liste des fiches de culture</h2><BR/><BR/></div>
+        <div class="col-xs-7 col-md-9 text-center"><h2 class="sawingTitle">Liste des fiches de culture</h2><BR/><BR/></div>
     </div>
 
 

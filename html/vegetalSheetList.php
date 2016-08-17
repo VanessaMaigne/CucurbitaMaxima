@@ -28,12 +28,12 @@
 
 <div class="container containerHome">
     <div>
-        <div class="col-sm-2 col-md-2"><BR/>
+        <div class="col-xs-3 col-md-2"><br/>
             <a href="../index.html"><img src="../img/120.png" class="basicButton" width="50px" title="Retour page d'accueil"/></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <a href="vegetalSheetCreate.php"><img src="../img/2.png" class="basicButton" width="50px" title="Saisir une fiche"/></a>
         </div>
 
-        <div class="col-md-10 text-center"><h2 class="vegetaleTitle">Liste des fiches signalétiques végétales</h2><BR/></div>
+        <div class="col-xs-9 col-md-10 text-center"><h2 class="vegetaleTitle">Liste des fiches signalétiques végétales</h2><BR/></div>
     </div>
 
     <div id="dataDiv" class="col-sm-12 col-md-12">

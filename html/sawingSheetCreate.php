@@ -34,13 +34,13 @@
 
 <div class="container containerHome">
     <div>
-        <div class="col-md-3"><BR/>
+        <div class="col-xs-4 col-md-3"><BR/>
             <a href="../index.html"><img src="../img/120.png" class="basicButton" width="50px" title="Retour page d'accueil"/></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <a href="sawingSheetList.php"><img src="../img/10.png" class="basicButton" width="50px" title="Liste des fiches"/></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <a href="statistics.php"><img src="../img/78.png" class="basicButton" width="50px" title="Prévision des récoltes"/></a>
         </div>
 
-        <div class="col-md-9 text-center"><h2 class="sawingTitle">Fiche de culture</h2><BR/><BR/><BR/></div>
+        <div class="col-xs-8 col-md-9 text-center"><h2 class="sawingTitle">Fiche de culture</h2><BR/><BR/><BR/></div>
     </div>
 
     <form id="createForm" data-toggle="validator" role="form" class="form-horizontal">

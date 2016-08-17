@@ -28,13 +28,13 @@
 
 <div class="container containerHome">
     <div>
-        <div class="col-sm-2 col-md-2"><BR/>
+        <div class="col-xs-3 col-md-2"><br/>
             <a href="../index.html"><img src="../img/120.png" class="basicButton" width="50px" title="Retour page d'accueil"/></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <a href="vegetalSheetList.php"><img src="../img/10.png" class="basicButton" width="50px" title="Liste des fiches"/></a>
         </div>
 
-        <div class="col-sm-8 col-md-8 text-center"><h2 class="vegetaleTitle">Fiche signalétique végétale</h2><BR/></div>
-        <div id="smallDateValue" class="col-sm-2 col-md-2 text-right"></div>
+        <div class="col-xs-7 col-md-8 text-center"><h2 class="vegetaleTitle">Fiche signalétique végétale</h2><BR/></div>
+        <div id="smallDateValue" class="col-xs-2 col-md-2 text-right"></div>
     </div>
 
 
