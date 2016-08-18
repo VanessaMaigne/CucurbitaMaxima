@@ -55,6 +55,7 @@ function CucurbitaMaxima(){
 CucurbitaMaxima.prototype.booleanForHeaderCreation = new Object();
 CucurbitaMaxima.prototype.booleanForHeaderCreation["sawing"] = false;
 CucurbitaMaxima.prototype.booleanForHeaderCreation["vegetal"] = false;
+CucurbitaMaxima.prototype.booleanForHeaderCreation["forecast"] = false;
 CucurbitaMaxima.prototype.separator = "|";
 CucurbitaMaxima.prototype.dsv = d3.dsv(CucurbitaMaxima.prototype.separator, "text/plain");
 
@@ -136,19 +137,25 @@ CucurbitaMaxima.prototype.createDataHeader = function(type){
  * @param columnName
  * @param callback
  */
+// TODO : move into ES6 for context
 CucurbitaMaxima.prototype.extractColumnFromFileAndCallback = function(filePath, columnName, callback){
+    var context = this;
+    if(!filePath) return;
     this.dsv(filePath, function (error, csv) {
         var columnValues = new Array();
 
         var data = crossfilter(csv);
-        data.dimension(function(d) {
-            return d[columnName];
-        }).filter(function(key) {
-                if(key != "") columnValues.push(key);
-            });
+        if(columnName){
+            data.dimension(function(d) {
+                return d[columnName];
+            }).filter(function(key) {
+                    if(key != "") columnValues.push(key);
+                });
+        } else columnValues = data;
 
         if(callback)
-            callback(columnValues);
+            callback(columnValues, context);
+
     });
 };
 
@@ -197,12 +204,11 @@ CucurbitaMaxima.prototype.initForm = function(){
             $("#actionMessage").html("<span class='warning'>Il reste des champs à corriger</span>");
         } else {
             e.preventDefault(); // Avoid to launch the event submit
-            self.saveForm();
         }
     });
 
     $("#saveForm").on("click", function(){
-//        $("#createForm").submit();
+        self.saveForm();
     });
     $("#resetForm").on("click", function(){
         self.resetForm();
@@ -316,7 +322,7 @@ CucurbitaMaxima.prototype.displayDataTable = function(csv) {
     var self = this;
     $("#dataContent").empty();
 
-    if(csv.length <= 0) $("#dataContent").html("<center>Aucune fiche enregistrée.</center>");
+    if(csv.length <= 0) $("#dataContent").html("<tr><td colspan='10'><center>Aucune donnée.</center></td></tr>");
 
     $.each(csv, function(i, d) {
         var keys = d3.keys(d);

@@ -33,7 +33,7 @@
 <BODY>
 
 <div class="container containerHome">
-    <div>
+    <div class="col-xs-12 col-md-12">
         <div class="col-xs-5 col-md-3"><BR/>
             <a href="../index.html"><img src="../img/120.png" class="basicButton" width="50px" title="Retour page d'accueil"/></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <a href="forecastSheetList.php"><img src="../img/10.png" class="basicButton" width="50px" title="Liste des récoltes"/></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -43,54 +43,64 @@
         <div class="col-xs-7 col-md-9 text-center"><h2 class="forecastTitle">Fiche de récolte</h2><BR/><BR/><BR/></div>
     </div>
 
-    <form id="createForm" data-toggle="validator" role="form" class="form-horizontal">
+    <div class="col-xs-12 col-md-12">
+        <form id="createForm" data-toggle="validator" role="form" class="form-horizontal">
 
-        <div class="form-group">
-            <div class="col-sm-2"><label for="nameSelect">Nom</label></div>
-            <div class="col-sm-5">
-                <select id="nameSelect" style="width: 100%"></select>
+            <div class="form-group">
+                <div class="col-sm-2"><label for="nameSelect">Nom</label></div>
+                <div class="col-sm-5">
+                    <select id="nameSelect" style="width: 100%"></select>
+                </div>
             </div>
-        </div>
-        <div class="form-group has-feedback">
-            <div class="col-sm-2"><label for="variety">Variété</label></div>
-            <div class="col-sm-5">
-                <input id="variety" class="form-control" data-error="Veuillez remplir ce champ" required/>
-                <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+            <div class="form-group has-feedback">
+                <div class="col-sm-2"><label for="varietySelect">Variété</label></div>
+                <div class="col-sm-5">
+                    <select id="varietySelect" style="width: 100%"></select>
+                </div>
             </div>
-            <div class="col-sm-3 help-block with-errors"></div>
-        </div>
-        <div class="form-group">
-            <div class="col-sm-2"><label for="plantDate">Date de plantation</label></div>
-            <div class="col-sm-2"><input id="plantDate" class="form-control"/></div>
-            <div class="col-sm-2" id="plantDateWeek"></div>
-            <div class="col-sm-6 warning" id="plantDateWarning"></div>
-        </div>
-        <div class="form-group">
-            <div class="col-sm-2"><label>Poids</label></div>
-            <div class="col-sm-5">
-                <input id="weight" class="form-control" pattern="[0-9]+[,(0-9)+]*" data-error="Champ numérique uniquement (virgule pour les décimales)"/>
-                <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+            <div class="form-group">
+                <div class="col-sm-2"><label for="plantDate">Date de plantation</label></div>
+                <div class="col-sm-2"><input id="plantDate" class="form-control"/></div>
+                <div class="col-sm-2" id="plantDateWeek"></div>
+                <div class="col-sm-6 warning" id="plantDateWarning"></div>
             </div>
-            <div class="col-sm-5 help-block with-errors"></div>
-        </div>
-        <BR/><BR/>
-        <div class="form-group has-feedback">
-            <div class="col-sm-2"><label>Quantité</label></div>
-            <div class="col-sm-5">
-                <input id="quantity" class="form-control" pattern="[0-9]+[,(0-9)+]*" data-error="Champ numérique uniquement (virgule pour les décimales)"/>
-                <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
-            </div>
-            <div class="col-sm-5 help-block with-errors"></div>
-            <BR/><BR/>
-        </div>
 
-        <div id="actionMessage" class="col-sm-3 col-md-3 text-center"></div>
+            <div class="form-group has-feedback">
+                <div class="col-sm-2"><label>Poids</label></div>
+                <div class="col-sm-5">
+                    <input id="weight" class="form-control" pattern="[0-9]+[,(0-9)+]*" data-error="Champ numérique uniquement (virgule pour les décimales)"/>
+                    <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                </div>
+                <div class="col-sm-5 help-block with-errors"></div>
+            </div>
 
-    </form>
+            <div class="form-group has-feedback">
+                <div class="col-sm-2"><label>Quantité</label></div>
+                <div class="col-sm-5">
+                    <input id="quantity" class="form-control" pattern="[0-9]+[,(0-9)+]*" data-error="Champ numérique uniquement (virgule pour les décimales)"/>
+                    <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                </div>
+                <div class="col-sm-5 help-block with-errors"></div>
+                <BR/><BR/>
+            </div>
 
-    <div class="col-sm-4 text-center">
-        <button id="saveForm" class="btn btn-success" disable=false>Enregistrer</button>
-        <button id="resetForm" class="btn btn-danger">Annuler</button><BR/><BR/>
+            <div class="form-group has-feedback">
+                <div class="col-sm-2"><label>Commentaire</label></div>
+                <div class="col-sm-5">
+                    <textarea id="comment" class="form-control"></textarea>
+                    <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                </div>
+                <div class="col-sm-5 help-block with-errors"></div>
+            </div>
+
+
+            <div id="actionMessage" class="col-md-12 text-center"></div>
+            <div class="col-md-12 text-center">
+                <button id="saveForm" class="btn btn-success" disable=false>Enregistrer</button>
+                <button id="resetForm" class="btn btn-danger">Annuler</button><BR/><BR/>
+            </div>
+
+        </form>
     </div>
 
 </div>
@@ -100,7 +110,7 @@
 
 <script type="text/javascript">
     $(window).load(function() {
-        new CucurbitaMaximaSawingSheet().create();
+        new CucurbitaMaximaForecastSheet().create();
     });
 
 </script>

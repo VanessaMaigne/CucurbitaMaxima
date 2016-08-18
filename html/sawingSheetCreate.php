@@ -33,7 +33,7 @@
 <BODY>
 
 <div class="container containerHome">
-    <div>
+    <div class="col-xs-12 col-md-12">
         <div class="col-xs-4 col-md-3"><BR/>
             <a href="../index.html"><img src="../img/120.png" class="basicButton" width="50px" title="Retour page d'accueil"/></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <a href="sawingSheetList.php"><img src="../img/10.png" class="basicButton" width="50px" title="Liste des fiches"/></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -43,101 +43,104 @@
         <div class="col-xs-8 col-md-9 text-center"><h2 class="sawingTitle">Fiche de culture</h2><BR/><BR/><BR/></div>
     </div>
 
-    <form id="createForm" data-toggle="validator" role="form" class="form-horizontal">
+    <div class="col-xs-12 col-md-12">
+        <form id="createForm" data-toggle="validator" role="form" class="form-horizontal">
 
-        <div class="form-group">
-            <div class="col-sm-2"><label for="nameSelect">Nom</label></div>
-            <div class="col-sm-5">
-                <select id="nameSelect" style="width: 100%"></select>
+            <div class="form-group">
+                <div class="col-sm-2"><label for="nameSelect">Nom</label></div>
+                <div class="col-sm-5">
+                    <select id="nameSelect" style="width: 100%"></select>
+                </div>
             </div>
-        </div>
-        <div class="form-group has-feedback">
-            <div class="col-sm-2"><label for="variety">Variété</label></div>
-            <div class="col-sm-5">
-                <input id="variety" class="form-control" data-error="Veuillez remplir ce champ" required/>
-                <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+            <div class="form-group has-feedback">
+                <div class="col-sm-2"><label for="variety">Variété</label></div>
+                <div class="col-sm-5">
+                    <input id="variety" class="form-control" data-error="Veuillez remplir ce champ" required/>
+                    <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                </div>
+                <div class="col-sm-3 help-block with-errors"></div>
             </div>
-            <div class="col-sm-3 help-block with-errors"></div>
-        </div>
-        <div class="form-group">
-            <div class="col-sm-2"><label for="moonBegin">Phase lunaire</label></div>
-            <div class="col-sm-1"><label for="moonBegin" class="note">période</label></div>
-            <div class="col-sm-2"><input id="moonBegin" class="form-control" placeholder="début de phase"/></div>
-            <div class="col-sm-2"><input id="moonEnd" class="form-control" placeholder="fin de phase"/></div>
-        </div>
-        <div class="form-group">
-            <div class="col-sm-offset-2 col-sm-1"><label for="moonNote" class="note">indication</label></div>
-            <div class="col-sm-4"><input id="moonNote" class="form-control"/></div>
-        </div>
-        <div class="form-group">
-            <div class="col-sm-2"><label for="groundSelect">Sol</label></div>
-            <div class="col-sm-5">
-                <select id="groundSelect" style="width: 50%"></select>
+            <div class="form-group">
+                <div class="col-sm-2"><label for="moonBegin">Phase lunaire</label></div>
+                <div class="col-sm-1"><label for="moonBegin" class="note">période</label></div>
+                <div class="col-sm-2"><input id="moonBegin" class="form-control" placeholder="début de phase"/></div>
+                <div class="col-sm-2"><input id="moonEnd" class="form-control" placeholder="fin de phase"/></div>
             </div>
-        </div>
-        <div class="form-group">
-            <div class="col-sm-2"><label for="typeSelect">Type</label></div>
-            <div class="col-sm-5">
-                <select id="typeSelect" style="width: 50%"></select>
+            <div class="form-group">
+                <div class="col-sm-offset-2 col-sm-1"><label for="moonNote" class="note">indication</label></div>
+                <div class="col-sm-4"><input id="moonNote" class="form-control"/></div>
             </div>
-        </div>
-        <div class="form-group">
-            <div class="col-sm-2"><label for="plantDate">Date de plantation</label></div>
-            <div class="col-sm-2"><input id="plantDate" class="form-control"/></div>
-            <div class="col-sm-2" id="plantDateWeek"></div>
-            <div class="col-sm-6 warning" id="plantDateWarning"></div>
-        </div>
-        <div class="form-group has-feedback">
-            <div class="col-sm-2"><label for="cycle">Cycle végétatif</label></div>
-            <div class="col-sm-5">
-                <input id="cycle" class="form-control" placeholder="en jours" pattern="[0-9]+[,(0-9)+]*" data-error="Champ numérique uniquement (virgule pour les décimales)"/>
-                <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+            <div class="form-group">
+                <div class="col-sm-2"><label for="groundSelect">Sol</label></div>
+                <div class="col-sm-5">
+                    <select id="groundSelect" style="width: 50%"></select>
+                </div>
             </div>
-            <div class="col-sm-5 help-block with-errors"></div>
-        </div>
+            <div class="form-group">
+                <div class="col-sm-2"><label for="typeSelect">Type</label></div>
+                <div class="col-sm-5">
+                    <select id="typeSelect" style="width: 50%"></select>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-2"><label for="plantDate">Date de plantation</label></div>
+                <div class="col-sm-2"><input id="plantDate" class="form-control"/></div>
+                <div class="col-sm-2" id="plantDateWeek"></div>
+                <div class="col-sm-6 warning" id="plantDateWarning"></div>
+            </div>
+            <div class="form-group has-feedback">
+                <div class="col-sm-2"><label for="cycle">Cycle végétatif</label></div>
+                <div class="col-sm-5">
+                    <input id="cycle" class="form-control" placeholder="en jours" pattern="[0-9]+[,(0-9)+]*" data-error="Champ numérique uniquement (virgule pour les décimales)"/>
+                    <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                </div>
+                <div class="col-sm-5 help-block with-errors"></div>
+            </div>
 
-        <div class="form-group">
-            <div class="col-sm-2"><label>Récolte prévue le</label></div>
-            <div class="col-sm-5" id="cropDate"></div>
-            <BR/><BR/>
-        </div>
-
-        <div class="form-group has-feedback">
-            <div class="col-sm-2"><label for="distanceL"><img src="../img/distanceL.jpg" width="40px"/></label></div>
-            <div class="col-sm-5">
-                <input id="distanceL" class="form-control" placeholder="distance sur les rangs (cm)" pattern="[0-9]+[,(0-9)+]*" data-error="Champ numérique uniquement (virgule pour les décimales)"/>
-                <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+            <div class="form-group">
+                <div class="col-sm-2"><label>Récolte prévue le</label></div>
+                <div class="col-sm-5" id="cropDate"></div>
+                <BR/><BR/>
             </div>
-            <div class="col-sm-5 help-block with-errors"></div>
-        </div>
-        <div class="form-group has-feedback">
-            <div class="col-sm-2"><label for="distanceR"><img src="../img/distanceR.png" width="33px"/></label></div>
-            <div class="col-sm-5">
-                <input id="distanceR" class="form-control" placeholder="distance entre les rangs (cm)" pattern="[0-9]+[,(0-9)+]*" data-error="Champ numérique uniquement (virgule pour les décimales)"/>
-                <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+
+            <div class="form-group has-feedback">
+                <div class="col-sm-2"><label for="distanceL"><img src="../img/distanceL.jpg" width="40px"/></label></div>
+                <div class="col-sm-5">
+                    <input id="distanceL" class="form-control" placeholder="distance sur les rangs (cm)" pattern="[0-9]+[,(0-9)+]*" data-error="Champ numérique uniquement (virgule pour les décimales)"/>
+                    <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                </div>
+                <div class="col-sm-5 help-block with-errors"></div>
             </div>
-            <div class="col-sm-5 help-block with-errors"></div>
-        </div>
-
-        <div class="form-group has-feedback">
-            <div class="col-sm-2"><label for="weather"><img src="../img/weather2.png" width="40px"</label></div>
-            <div class="col-sm-5"><input id="weather" class="form-control" placeholder="exposition"/></div>
-        </div>
-        <div class="form-group has-feedback">
-            <div class="col-sm-2"><label for="temperature" class="formGroupImg"><img src="../img/temperature.jpg" width="50px"</label></div>
-            <div class="col-sm-5">
-                <input id="temperature" class="form-control" placeholder="température (°C)" pattern="[0-9]+[,(0-9)+]*" data-error="Champ numérique uniquement (virgule pour les décimales)"/>
-                <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+            <div class="form-group has-feedback">
+                <div class="col-sm-2"><label for="distanceR"><img src="../img/distanceR.png" width="33px"/></label></div>
+                <div class="col-sm-5">
+                    <input id="distanceR" class="form-control" placeholder="distance entre les rangs (cm)" pattern="[0-9]+[,(0-9)+]*" data-error="Champ numérique uniquement (virgule pour les décimales)"/>
+                    <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                </div>
+                <div class="col-sm-5 help-block with-errors"></div>
             </div>
-            <div class="col-sm-5 help-block with-errors"></div>
-        </div>
-        <div id="actionMessage" class="col-sm-3 col-md-3 text-center"></div>
 
-    </form>
+            <div class="form-group has-feedback">
+                <div class="col-sm-2"><label for="weather"><img src="../img/weather2.png" width="40px"</label></div>
+                <div class="col-sm-5"><input id="weather" class="form-control" placeholder="exposition"/></div>
+            </div>
+            <div class="form-group has-feedback">
+                <div class="col-sm-2"><label for="temperature" class="formGroupImg"><img src="../img/temperature.jpg" width="50px"</label></div>
+                <div class="col-sm-5">
+                    <input id="temperature" class="form-control" placeholder="température (°C)" pattern="[0-9]+[,(0-9)+]*" data-error="Champ numérique uniquement (virgule pour les décimales)"/>
+                    <span class="glyphicon form-control-feedback" aria-hidden="true"></span>
+                </div>
+                <div class="col-sm-5 help-block with-errors"></div>
+            </div>
 
-    <div class="col-sm-4 text-center">
-        <button id="saveForm" class="btn btn-success" disable=false>Enregistrer</button>
-        <button id="resetForm" class="btn btn-danger">Annuler</button><BR/><BR/>
+            <div id="actionMessage" class="col-md-12 text-center"></div>
+            <div class="col-md-12 text-center">
+                <button id="saveForm" class="btn btn-success" disable=false>Enregistrer</button>
+                <button id="resetForm" class="btn btn-danger">Annuler</button><BR/><BR/>
+            </div>
+
+
+        </form>
     </div>
 
 </div>

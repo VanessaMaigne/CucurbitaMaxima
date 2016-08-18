@@ -7,34 +7,36 @@
  *
  */
 
-function CucurbitaMaximaSawingSheet(){
-    this.dataFileProperty = "sawingSheetFilePath";
+function CucurbitaMaximaForecastSheet(){
+    this.dataFileProperty = "forecastSheetFilePath";
     this.dataFile = jQuery.i18n.prop(this.dataFileProperty);
-    this.createFileName=jQuery.i18n.prop("sawingCreateFilePath");
+    this.createFileName=jQuery.i18n.prop("forecastCreateFilePath");
     this.lineNumber=0;
-    this.header = JSON.parse(jQuery.i18n.prop("sawingHeaderFile"));
-    this.headerId = JSON.parse(jQuery.i18n.prop("sawingHeaderIdFile"));
-    this.headerToDisplay = JSON.parse(jQuery.i18n.prop("sawingHeaderFileToDisplay"));
+    this.header = JSON.parse(jQuery.i18n.prop("forecastHeaderFile"));
+    this.headerId = JSON.parse(jQuery.i18n.prop("forecastHeaderIdFile"));
+    this.headerToDisplay = JSON.parse(jQuery.i18n.prop("forecastHeaderFileToDisplay"));
 
     this.vegetalFilePath = "../data/vegetalSheet.csv";
-    this.vegetalHeaderForSawingSelect=jQuery.i18n.prop("vegetalHeaderForSawingSelect");
+    this.vegetalHeaderForForecastSelect=jQuery.i18n.prop("vegetalHeaderForForecastSelect");
+    this.vegetalHeaderForForecastSubSelect=jQuery.i18n.prop("vegetalHeaderForForecastSubSelect");
 }
 
-extendClass(CucurbitaMaximaSawingSheet, CucurbitaMaxima);
+
+extendClass(CucurbitaMaximaForecastSheet, CucurbitaMaxima);
 
 
 /****************************************************/
 /** ******************** CREATE ****************** **/
 /****************************************************/
-CucurbitaMaximaSawingSheet.prototype.create = function(){
+CucurbitaMaximaForecastSheet.prototype.create = function(){
     var self = this;
     self.initToolTip();
     self.createSelects();
     self.createCalendars();
     self.resetForm();
 
-    if(!self.booleanForHeaderCreation["sawing"])
-        self.createDataHeader("sawing");
+    if(!self.booleanForHeaderCreation["forecast"])
+        self.createDataHeader("forecast");
 
     if(params.ln)
         self.getContentAndfillForm(params.ln);
@@ -42,56 +44,81 @@ CucurbitaMaximaSawingSheet.prototype.create = function(){
     // Events on #createForm form
     self.initForm();
 
-    $("#cycle").on("keyup", function(){
-        self.calculateCrop();
-    })
+//    $("#cycle").on("keyup", function(){
+//        self.calculateCrop();
+//    })
 };
 
 /**
  * This method creates and displays the select for ground and type
  * Values from cucurbitaMaxima.properties
  */
-CucurbitaMaximaSawingSheet.prototype.createSelects = function(){
-    // Ground select
-    this.groundList = JSON.parse( jQuery.i18n.prop( "groundArray" ));
-    $.each( this.groundList, function( i, d )
-    {
-        $( "#groundSelect" ).append( "<option value='" + d + "'>" + d + "</option>" );
-    } );
-    $( "#groundSelect" ).select2();
-
-    // Type select
-    this.typeList = JSON.parse( jQuery.i18n.prop( "typeArray" ));
-    $.each( this.typeList, function( i, d )
-    {
-        $( "#typeSelect" ).append( "<option value='" + d + "'>" + d + "</option>" );
-    } );
-    $( "#typeSelect" ).select2();
-
+CucurbitaMaximaForecastSheet.prototype.createSelects = function(){
     // Name select
-    this.extractColumnFromFileAndCallback(this.vegetalFilePath, this.vegetalHeaderForSawingSelect, this.fillNameSelect);
+    this.extractColumnFromFileAndCallback(this.vegetalFilePath, this.vegetalHeaderForForecastSelect, this.fillNameSelect);
 };
 
 /**
  * Callback for filling the name select after reading the vegetal sheets file
  * @param nameList
  */
-CucurbitaMaximaSawingSheet.prototype.fillNameSelect = function(nameList){
+CucurbitaMaximaForecastSheet.prototype.fillNameSelect = function(nameList, context){
     $( "#nameSelect" ).append( "<option value=''></option>" );
     $.each( nameList, function( i, d )
     {
         $( "#nameSelect" ).append( "<option value='" + d + "'>" + d + "</option>" );
     } );
     $( "#nameSelect" ).select2({
-        placeholder: "Yo pépé, pioche un nom binomial !",
+        placeholder: "Yo pépé, pioche un nom vernaculaire !",
+        allowClear: true
+    })
+        .on("change", function(){
+            context.extractColumnFromFileAndCallback(context.vegetalFilePath, false, context.fillVarietySelect);
+        });
+
+    $( "#varietySelect" ).append( "<option value=''></option>" );
+    $( "#varietySelect" ).select2({
+        placeholder: "No variety",
         allowClear: true
     });
+};
+
+
+CucurbitaMaximaForecastSheet.prototype.fillVarietySelect = function(data){
+    var varietyList = new Array();
+    data.dimension(function(d) {
+        var result = new Object();
+        result.nv = d[this.vegetalHeaderForForecastSelect];
+        result.variety = d[this.vegetalHeaderForForecastSubSelect];
+        return result;
+    }).filter(function(elements) {
+            if(elements.nv == $("#nameSelect").val())
+                varietyList.push(elements.variety);
+            return elements;
+        });
+
+    if(varietyList[0] != undefined){
+        $( "#varietySelect" ).empty();
+        $.each( varietyList, function( i, d )
+        {
+            $( "#varietySelect" ).append( "<option value='" + d + "'>" + d + "</option>" );
+        } );
+        $( "#varietySelect" ).select2("val", varietyList[0]);
+    }
+    else {
+        $( "#varietySelect" ).empty();
+        $( "#varietySelect" ).select2({
+            placeholder: "No variety",
+            allowClear: true
+        });
+        $( "#varietySelect" ).select2("val", "");
+    }
 };
 
 /**
  * This method creates the calendars for moon period & plant date
  */
-CucurbitaMaximaSawingSheet.prototype.createCalendars = function(){
+CucurbitaMaximaForecastSheet.prototype.createCalendars = function(){
     var self = this;
     $( "#plantDate" ).datepicker({
         dateFormat: cucurbitaDateFormat,
@@ -103,33 +130,13 @@ CucurbitaMaximaSawingSheet.prototype.createCalendars = function(){
             self.checkPlantDateWithMoon();
         }
     });
-
-    $( "#moonBegin" ).datepicker({
-        dateFormat: cucurbitaDateFormat,
-        setDate: new Date(),
-        onSelect: function() {
-            var pickerDate = $("#moonBegin").datepicker('getDate');
-            $( "#moonEnd" ).datepicker( "option", "minDate", pickerDate );
-            self.checkPlantDateWithMoon();
-        }
-    });
-
-    $( "#moonEnd" ).datepicker({
-        dateFormat: cucurbitaDateFormat,
-        setDate: new Date(),
-        onSelect: function() {
-            var pickerDate = $("#moonEnd").datepicker('getDate');
-            $( "#moonBegin" ).datepicker( "option", "maxDate", pickerDate );
-            self.checkPlantDateWithMoon();
-        }
-    });
 };
 
 /**
  * This method calculate the crop date by adding plant date and cycle
  * cropDate = plantDate + cycle
  */
-CucurbitaMaximaSawingSheet.prototype.calculateCrop = function(){
+CucurbitaMaximaForecastSheet.prototype.calculateCrop = function(){
     var cycleValue = $("#cycle").val() != "" ? parseInt($("#cycle").val()) : 0;
     var pickerDate = $("#plantDate").datepicker('getDate');
     var cropDate = new Date(pickerDate);
@@ -141,7 +148,7 @@ CucurbitaMaximaSawingSheet.prototype.calculateCrop = function(){
 /**
  * This method checks if the plant date is between the begin and the end of the moon period
  */
-CucurbitaMaximaSawingSheet.prototype.checkPlantDateWithMoon = function(){
+CucurbitaMaximaForecastSheet.prototype.checkPlantDateWithMoon = function(){
     var pickerPlantDate = $("#plantDate").datepicker('getDate');
     var pickerMoonBeginDate = $("#moonBegin").datepicker('getDate');
     var pickerMoonEndDate = $("#moonEnd").datepicker('getDate');
@@ -154,11 +161,11 @@ CucurbitaMaximaSawingSheet.prototype.checkPlantDateWithMoon = function(){
 /**
  * This method reinit the form with empty fields and default values for selects
  */
-CucurbitaMaximaSawingSheet.prototype.resetForm = function(){
+CucurbitaMaximaForecastSheet.prototype.resetForm = function(){
     $("#createForm")[0].reset();
     // Selects
-    $( "#groundSelect" ).select2( "val", this.groundList[0] );
-    $( "#typeSelect" ).select2( "val", this.typeList[0] );
+    $( "#nameSelect" ).select2( "val", "" );
+    $( "#varietySelect" ).select2( "val", "" );
     //Calendar & crop
     $('#plantDate').datepicker().datepicker("setDate", new Date());
     var pickerDate = $("#plantDate").datepicker('getDate');

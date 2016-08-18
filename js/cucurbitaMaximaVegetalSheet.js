@@ -14,7 +14,7 @@ function CucurbitaMaximaVegetalSheet(){
     this.lineNumber=0;
     this.header = JSON.parse(jQuery.i18n.prop("vegetalHeaderFile"));
     this.headerId = JSON.parse(jQuery.i18n.prop("vegetalHeaderIdFile"));
-    this.headerToDisplay = JSON.parse(jQuery.i18n.prop("vegetalHeaderIdFileToDisplay"));
+    this.headerToDisplay = JSON.parse(jQuery.i18n.prop("vegetalHeaderFileToDisplay"));
 }
 
 extendClass(CucurbitaMaximaVegetalSheet, CucurbitaMaxima);

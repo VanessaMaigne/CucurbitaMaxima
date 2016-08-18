@@ -27,7 +27,7 @@
 <BODY>
 
 <div class="container containerHome">
-    <div>
+    <div class="col-xs-12 col-md-12">
         <div class="col-xs-5 col-md-3"><BR/>
             <a href="../index.html"><img src="../img/120.png" class="basicButton" width="50px" title="Retour page d'accueil"/></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <a href="forecastSheetCreate.php"><img src="../img/11.png" class="basicButton" width="50px" title="Saisir une récolte"/></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -38,7 +38,7 @@
     </div>
 
 
-    <div id="dataDiv" class="col-sm-12 col-md-12">
+    <div id="dataDiv" class="col-xs-12 col-md-12">
         <div id="data-count" class="dc-data-count dc-chart">
             <h5 class="sawingNumberSheet"><span id="total-count"></span><span>&nbsp;récolte(s)</span></h5>
         </div>
@@ -58,7 +58,7 @@
 
 <script type="text/javascript">
     $(window).load(function() {
-        new CucurbitaMaximaSawingSheet().list();
+        new CucurbitaMaximaForecastSheet().list();
     });
 </script>
 
