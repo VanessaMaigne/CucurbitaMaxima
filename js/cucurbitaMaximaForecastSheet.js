@@ -63,6 +63,7 @@ CucurbitaMaximaForecastSheet.prototype.createSelects = function(){
  * @param nameList
  */
 CucurbitaMaximaForecastSheet.prototype.fillNameSelect = function(nameList, context){
+    $.unique(nameList);
     $( "#nameSelect" ).append( "<option value=''></option>" );
     $.each( nameList, function( i, d )
     {

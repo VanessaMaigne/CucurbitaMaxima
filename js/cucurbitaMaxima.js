@@ -1,5 +1,5 @@
 /**
- * CucurbitaMaxima _ version 1.0
+ * CucurbitaMaxima _ version 1.1
  * ##################################################
  *   Created by vmaigne@gmail.com _ august 2015
  * ##################################################
@@ -167,7 +167,7 @@ CucurbitaMaxima.prototype.removeElement = function(lineNumber){
     var self = this;
     lineNumber++;
     if(confirm("Confirmer la suppression de la fiche numéro "+lineNumber)){
-        $.ajax( {
+        $.when( $.ajax( {
             url:'../phpScript/removeLine.php?fileNameProperties='+self.dataFileProperty+'&ln='+lineNumber,
             type:'GET',
             error: function()
@@ -178,7 +178,9 @@ CucurbitaMaxima.prototype.removeElement = function(lineNumber){
             {
                 self.readFileAndDisplayContent();
             }
-        } );
+        } )).then(function(){
+                $(".tooltip").hide();
+            });
     }
 };
 
@@ -186,7 +188,6 @@ CucurbitaMaxima.prototype.removeElement = function(lineNumber){
 /****************************************************/
 /** ******************** FORM ******************** **/
 /****************************************************/
-
 /**
  * This method init form with submit, reset and save events
  */
@@ -238,7 +239,10 @@ CucurbitaMaxima.prototype.saveForm = function(){
         success: function()
         {
             if(params.ln) $("#actionMessage").html("Fiche modifiée !");
-            else $("#actionMessage").html("Fiche créée !");
+            else {
+                $("#actionMessage").html("Fiche créée !");
+                self.resetForm();
+            }
         }
     } );
 };
