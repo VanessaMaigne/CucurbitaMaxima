@@ -39,9 +39,10 @@
 
 
     <div id="dataDiv" class="col-xs-12 col-md-12">
-        <div id="data-count" class="dc-data-count dc-chart">
+        <div id="data-count" class="dc-data-count dc-chart col-xs-10 col-md-10">
             <h5 class="sawingNumberSheet"><span id="total-count"></span><span>&nbsp;fiche(s)</span></h5>
         </div>
+        <div id="actionMessage" class="col-xs-2 col-md-2 text-right"></div>
 
         <table id="data-table" class="table table-hover dc-data-table dc-chart">
             <thead>

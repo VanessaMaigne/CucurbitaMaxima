@@ -65,6 +65,12 @@ CucurbitaMaxima.prototype.initToolTip = function() {
         container:'body'});
 };
 
+CucurbitaMaxima.prototype.initForAllChildren = function(){
+    $(document.body).on("click", function(){
+        $("#actionMessage").hide();
+    })
+};
+
 
 /****************************************************/
 /** ********************* HOME ******************* **/
@@ -167,6 +173,7 @@ CucurbitaMaxima.prototype.removeElement = function(lineNumber){
     var self = this;
     lineNumber++;
     if(confirm("Confirmer la suppression de la fiche numéro "+lineNumber)){
+        $("#actionMessage").html("Loading...");
         $.when( $.ajax( {
             url:'../phpScript/removeLine.php?fileNameProperties='+self.dataFileProperty+'&ln='+lineNumber,
             type:'GET',
@@ -176,7 +183,11 @@ CucurbitaMaxima.prototype.removeElement = function(lineNumber){
             },
             success: function()
             {
-                self.readFileAndDisplayContent();
+                setTimeout( function(){
+                    self.readFileAndDisplayContent();
+                    $("#actionMessage").empty();
+                }, 3000);
+
             }
         } )).then(function(){
                 $(".tooltip").hide();
@@ -203,6 +214,7 @@ CucurbitaMaxima.prototype.initForm = function(){
     $("#createForm").on("submit", function(e){
         if (e.isDefaultPrevented()) {
             $("#actionMessage").html("<span class='warning'>Il reste des champs à corriger</span>");
+            $("#actionMessage").show();
         } else {
             e.preventDefault(); // Avoid to launch the event submit
         }
@@ -238,9 +250,13 @@ CucurbitaMaxima.prototype.saveForm = function(){
         error: function(){ alert( "Erreur : suppression non effectuée. Veuillez vérifier le contenu et les droits du fichier." ); },
         success: function()
         {
-            if(params.ln) $("#actionMessage").html("Fiche modifiée !");
+            if(params.ln) {
+                $("#actionMessage").html("Fiche modifiée !");
+                $("#actionMessage").show();
+            }
             else {
                 $("#actionMessage").html("Fiche créée !");
+                $("#actionMessage").show();
                 self.resetForm();
             }
         }

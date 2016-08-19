@@ -101,6 +101,11 @@ CucurbitaMaximaSawingSheet.prototype.createCalendars = function(){
             $("#plantDateWeek").html("(semaine : "+$.datepicker.iso8601Week(pickerDate) +")");
             self.calculateCrop();
             self.checkPlantDateWithMoon();
+        },
+        beforeShow: function (textbox, instance) {
+            instance.dpDiv.css({
+                    marginTop: (-textbox.offsetHeight-220) + 'px'
+            });
         }
     });
 
@@ -111,6 +116,11 @@ CucurbitaMaximaSawingSheet.prototype.createCalendars = function(){
             var pickerDate = $("#moonBegin").datepicker('getDate');
             $( "#moonEnd" ).datepicker( "option", "minDate", pickerDate );
             self.checkPlantDateWithMoon();
+        },
+        beforeShow: function (textbox, instance) {
+            instance.dpDiv.css({
+                    marginTop: (-textbox.offsetHeight-220) + 'px'
+            });
         }
     });
 
@@ -121,6 +131,11 @@ CucurbitaMaximaSawingSheet.prototype.createCalendars = function(){
             var pickerDate = $("#moonEnd").datepicker('getDate');
             $( "#moonBegin" ).datepicker( "option", "maxDate", pickerDate );
             self.checkPlantDateWithMoon();
+        },
+        beforeShow: function (textbox, instance) {
+            instance.dpDiv.css({
+                    marginTop: (-textbox.offsetHeight-220) + 'px'
+            });
         }
     });
 };

@@ -30,6 +30,7 @@ extendClass(CucurbitaMaximaForecastSheet, CucurbitaMaxima);
 /****************************************************/
 CucurbitaMaximaForecastSheet.prototype.create = function(){
     var self = this;
+    this.initForAllChildren();
     self.initToolTip();
     self.createSelects();
     self.createCalendars();
@@ -129,6 +130,11 @@ CucurbitaMaximaForecastSheet.prototype.createCalendars = function(){
             $("#plantDateWeek").html("(semaine : "+$.datepicker.iso8601Week(pickerDate) +")");
             self.calculateCrop();
             self.checkPlantDateWithMoon();
+        },
+        beforeShow: function (textbox, instance) {
+            instance.dpDiv.css({
+                    marginTop: (-textbox.offsetHeight-220) + 'px'
+            });
         }
     });
 };
