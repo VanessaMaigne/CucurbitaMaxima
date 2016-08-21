@@ -289,7 +289,7 @@ CucurbitaMaxima.prototype.fillForm = function(dataLine){
     $.each(this.headerId, function(i,d){
         if($("#"+d).is("select"))
             $("#"+d).select2("val", values[i]);
-        else
+        else if(values[i] != undefined && values[i] != "undefined" && values[i] != "")
             $("#"+d).val(values[i]);
     });
 };
