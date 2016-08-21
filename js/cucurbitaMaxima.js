@@ -358,7 +358,8 @@ CucurbitaMaxima.prototype.displayDataTable = function(csv) {
         keys.forEach(function(ff,ii) {
             if(-1 != jQuery.inArray(ff, self.headerToDisplay)){
                 var tdElement = $("<td></td>");
-                tdElement.html("<span>" + d[keys[ii]] + "</span>");
+                if(d[keys[ii]] != undefined && d[keys[ii]] != "undefined" && d[keys[ii]] != "")
+                    tdElement.html("<span>" + d[keys[ii]] + "</span>");
                 trElement.append(tdElement);
             }
         });
