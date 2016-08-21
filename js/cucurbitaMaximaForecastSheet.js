@@ -68,7 +68,8 @@ CucurbitaMaximaForecastSheet.prototype.fillNameSelect = function(nameList, conte
     $( "#nameSelect" ).append( "<option value=''></option>" );
     $.each( nameList, function( i, d )
     {
-        $( "#nameSelect" ).append( "<option value='" + d + "'>" + d + "</option>" );
+        if(d!= undefined && d!= "")
+            $( "#nameSelect" ).append( "<option value='" + d + "'>" + d + "</option>" );
     } );
     $( "#nameSelect" ).select2({
         placeholder: "Yo pépé, pioche un nom vernaculaire !",
@@ -99,21 +100,23 @@ CucurbitaMaximaForecastSheet.prototype.fillVarietySelect = function(data){
             return elements;
         });
 
+    $.unique(varietyList);
     if(varietyList[0] != undefined){
         $( "#varietySelect" ).empty();
         $.each( varietyList, function( i, d )
         {
-            $( "#varietySelect" ).append( "<option value='" + d + "'>" + d + "</option>" );
+            if(d!= undefined && d!= "")
+                $( "#varietySelect" ).append( "<option value='" + d + "'>" + d + "</option>" );
         } );
         $( "#varietySelect" ).select2("val", varietyList[0]);
     }
     else {
         $( "#varietySelect" ).empty();
+        $( "#varietySelect" ).append( "<option value=''></option>" );
         $( "#varietySelect" ).select2({
             placeholder: "No variety",
             allowClear: true
         });
-        $( "#varietySelect" ).select2("val", "");
     }
 };
 

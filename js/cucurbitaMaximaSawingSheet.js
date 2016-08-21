@@ -77,6 +77,7 @@ CucurbitaMaximaSawingSheet.prototype.createSelects = function(){
  * @param nameList
  */
 CucurbitaMaximaSawingSheet.prototype.fillNameSelect = function(nameList){
+    $.unique(nameList);
     $( "#nameSelect" ).append( "<option value=''></option>" );
     $.each( nameList, function( i, d )
     {

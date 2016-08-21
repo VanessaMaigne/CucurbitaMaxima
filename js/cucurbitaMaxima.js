@@ -287,7 +287,10 @@ CucurbitaMaxima.prototype.getContentAndfillForm = function(lineNumber){
 CucurbitaMaxima.prototype.fillForm = function(dataLine){
     var values = dataLine.replace("\n", "").split(this.separator);
     $.each(this.headerId, function(i,d){
-        $("#"+d).val(values[i]);
+        if($("#"+d).is("select"))
+            $("#"+d).select2("val", values[i]);
+        else
+            $("#"+d).val(values[i]);
     });
 };
 
