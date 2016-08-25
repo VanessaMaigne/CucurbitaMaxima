@@ -7,7 +7,7 @@
  *
  */
 
-// URL parameters
+    // URL parameters
 var params={};
 window.location.search.replace(/[?&]+([^=&]+)=([^&]*)/gi,function(str,key,value){params[key] = value;});
 
@@ -31,6 +31,10 @@ function CucurbitaMaxima(){
     this.moonArray =JSON.parse(jQuery.i18n.prop("moonArray"));
     this.moonArrayNameImg =JSON.parse(jQuery.i18n.prop("moonArrayNameImg"));
 
+    // Object with element we want to sum to display at the end of the table (weight, quantity...)
+    // Example : valuesToSumForListObject = { poids : 0, quantity : 0 }
+    this.valuesToSumForListObject = false;
+
     this.init = function(){
         var season = getSeason();
         $("#season").attr("src","img/"+replaceSpec(season.name)+".png");
@@ -38,13 +42,13 @@ function CucurbitaMaxima(){
         $("#dateValue").html(this.dateValue);
 
         // Animate zones climatiques image
-//        var small={width:"150px",height:"150px"};
-//        var large={width:"400px",height:"400"};
-//        var count=1;
-//        $("#climateZones").css(small).on('click',function () {
-//            $(this).animate((count==1)?large:small);
-//            count = 1-count;
-//        });
+        //        var small={width:"150px",height:"150px"};
+        //        var large={width:"400px",height:"400"};
+        //        var count=1;
+        //        $("#climateZones").css(small).on('click',function () {
+        //            $(this).animate((count==1)?large:small);
+        //            count = 1-count;
+        //        });
 
         this.calculateMoon();
         this.initToolTip();
@@ -155,8 +159,8 @@ CucurbitaMaxima.prototype.extractColumnFromFileAndCallback = function(filePath, 
             data.dimension(function(d) {
                 return d[columnName];
             }).filter(function(key) {
-                    if(key != "") columnValues.push(key);
-                });
+                        if(key != "") columnValues.push(key);
+                    });
         } else columnValues = data;
 
         if(callback)
@@ -190,8 +194,8 @@ CucurbitaMaxima.prototype.removeElement = function(lineNumber){
 
             }
         } )).then(function(){
-                $(".tooltip").hide();
-            });
+                    $(".tooltip").hide();
+                });
     }
 };
 
@@ -347,7 +351,7 @@ CucurbitaMaxima.prototype.displayDataTable = function(csv) {
     var self = this;
     $("#dataContent").empty();
 
-    if(csv.length <= 0) $("#dataContent").html("<tr><td colspan='10'><center>Aucune donnée.</center></td></tr>");
+    if(0 >= csv.length) $("#dataContent").html("<tr><td colspan='10'><center>Aucune donnée.</center></td></tr>");
 
     $.each(csv, function(i, d) {
         var keys = d3.keys(d);
@@ -357,12 +361,14 @@ CucurbitaMaxima.prototype.displayDataTable = function(csv) {
         // Line number
         trElement.append($('<td>'+(i+1)+'</td>'));
 
-        keys.forEach(function(ff,ii) {
-            if(-1 != jQuery.inArray(ff, self.headerToDisplay)){
+        keys.forEach(function(keyName,ii) {
+            if(-1 != jQuery.inArray(keyName, self.headerToDisplay)){
                 var tdElement = $("<td></td>");
-                if(d[keys[ii]] != undefined && d[keys[ii]] != "undefined" && d[keys[ii]] != "")
+                if(d[keys[ii]] != undefined && "undefined" != d[keys[ii]] && "" != d[keys[ii]] && null != d[keys[ii]] && "null" != d[keys[ii]])
                     tdElement.html("<span>" + d[keys[ii]] + "</span>");
                 trElement.append(tdElement);
+                if(self.valuesToSumForListObject && -1 != Object.keys(self.valuesToSumForListObject).indexOf(keys[ii]))
+                    self.valuesToSumForListObject[keys[ii]] += Number(d[keys[ii]]);
             }
         });
 
@@ -375,6 +381,23 @@ CucurbitaMaxima.prototype.displayDataTable = function(csv) {
         trElement.append(removeImage);
 
         $("#dataContent").append(trElement);
-    })
+    });
+
+    if(self.valuesToSumForListObject){
+        var trElement = $("<tr><td>Sommes</td></tr>");
+        trElement.attr("class", "dc-table-group sums");
+        $.each(self.headerToDisplay, function(i, keyName){
+            var tdElement = $("<td></td>");
+            if(-1 != Object.keys(self.valuesToSumForListObject).indexOf(keyName))
+                tdElement.html("<span>" + self.valuesToSumForListObject[keyName] + "</span>");
+            trElement.append(tdElement);
+        });
+        trElement.append("<td colspan='2'></td>");
+
+        $("#dataContent").append(trElement);
+    }
+
+
+
 };
 

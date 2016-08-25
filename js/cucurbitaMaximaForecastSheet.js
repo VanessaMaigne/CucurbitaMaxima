@@ -155,7 +155,7 @@ CucurbitaMaximaForecastSheet.prototype.createCalendars = function(){
  * cropDate = plantDate + cycle
  */
 CucurbitaMaximaForecastSheet.prototype.calculateCrop = function(){
-    var cycleValue = $("#cycle").val() != "" ? parseInt($("#cycle").val()) : 0;
+    var cycleValue = "" != $( "#cycle" ).val() ? parseInt($("#cycle").val()) : 0;
     var pickerDate = $("#plantDate").datepicker('getDate');
     var cropDate = new Date(pickerDate);
     cropDate.setDate(pickerDate.getDate() + cycleValue);
@@ -170,8 +170,7 @@ CucurbitaMaximaForecastSheet.prototype.checkPlantDateWithMoon = function(){
     var pickerPlantDate = $("#plantDate").datepicker('getDate');
     var pickerMoonBeginDate = $("#moonBegin").datepicker('getDate');
     var pickerMoonEndDate = $("#moonEnd").datepicker('getDate');
-    if(pickerPlantDate != null && (pickerMoonBeginDate == null || pickerMoonBeginDate <= pickerPlantDate)
-            && (pickerMoonEndDate == null || pickerPlantDate <= pickerMoonEndDate))
+    if(null != pickerPlantDate && (null == pickerMoonBeginDate || pickerMoonBeginDate <= pickerPlantDate) && (null == pickerMoonEndDate || pickerPlantDate <= pickerMoonEndDate))
         $("#plantDateWarning").html("");
     else $("#plantDateWarning").html("<img src='../img/25.png' width='25px'/>  Attention : date non conforme à la phase lunaire");
 };
@@ -189,4 +188,13 @@ CucurbitaMaximaForecastSheet.prototype.resetForm = function(){
     var pickerDate = $("#plantDate").datepicker('getDate');
     $("#plantDateWeek").html("(semaine : "+$.datepicker.iso8601Week(pickerDate) +")");
     this.calculateCrop();
+};
+
+
+/****************************************************/
+/** ******************** LIST ******************** **/
+/****************************************************/
+CucurbitaMaximaForecastSheet.prototype.list = function() {
+    this.valuesToSumForListObject =  { Poids : 0, Quantite : 0 };
+    this.readFileAndDisplayContent();
 };
