@@ -36,7 +36,7 @@
     <div class="col-xs-12 col-md-12">
         <div class="col-xs-4 col-md-3"><BR/>
             <a href="../index.html"><img src="../img/120.png" class="basicButton" width="50px" title="Retour page d'accueil"/></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <a href="sawingSheetList.php"><img src="../img/10.png" class="basicButton" width="50px" title="Liste des fiches"/></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <a href="sawingSheetList.php"><img src="../img/16.png" class="basicButton" width="50px" title="Liste des fiches"/></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <a href="statistics.php"><img src="../img/78.png" class="basicButton" width="50px" title="Prévision des récoltes"/></a>
         </div>
 

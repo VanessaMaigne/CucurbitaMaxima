@@ -41,9 +41,8 @@ CucurbitaMaximaForecastSheet.prototype.create = function(){
     if(!self.booleanForHeaderCreation["forecast"])
         self.createDataHeader("forecast");
 
-    if(params.ln){
+    if(params.ln)
         self.getContentAndfillForm(params.ln, this.fillVarietySelectWithSelectedValue);
-    }
 
     // Events on #createForm form
     self.initForm();
