@@ -267,7 +267,7 @@ CucurbitaMaxima.prototype.saveForm = function(){
  * This method modifies a sheet by getting the fields's values from the file and filling the form.
  * @param lineNumber
  */
-CucurbitaMaxima.prototype.getContentAndfillForm = function(lineNumber){
+CucurbitaMaxima.prototype.getContentAndfillForm = function(lineNumber, callback){
     var self = this;
     $.ajax( {
         url:'../phpScript/getLineContent.php?fileNameProperties='+self.dataFileProperty+'&ln='+lineNumber,
@@ -275,7 +275,7 @@ CucurbitaMaxima.prototype.getContentAndfillForm = function(lineNumber){
         error: function(){ alert( "Erreur : contenu non lisible. Veuillez vérifier le contenu et les droits du fichier." ); },
         success: function(data)
         {
-            self.fillForm(data);
+            self.fillForm(data, callback);
         }
     } );
 };
@@ -284,14 +284,16 @@ CucurbitaMaxima.prototype.getContentAndfillForm = function(lineNumber){
  * This method fills the form with values from the file line
  * @param dataLine
  */
-CucurbitaMaxima.prototype.fillForm = function(dataLine){
+CucurbitaMaxima.prototype.fillForm = function(dataLine, callback){
     var values = dataLine.replace("\n", "").split(this.separator);
     $.each(this.headerId, function(i,d){
         if($("#"+d).is("select"))
             $("#"+d).select2("val", values[i]);
-        else if(values[i] != undefined && values[i] != "undefined" && values[i] != "")
+        else if(values[i] != undefined && "undefined" != values[i] && "" != values[i])
             $("#"+d).val(values[i]);
     });
+    if(callback)
+        callback(values, this);
 };
 
 

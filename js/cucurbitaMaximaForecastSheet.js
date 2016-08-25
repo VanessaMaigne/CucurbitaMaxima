@@ -19,6 +19,8 @@ function CucurbitaMaximaForecastSheet(){
     this.vegetalFilePath = "../data/vegetalSheet.csv";
     this.vegetalHeaderForForecastSelect=jQuery.i18n.prop("vegetalHeaderForForecastSelect");
     this.vegetalHeaderForForecastSubSelect=jQuery.i18n.prop("vegetalHeaderForForecastSubSelect");
+
+    this.varietySelectedValue = false;
 }
 
 
@@ -30,7 +32,7 @@ extendClass(CucurbitaMaximaForecastSheet, CucurbitaMaxima);
 /****************************************************/
 CucurbitaMaximaForecastSheet.prototype.create = function(){
     var self = this;
-    this.initForAllChildren();
+    self.initForAllChildren();
     self.initToolTip();
     self.createSelects();
     self.createCalendars();
@@ -39,15 +41,12 @@ CucurbitaMaximaForecastSheet.prototype.create = function(){
     if(!self.booleanForHeaderCreation["forecast"])
         self.createDataHeader("forecast");
 
-    if(params.ln)
-        self.getContentAndfillForm(params.ln);
+    if(params.ln){
+        self.getContentAndfillForm(params.ln, this.fillVarietySelectWithSelectedValue);
+    }
 
     // Events on #createForm form
     self.initForm();
-
-//    $("#cycle").on("keyup", function(){
-//        self.calculateCrop();
-//    })
 };
 
 /**
@@ -57,6 +56,13 @@ CucurbitaMaximaForecastSheet.prototype.create = function(){
 CucurbitaMaximaForecastSheet.prototype.createSelects = function(){
     // Name select
     this.extractColumnFromFileAndCallback(this.vegetalFilePath, this.vegetalHeaderForForecastSelect, this.fillNameSelect);
+
+    // Variety select
+    $( "#varietySelect" ).append( "<option value=''></option>" );
+    $( "#varietySelect" ).select2({
+        placeholder: "No variety",
+        allowClear: true
+    });
 };
 
 /**
@@ -68,26 +74,20 @@ CucurbitaMaximaForecastSheet.prototype.fillNameSelect = function(nameList, conte
     $( "#nameSelect" ).append( "<option value=''></option>" );
     $.each( nameList, function( i, d )
     {
-        if(d!= undefined && d!= "")
+        if(d!= undefined && "" != d)
             $( "#nameSelect" ).append( "<option value='" + d + "'>" + d + "</option>" );
     } );
     $( "#nameSelect" ).select2({
         placeholder: "Yo pépé, pioche un nom vernaculaire !",
         allowClear: true
     })
-        .on("change", function(){
-            context.extractColumnFromFileAndCallback(context.vegetalFilePath, false, context.fillVarietySelect);
-        });
-
-    $( "#varietySelect" ).append( "<option value=''></option>" );
-    $( "#varietySelect" ).select2({
-        placeholder: "No variety",
-        allowClear: true
-    });
+            .on("change", function(){
+                context.extractColumnFromFileAndCallback(context.vegetalFilePath, false, context.fillVarietySelect);
+            });
 };
 
 
-CucurbitaMaximaForecastSheet.prototype.fillVarietySelect = function(data){
+CucurbitaMaximaForecastSheet.prototype.fillVarietySelect = function(data, context){
     var varietyList = new Array();
     data.dimension(function(d) {
         var result = new Object();
@@ -95,20 +95,23 @@ CucurbitaMaximaForecastSheet.prototype.fillVarietySelect = function(data){
         result.variety = d[this.vegetalHeaderForForecastSubSelect];
         return result;
     }).filter(function(elements) {
-            if(elements.nv == $("#nameSelect").val())
-                varietyList.push(elements.variety);
-            return elements;
-        });
+                if(elements.nv == $("#nameSelect").val())
+                    varietyList.push(elements.variety);
+                return elements;
+            });
 
     $.unique(varietyList);
     if(varietyList[0] != undefined){
         $( "#varietySelect" ).empty();
         $.each( varietyList, function( i, d )
         {
-            if(d!= undefined && d!= "")
+            if(d!= undefined && "" != d)
                 $( "#varietySelect" ).append( "<option value='" + d + "'>" + d + "</option>" );
         } );
-        $( "#varietySelect" ).select2("val", varietyList[0]);
+        if(context && context.selectedVarietyValue)
+            $( "#varietySelect" ).select2("val", context.selectedVarietyValue);
+        else
+            $( "#varietySelect" ).select2("val", varietyList[0]);
     }
     else {
         $( "#varietySelect" ).empty();
@@ -118,6 +121,11 @@ CucurbitaMaximaForecastSheet.prototype.fillVarietySelect = function(data){
             allowClear: true
         });
     }
+};
+
+CucurbitaMaximaForecastSheet.prototype.fillVarietySelectWithSelectedValue = function(data, context){
+    context.selectedVarietyValue = data[context.headerId.indexOf("varietySelect")];
+    context.extractColumnFromFileAndCallback(context.vegetalFilePath, false, context.fillVarietySelect);
 };
 
 /**
@@ -136,7 +144,7 @@ CucurbitaMaximaForecastSheet.prototype.createCalendars = function(){
         },
         beforeShow: function (textbox, instance) {
             instance.dpDiv.css({
-                    marginTop: (-textbox.offsetHeight-220) + 'px'
+                marginTop: (-textbox.offsetHeight-220) + 'px'
             });
         }
     });
@@ -163,7 +171,7 @@ CucurbitaMaximaForecastSheet.prototype.checkPlantDateWithMoon = function(){
     var pickerMoonBeginDate = $("#moonBegin").datepicker('getDate');
     var pickerMoonEndDate = $("#moonEnd").datepicker('getDate');
     if(pickerPlantDate != null && (pickerMoonBeginDate == null || pickerMoonBeginDate <= pickerPlantDate)
-        && (pickerMoonEndDate == null || pickerPlantDate <= pickerMoonEndDate))
+            && (pickerMoonEndDate == null || pickerPlantDate <= pickerMoonEndDate))
         $("#plantDateWarning").html("");
     else $("#plantDateWarning").html("<img src='../img/25.png' width='25px'/>  Attention : date non conforme à la phase lunaire");
 };
