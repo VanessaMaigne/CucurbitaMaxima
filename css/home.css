@@ -189,15 +189,15 @@ button a {
 
 
 /* ***************************************** */
-/* *************** FORECAST PAGE *********** */
+/* *************** HARVEST PAGE *********** */
 /* ***************************************** */
-.forecastTitle {
+.harvestTitle {
     color: #B22222;
     font-size: 40px;
     margin-left: -60px;
 }
 
-.forecastSubTitle {
+.harvestSubTitle {
     color: #5F9EA0;
     font-size: 25px;
 }

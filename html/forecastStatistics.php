@@ -47,7 +47,7 @@
 
 
         <div class="row">
-            <div id="yearly-bubble-chart" class="dc-chart"></div>
+            <div id="variety-pie-chart" class="dc-chart"></div>
         </div>
         <div class="row">
             <div id="gain-loss-chart" class="dc-chart"></div>

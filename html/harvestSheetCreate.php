@@ -4,7 +4,7 @@
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Cucurbita Maxima Forecast Sheet</title>
+    <title>Cucurbita Maxima Harvest Sheet</title>
     <link rel="icon" href="../img/tomato_16.png" type="image/png">
 
     <!-- ************************* CSS ************************* -->
@@ -26,7 +26,7 @@
 
     <script type="text/javascript" src="../js/helper.js"></script>
     <script type="text/javascript" src="../js/cucurbitaMaxima.js"></script>
-    <script type="text/javascript" src="../js/cucurbitaMaximaForecastSheet.js"></script>
+    <script type="text/javascript" src="../js/cucurbitaMaximaHarvestSheet.js"></script>
 </HEAD>
 
 
@@ -36,11 +36,11 @@
     <div class="col-xs-12 col-md-12">
         <div class="col-xs-5 col-md-3"><BR/>
             <a href="../index.html"><img src="../img/120.png" class="basicButton" width="50px" title="Retour page d'accueil"/></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <a href="forecastSheetList.php"><img src="../img/16.png" class="basicButton" width="50px" title="Liste des récoltes"/></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <a href="statistics.php"><img src="../img/78.png" class="basicButton" width="50px" title="Prévision des récoltes"/></a>
+            <a href="harvestSheetList.php"><img src="../img/16.png" class="basicButton" width="50px" title="Liste des récoltes"/></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <a href="harvestStatistics.php"><img src="../img/78.png" class="basicButton" width="50px" title="Prévision des récoltes"/></a>
         </div>
 
-        <div class="col-xs-7 col-md-9 text-center"><h2 class="forecastTitle">Fiche de récolte</h2><BR/><BR/><BR/></div>
+        <div class="col-xs-7 col-md-9 text-center"><h2 class="harvestTitle">Fiche de récolte</h2><BR/><BR/><BR/></div>
     </div>
 
     <div class="col-xs-12 col-md-12">
@@ -110,7 +110,7 @@
 
 <script type="text/javascript">
     $(window).load(function() {
-        new CucurbitaMaximaForecastSheet().create();
+        new CucurbitaMaximaHarvestSheet().create();
     });
 
 </script>

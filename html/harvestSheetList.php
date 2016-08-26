@@ -21,7 +21,7 @@
 
     <script type="text/javascript" src="../js/helper.js"></script>
     <script type="text/javascript" src="../js/cucurbitaMaxima.js"></script>
-    <script type="text/javascript" src="../js/cucurbitaMaximaForecastSheet.js"></script>
+    <script type="text/javascript" src="../js/cucurbitaMaximaHarvestSheet.js"></script>
 </HEAD>
 
 <BODY>
@@ -30,11 +30,11 @@
     <div class="col-xs-12 col-md-12">
         <div class="col-xs-5 col-md-3"><BR/>
             <a href="../index.html"><img src="../img/120.png" class="basicButton" width="50px" title="Retour page d'accueil"/></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <a href="forecastSheetCreate.php"><img src="../img/11.png" class="basicButton" width="50px" title="Saisir une récolte"/></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <a href="statistics.php"><img src="../img/78.png" class="basicButton" width="50px" title="Prévision des récoltes"/></a>
+            <a href="harvestSheetCreate.php"><img src="../img/11.png" class="basicButton" width="50px" title="Saisir une récolte"/></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <a href="harvestStatistics.php"><img src="../img/78.png" class="basicButton" width="50px" title="Prévision des récoltes"/></a>
         </div>
 
-        <div class="col-xs-7 col-md-9 text-center"><h2 class="forecastTitle">Liste des récoltes</h2><BR/><BR/></div>
+        <div class="col-xs-7 col-md-9 text-center"><h2 class="harvestTitle">Liste des récoltes</h2><BR/><BR/></div>
     </div>
 
 
@@ -59,7 +59,7 @@
 
 <script type="text/javascript">
     $(window).load(function() {
-        new CucurbitaMaximaForecastSheet().list();
+        new CucurbitaMaximaHarvestSheet().list();
     });
 </script>
 

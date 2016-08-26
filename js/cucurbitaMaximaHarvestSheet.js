@@ -7,30 +7,30 @@
  *
  */
 
-function CucurbitaMaximaForecastSheet(){
-    this.dataFileProperty = "forecastSheetFilePath";
+function CucurbitaMaximaHarvestSheet(){
+    this.dataFileProperty = "harvestSheetFilePath";
     this.dataFile = jQuery.i18n.prop(this.dataFileProperty);
-    this.createFileName=jQuery.i18n.prop("forecastCreateFilePath");
+    this.createFileName=jQuery.i18n.prop("harvestCreateFilePath");
     this.lineNumber=0;
-    this.header = JSON.parse(jQuery.i18n.prop("forecastHeaderFile"));
-    this.headerId = JSON.parse(jQuery.i18n.prop("forecastHeaderIdFile"));
-    this.headerToDisplay = JSON.parse(jQuery.i18n.prop("forecastHeaderFileToDisplay"));
+    this.header = JSON.parse(jQuery.i18n.prop("harvestHeaderFile"));
+    this.headerId = JSON.parse(jQuery.i18n.prop("harvestHeaderIdFile"));
+    this.headerToDisplay = JSON.parse(jQuery.i18n.prop("harvestHeaderFileToDisplay"));
 
     this.vegetalFilePath = "../data/vegetalSheet.csv";
-    this.vegetalHeaderForForecastSelect=jQuery.i18n.prop("vegetalHeaderForForecastSelect");
-    this.vegetalHeaderForForecastSubSelect=jQuery.i18n.prop("vegetalHeaderForForecastSubSelect");
+    this.vegetalHeaderForHarvestSelect=jQuery.i18n.prop("vegetalHeaderForHarvestSelect");
+    this.vegetalHeaderForHarvestSubSelect=jQuery.i18n.prop("vegetalHeaderForHarvestSubSelect");
 
     this.varietySelectedValue = false;
 }
 
 
-extendClass(CucurbitaMaximaForecastSheet, CucurbitaMaxima);
+extendClass(CucurbitaMaximaHarvestSheet, CucurbitaMaxima);
 
 
 /****************************************************/
 /** ******************** CREATE ****************** **/
 /****************************************************/
-CucurbitaMaximaForecastSheet.prototype.create = function(){
+CucurbitaMaximaHarvestSheet.prototype.create = function(){
     var self = this;
     self.initForAllChildren();
     self.initToolTip();
@@ -38,8 +38,8 @@ CucurbitaMaximaForecastSheet.prototype.create = function(){
     self.createCalendars();
     self.resetForm();
 
-    if(!self.booleanForHeaderCreation["forecast"])
-        self.createDataHeader("forecast");
+    if(!self.booleanForHeaderCreation["harvest"])
+        self.createDataHeader("harvest");
 
     if(params.ln)
         self.getContentAndfillForm(params.ln, this.fillVarietySelectWithSelectedValue);
@@ -52,9 +52,9 @@ CucurbitaMaximaForecastSheet.prototype.create = function(){
  * This method creates and displays the select for ground and type
  * Values from cucurbitaMaxima.properties
  */
-CucurbitaMaximaForecastSheet.prototype.createSelects = function(){
+CucurbitaMaximaHarvestSheet.prototype.createSelects = function(){
     // Name select
-    this.extractColumnFromFileAndCallback(this.vegetalFilePath, this.vegetalHeaderForForecastSelect, this.fillNameSelect);
+    this.extractColumnFromFileAndCallback(this.vegetalFilePath, this.vegetalHeaderForHarvestSelect, this.fillNameSelect);
 
     // Variety select
     $( "#varietySelect" ).append( "<option value=''></option>" );
@@ -68,7 +68,7 @@ CucurbitaMaximaForecastSheet.prototype.createSelects = function(){
  * Callback for filling the name select after reading the vegetal sheets file
  * @param nameList
  */
-CucurbitaMaximaForecastSheet.prototype.fillNameSelect = function(nameList, context){
+CucurbitaMaximaHarvestSheet.prototype.fillNameSelect = function(nameList, context){
     $.unique(nameList);
     $( "#nameSelect" ).append( "<option value=''></option>" );
     $.each( nameList, function( i, d )
@@ -86,12 +86,12 @@ CucurbitaMaximaForecastSheet.prototype.fillNameSelect = function(nameList, conte
 };
 
 
-CucurbitaMaximaForecastSheet.prototype.fillVarietySelect = function(data, context){
+CucurbitaMaximaHarvestSheet.prototype.fillVarietySelect = function(data, context){
     var varietyList = new Array();
     data.dimension(function(d) {
         var result = new Object();
-        result.nv = d[this.vegetalHeaderForForecastSelect];
-        result.variety = d[this.vegetalHeaderForForecastSubSelect];
+        result.nv = d[this.vegetalHeaderForHarvestSelect];
+        result.variety = d[this.vegetalHeaderForHarvestSubSelect];
         return result;
     }).filter(function(elements) {
                 if(elements.nv == $("#nameSelect").val())
@@ -122,7 +122,7 @@ CucurbitaMaximaForecastSheet.prototype.fillVarietySelect = function(data, contex
     }
 };
 
-CucurbitaMaximaForecastSheet.prototype.fillVarietySelectWithSelectedValue = function(data, context){
+CucurbitaMaximaHarvestSheet.prototype.fillVarietySelectWithSelectedValue = function(data, context){
     context.selectedVarietyValue = data[context.headerId.indexOf("varietySelect")];
     context.extractColumnFromFileAndCallback(context.vegetalFilePath, false, context.fillVarietySelect);
 };
@@ -130,7 +130,7 @@ CucurbitaMaximaForecastSheet.prototype.fillVarietySelectWithSelectedValue = func
 /**
  * This method creates the calendars for moon period & plant date
  */
-CucurbitaMaximaForecastSheet.prototype.createCalendars = function(){
+CucurbitaMaximaHarvestSheet.prototype.createCalendars = function(){
     var self = this;
     $( "#plantDate" ).datepicker({
         dateFormat: cucurbitaDateFormat,
@@ -153,7 +153,7 @@ CucurbitaMaximaForecastSheet.prototype.createCalendars = function(){
  * This method calculate the crop date by adding plant date and cycle
  * cropDate = plantDate + cycle
  */
-CucurbitaMaximaForecastSheet.prototype.calculateCrop = function(){
+CucurbitaMaximaHarvestSheet.prototype.calculateCrop = function(){
     var cycleValue = "" != $( "#cycle" ).val() ? parseInt($("#cycle").val()) : 0;
     var pickerDate = $("#plantDate").datepicker('getDate');
     var cropDate = new Date(pickerDate);
@@ -165,7 +165,7 @@ CucurbitaMaximaForecastSheet.prototype.calculateCrop = function(){
 /**
  * This method checks if the plant date is between the begin and the end of the moon period
  */
-CucurbitaMaximaForecastSheet.prototype.checkPlantDateWithMoon = function(){
+CucurbitaMaximaHarvestSheet.prototype.checkPlantDateWithMoon = function(){
     var pickerPlantDate = $("#plantDate").datepicker('getDate');
     var pickerMoonBeginDate = $("#moonBegin").datepicker('getDate');
     var pickerMoonEndDate = $("#moonEnd").datepicker('getDate');
@@ -177,7 +177,7 @@ CucurbitaMaximaForecastSheet.prototype.checkPlantDateWithMoon = function(){
 /**
  * This method reinit the form with empty fields and default values for selects
  */
-CucurbitaMaximaForecastSheet.prototype.resetForm = function(){
+CucurbitaMaximaHarvestSheet.prototype.resetForm = function(){
     $("#createForm")[0].reset();
     // Selects
     $( "#nameSelect" ).select2( "val", "" );
@@ -193,7 +193,7 @@ CucurbitaMaximaForecastSheet.prototype.resetForm = function(){
 /****************************************************/
 /** ******************** LIST ******************** **/
 /****************************************************/
-CucurbitaMaximaForecastSheet.prototype.list = function() {
+CucurbitaMaximaHarvestSheet.prototype.list = function() {
     this.valuesToSumForListObject =  { Poids : 0, Quantite : 0 };
     this.readFileAndDisplayContent();
 };

@@ -59,7 +59,7 @@ function CucurbitaMaxima(){
 CucurbitaMaxima.prototype.booleanForHeaderCreation = new Object();
 CucurbitaMaxima.prototype.booleanForHeaderCreation["sawing"] = false;
 CucurbitaMaxima.prototype.booleanForHeaderCreation["vegetal"] = false;
-CucurbitaMaxima.prototype.booleanForHeaderCreation["forecast"] = false;
+CucurbitaMaxima.prototype.booleanForHeaderCreation["harvest"] = false;
 CucurbitaMaxima.prototype.separator = "|";
 CucurbitaMaxima.prototype.dsv = d3.dsv(CucurbitaMaxima.prototype.separator, "text/plain");
 
@@ -123,7 +123,7 @@ CucurbitaMaxima.prototype.createDataHeader = function(type){
         success: function(data)
         {
             var headerFromFile = data.split(",");
-            if(headerFromFile == ""){
+            if("" == headerFromFile){
                 var content = self.header.join(self.separator)+self.separator+"CreationDate";
                 $.ajax( {
                     url:'../phpScript/writeContent.php?fileNameProperties='+self.dataFileProperty+'&content='+content,

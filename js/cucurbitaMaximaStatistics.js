@@ -1,19 +1,20 @@
 /**
- * CucurbitaMaximaForecast _ version 1.0
+ * CucurbitaMaximaHarvest _ version 1.0
  * ##################################################
  *   Created by vmaigne@gmail.com _ august 2015
  * ##################################################
- * This file contains methods to display, ... the forecasts
+ * This file contains methods to display, ... the harvests
  *
  * https://dc-js.github.io/dc.js/docs/stock.html
  */
 
 function CucurbitaMaximaStatistics(){
     this.dataFile = jQuery.i18n.prop("sawingSheetFilePath");
-    this.forecastSawingGroup=jQuery.i18n.prop("forecastSawingDataGroup");
-    this.forecastSawingData=JSON.parse(jQuery.i18n.prop("forecastSawingData"));
-    this.forecastSawingDataDate=jQuery.i18n.prop("forecastSawingDataDate");
-    this.forecastSawingDataDayGap=parseInt(jQuery.i18n.prop("forecastSawingDataDayGap"));
+    this.harvestDataFile = jQuery.i18n.prop("harvestSheetFilePath");
+    this.harvestSawingGroup=jQuery.i18n.prop("harvestSawingDataGroup");
+    this.harvestSawingData=JSON.parse(jQuery.i18n.prop("harvestSawingData"));
+    this.harvestSawingDataDate=jQuery.i18n.prop("harvestSawingDataDate");
+    this.harvestSawingDataDayGap=parseInt(jQuery.i18n.prop("harvestSawingDataDayGap"));
 
     this.transition = 10;
 
@@ -48,6 +49,21 @@ CucurbitaMaximaStatistics.prototype.display = function(){
 //    this.nasdaqTable = dc.dataTable('.dc-data-table');
 
 
+    this.dsv(this.harvestDataFile, function (csv) {
+        self.header = d3.keys(csv[0]);
+        var data = crossfilter(csv);
+
+        var varietyDimension = data.dimension(function(d) {
+            return d["Nom vernaculaire"];
+        });
+
+//        var varietyGroup = data.dimension(function(d) {
+//            return d["Nom vernaculaire"];
+//        });
+
+        self.createPie("#variety-pie-chart", varietyDimension, varietyDimension.group());
+        dc.renderAll();
+    });
 
     this.dsv(this.dataFile, function (csv) {
 //    d3.csv('../data/ndx.csv', function (data) {
@@ -77,7 +93,7 @@ CucurbitaMaximaStatistics.prototype.display = function(){
 
         // Dimension by date
         var cropDateDimension = data.dimension(function (d) {
-            return cucurbitaDateFormatForD3.parse(d[self.forecastSawingDataDate]);
+            return cucurbitaDateFormatForD3.parse(d[self.harvestSawingDataDate]);
         });
 
         // Group by total movement within month
@@ -87,7 +103,7 @@ CucurbitaMaximaStatistics.prototype.display = function(){
 //        });
 
         var cropDateGroup = cropDateDimension.group().reduceCount(function(d) {
-            return cucurbitaDateFormatForD3.parse(d[self.forecastSawingDataDate]);
+            return cucurbitaDateFormatForD3.parse(d[self.harvestSawingDataDate]);
         });
 
 //"date","open","high","low","close","volume","oi"
@@ -121,96 +137,6 @@ CucurbitaMaximaStatistics.prototype.display = function(){
         self.createDataTable("#data-count", "#data-table", "#headerData", data, data.groupAll(), dimensionHeader);
         self.createAreaChart("#monthly-move-chart", '#monthly-volume-chart', cropDateDimension, volumeByMonthGroup, cropDateGroup, indexAvgByMonthGroup);
 
-//        var all = ndx.groupAll();
-
-        // Dimension by year
-//        var yearlyDimension = ndx.dimension(function (d) {
-//            return d3.time.year(d.dd).getFullYear();
-//        });
-        // Maintain running tallies by year as filters are applied or removed
-//        var yearlyPerformanceGroup = yearlyDimension.group().reduce(
-        /* callback for when data is added to the current filter results */
-//            function (p, v) {
-//                ++p.count;
-//                p.absGain += v.close - v.open;
-//                p.fluctuation += Math.abs(v.close - v.open);
-//                p.sumIndex += (v.open + v.close) / 2;
-//                p.avgIndex = p.sumIndex / p.count;
-//                p.percentageGain = p.avgIndex ? (p.absGain / p.avgIndex) * 100 : 0;
-//                p.fluctuationPercentage = p.avgIndex ? (p.fluctuation / p.avgIndex) * 100 : 0;
-//                return p;
-//            },
-        /* callback for when data is removed from the current filter results */
-//            function (p, v) {
-//                --p.count;
-//                p.absGain -= v.close - v.open;
-//                p.fluctuation -= Math.abs(v.close - v.open);
-//                p.sumIndex -= (v.open + v.close) / 2;
-//                p.avgIndex = p.count ? p.sumIndex / p.count : 0;
-//                p.percentageGain = p.avgIndex ? (p.absGain / p.avgIndex) * 100 : 0;
-//                p.fluctuationPercentage = p.avgIndex ? (p.fluctuation / p.avgIndex) * 100 : 0;
-//                return p;
-//            },
-        /* initialize p */
-//            function () {
-//                return {
-//                    count: 0,
-//                    absGain: 0,
-//                    fluctuation: 0,
-//                    fluctuationPercentage: 0,
-//                    sumIndex: 0,
-//                    avgIndex: 0,
-//                    percentageGain: 0
-//                };
-//            }
-//        );
-
-        // Dimension by full date
-//        var dateDimension = ndx.dimension(function (d) {
-//            return d.dd;
-//        });
-
-
-        // Create categorical dimension
-//        var gainOrLoss = ndx.dimension(function (d) {
-//            return d.open > d.close ? 'Loss' : 'Gain';
-//        });
-        // Produce counts records in the dimension
-//        var gainOrLossGroup = gainOrLoss.group();
-
-        // Determine a histogram of percent changes
-//        var fluctuation = ndx.dimension(function (d) {
-//            return Math.round((d.close - d.open) / d.open * 100);
-//        });
-//        var fluctuationGroup = fluctuation.group();
-
-        // Summarize volume by quarter
-//        var quarter = ndx.dimension(function (d) {
-//            var month = d.dd.getMonth();
-//            if (month <= 2) {
-//                return 'Q1';
-//            } else if (month > 2 && month <= 5) {
-//                return 'Q2';
-//            } else if (month > 5 && month <= 8) {
-//                return 'Q3';
-//            } else {
-//                return 'Q4';
-//            }
-//        });
-//        var quarterGroup = quarter.group().reduceSum(function (d) {
-//            return d.volume;
-//        });
-
-        // Counts per weekday
-//        var dayOfWeek = ndx.dimension(function (d) {
-//            var day = d.dd.getDay();
-//            var name = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-//            return day + '.' + name[day];
-//        });
-//        var dayOfWeekGroup = dayOfWeek.group();
-
-
-//        data = crossfilter(csv);
         dc.renderAll();
 
     });
@@ -220,12 +146,12 @@ CucurbitaMaximaStatistics.prototype.display = function(){
 /** ***************** AREA & RANGE *************** **/
 /****************************************************/
 CucurbitaMaximaStatistics.prototype.createAreaChart = function(chartId, subChartId, dateDimension, dateGroup, monthlyMoveGroup, indexAvgByMonthGroup){
-    var minDate = cucurbitaDateFormatForD3.parse(dateDimension.bottom(1)[0][this.forecastSawingDataDate]);
-    var maxDate = cucurbitaDateFormatForD3.parse(dateDimension.top(1)[0][this.forecastSawingDataDate]);
+    var minDate = cucurbitaDateFormatForD3.parse(dateDimension.bottom(1)[0][this.harvestSawingDataDate]);
+    var maxDate = cucurbitaDateFormatForD3.parse(dateDimension.top(1)[0][this.harvestSawingDataDate]);
     var newMinDate = new Date(minDate);
     var newMaxDate = new Date(maxDate);
-    newMinDate.setDate(minDate.getDate() - this.forecastSawingDataDayGap);
-    newMaxDate.setDate(maxDate.getDate() + this.forecastSawingDataDayGap);
+    if(minDate) newMinDate.setDate(minDate.getDate() - this.harvestSawingDataDayGap);
+    if(maxDate) newMaxDate.setDate(maxDate.getDate() + this.harvestSawingDataDayGap);
 
     var width = 990;
 
@@ -364,7 +290,7 @@ CucurbitaMaximaStatistics.prototype.createRangeChart = function(){
 CucurbitaMaximaStatistics.prototype.createDataTable = function(countId, tableId, tableHeaderId, allD, allG, tableD) {
     var self = this;
     var dataColumns = new Array();
-    $.each(this.forecastSawingData, function(i,d){
+    $.each(this.harvestSawingData, function(i,d){
         dataColumns.push(function(e){return e[d]});
     });
 
@@ -376,7 +302,7 @@ CucurbitaMaximaStatistics.prototype.createDataTable = function(countId, tableId,
 
     dc.dataTable(tableId)
         .dimension(tableD)
-        .group(function(d) { return d[self.forecastSawingGroup]; })
+        .group(function(d) { return d[self.harvestSawingGroup]; })
         .size(allG.value())
         .columns(dataColumns)
         .renderlet(function (table) {
@@ -386,7 +312,7 @@ CucurbitaMaximaStatistics.prototype.createDataTable = function(countId, tableId,
 };
 
 CucurbitaMaximaStatistics.prototype.createDataTableHeader = function(tableHeaderId) {
-    $.each(this.forecastSawingData, function(i,d){
+    $.each(this.harvestSawingData, function(i,d){
         $(tableHeaderId).append('<th class="dc-table-head" data-col="'+i+'">'+d+'</th>');
     });
 };
@@ -397,29 +323,24 @@ CucurbitaMaximaStatistics.prototype.createDataTableHeader = function(tableHeader
 /** ****************** PIE **************** **/
 /****************************************************/
 
-CucurbitaMaximaStatistics.prototype.createPie = function(){
-    this.gainOrLossChart /* dc.pieChart('#gain-loss-chart', 'chartGroup') */
-        // (_optional_) define chart width, `default = 200`
+CucurbitaMaximaStatistics.prototype.createPie = function(chartId, dimension, group) {
+    dc.pieChart(chartId)
         .width(180)
-        // (optional) define chart height, `default = 200`
         .height(180)
-        // Define pie radius
         .radius(80)
-        // Set dimension
-        .dimension(gainOrLoss)
+        .dimension(dimension)
         // Set group
-        .group(gainOrLossGroup)
-        // (_optional_) by default pie chart will use `group.key` as its label but you can overwrite it with a closure.
-        .label(function (d) {
-            if (gainOrLossChart.hasFilter() && !gainOrLossChart.hasFilter(d.key)) {
-                return d.key + '(0%)';
-            }
-            var label = d.key;
-            if (all.value()) {
-                label += '(' + Math.floor(d.value / all.value() * 100) + '%)';
-            }
-            return label;
-        })
+        .group(group)
+//        .label(function (d) {
+//            if (gainOrLossChart.hasFilter() && !gainOrLossChart.hasFilter(d.key)) {
+//                return d.key + '(0%)';
+//            }
+//            var label = d.key;
+//            if (all.value()) {
+//                label += '(' + Math.floor(d.value / all.value() * 100) + '%)';
+//            }
+//            return label;
+//        })
         /*
          // (_optional_) whether chart should render labels, `default = true`
          .renderLabel(true)
@@ -500,7 +421,7 @@ CucurbitaMaximaStatistics.prototype.createBar = function(){
 };
 /*
 
- CucurbitaMaximaForecast.prototype.createAreaChart = function(){
+ CucurbitaMaximaHarvest.prototype.createAreaChart = function(){
  this.moveChart
  .renderArea(true)
  .width(990)
@@ -544,7 +465,7 @@ CucurbitaMaximaStatistics.prototype.createBar = function(){
  };
 
 
- CucurbitaMaximaForecast.prototype.createRangeChart = function(){
+ CucurbitaMaximaHarvest.prototype.createRangeChart = function(){
  this.volumeChart.width(990)
  .height(40)
  .margins({top: 0, right: 50, bottom: 20, left: 40})
