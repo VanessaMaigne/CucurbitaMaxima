@@ -29,6 +29,7 @@
     <script type="text/javascript" src="../js/helper.js"></script>
     <script type="text/javascript" src="../js/cucurbitaMaxima.js"></script>
     <script type="text/javascript" src="../js/cucurbitaMaximaStatistics.js"></script>
+    <script type="text/javascript" src="../js/cucurbitaMaximaHarvestStatistics.js"></script>
 </HEAD>
 
 
@@ -39,27 +40,11 @@
         <div class="col-sm-2 col-md-2"><BR/>
             <a href="../index.html"><img src="../img/120.png" class="basicButton" width="40px" title="Retour page d'accueil"/></a>
         </div>
-        <div class="text-center"><h2 class="statisticTitle">Prévisions des récoltes</h2><BR/><BR/></div>
-
-        <div class="col-md-12 statisticSubTitle">Prévisions générales</div>
-        <div id="timeSerie" class="col-md-12"></div>
-
-
+        <div class="text-center"><h2 class="statisticTitle">Récoltes statistiques</h2><BR/><BR/></div>
 
         <div class="row">
-            <div id="variety-pie-chart" class="dc-chart"></div>
-        </div>
-        <div class="row">
-            <div id="gain-loss-chart" class="dc-chart"></div>
-            <div id="quarter-chart" class="dc-chart"></div>
-            <div id="day-of-week-chart" class="dc-chart"></div>
-            <div id="fluctuation-chart" class="dc-chart"></div>
-        </div>
-        <div class="col-md-12">
-            <div id="monthly-move-chart" class="dc-chart"></div>
-        </div>
-        <div class="col-md-12">
-            <div id="monthly-volume-chart" class="dc-chart"></div>
+            <div id="vernacularName-pie-chart" class="dc-chart"></div>
+            <div id="variety-bar-chart" class="dc-chart"></div>
         </div>
 
         <div class="col-md-12 statisticSubTitle"><BR/><BR/>Données du fichier</div>
@@ -84,7 +69,7 @@
 
         <script type="text/javascript">
             $(window).load(function() {
-                new CucurbitaMaximaStatistics().display();
+                new CucurbitaMaximaHarvestStatistics().display();
             });
 
         </script>

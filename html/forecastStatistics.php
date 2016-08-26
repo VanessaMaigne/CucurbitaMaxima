@@ -28,7 +28,7 @@
 
     <script type="text/javascript" src="../js/helper.js"></script>
     <script type="text/javascript" src="../js/cucurbitaMaxima.js"></script>
-    <script type="text/javascript" src="../js/cucurbitaMaximaStatistics.js"></script>
+    <script type="text/javascript" src="../js/cucurbitaMaximaForecastStatistics.js"></script>
 </HEAD>
 
 
