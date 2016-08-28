@@ -59,10 +59,10 @@
                 </div>
             </div>
             <div class="form-group">
-                <div class="col-sm-2"><label for="plantDate">Date de plantation</label></div>
-                <div class="col-sm-2"><input id="plantDate" class="form-control"/></div>
-                <div class="col-sm-2" id="plantDateWeek"></div>
-                <div class="col-sm-6 warning" id="plantDateWarning"></div>
+                <div class="col-sm-2"><label for="harvestDate">Date de récole</label></div>
+                <div class="col-sm-2"><input id="harvestDate" class="form-control"/></div>
+                <div class="col-sm-2" id="harvestDateWeek"></div>
+                <div class="col-sm-6 warning" id="harvestDateWarning"></div>
             </div>
 
             <div class="form-group has-feedback">

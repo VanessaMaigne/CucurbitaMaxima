@@ -250,7 +250,7 @@ CucurbitaMaxima.prototype.saveForm = function(){
     $.each(this.headerId, function(i,d){
         content += $("#"+d).val()+self.separator;
     });
-    content += self.separator+d3.time.format('%e/%d/%Y_%H:%M')(new Date());
+    content += self.separator+d3.time.format('%e/%m/%Y_%H:%M')(new Date());
 
     var url = '../phpScript/writeContent.php?fileNameProperties='+this.dataFileProperty+'&content='+content;
     if(params.ln)

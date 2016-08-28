@@ -132,14 +132,14 @@ CucurbitaMaximaHarvestSheet.prototype.fillVarietySelectWithSelectedValue = funct
  */
 CucurbitaMaximaHarvestSheet.prototype.createCalendars = function(){
     var self = this;
-    $( "#plantDate" ).datepicker({
+    $( "#harvestDate" ).datepicker({
         dateFormat: cucurbitaDateFormat,
         setDate: new Date(),
         onSelect: function() {
-            var pickerDate = $("#plantDate").datepicker('getDate');
-            $("#plantDateWeek").html("(semaine : "+$.datepicker.iso8601Week(pickerDate) +")");
+            var pickerDate = $("#harvestDate").datepicker('getDate');
+            $("#harvestDateWeek").html("(semaine : "+$.datepicker.iso8601Week(pickerDate) +")");
             self.calculateCrop();
-            self.checkPlantDateWithMoon();
+            self.checkHarvestDateWithMoon();
         },
         beforeShow: function (textbox, instance) {
             instance.dpDiv.css({
@@ -151,11 +151,11 @@ CucurbitaMaximaHarvestSheet.prototype.createCalendars = function(){
 
 /**
  * This method calculate the crop date by adding plant date and cycle
- * cropDate = plantDate + cycle
+ * cropDate = harvestDate + cycle
  */
 CucurbitaMaximaHarvestSheet.prototype.calculateCrop = function(){
     var cycleValue = "" != $( "#cycle" ).val() ? parseInt($("#cycle").val()) : 0;
-    var pickerDate = $("#plantDate").datepicker('getDate');
+    var pickerDate = $("#harvestDate").datepicker('getDate');
     var cropDate = new Date(pickerDate);
     cropDate.setDate(pickerDate.getDate() + cycleValue);
     $("#cropDate").val($.datepicker.formatDate("dd/mm/yy", cropDate));
@@ -165,13 +165,13 @@ CucurbitaMaximaHarvestSheet.prototype.calculateCrop = function(){
 /**
  * This method checks if the plant date is between the begin and the end of the moon period
  */
-CucurbitaMaximaHarvestSheet.prototype.checkPlantDateWithMoon = function(){
-    var pickerPlantDate = $("#plantDate").datepicker('getDate');
+CucurbitaMaximaHarvestSheet.prototype.checkHarvestDateWithMoon = function(){
+    var pickerHarvestDate = $("#harvestDate").datepicker('getDate');
     var pickerMoonBeginDate = $("#moonBegin").datepicker('getDate');
     var pickerMoonEndDate = $("#moonEnd").datepicker('getDate');
-    if(null != pickerPlantDate && (null == pickerMoonBeginDate || pickerMoonBeginDate <= pickerPlantDate) && (null == pickerMoonEndDate || pickerPlantDate <= pickerMoonEndDate))
-        $("#plantDateWarning").html("");
-    else $("#plantDateWarning").html("<img src='../img/25.png' width='25px'/>  Attention : date non conforme à la phase lunaire");
+    if(null != pickerHarvestDate && (null == pickerMoonBeginDate || pickerMoonBeginDate <= pickerHarvestDate) && (null == pickerMoonEndDate || pickerHarvestDate <= pickerMoonEndDate))
+        $("#harvestDateWarning").html("");
+    else $("#harvestDateWarning").html("<img src='../img/25.png' width='25px'/>  Attention : date non conforme à la phase lunaire");
 };
 
 /**
@@ -183,9 +183,9 @@ CucurbitaMaximaHarvestSheet.prototype.resetForm = function(){
     $( "#nameSelect" ).select2( "val", "" );
     $( "#varietySelect" ).select2( "val", "" );
     //Calendar & crop
-    $('#plantDate').datepicker().datepicker("setDate", new Date());
-    var pickerDate = $("#plantDate").datepicker('getDate');
-    $("#plantDateWeek").html("(semaine : "+$.datepicker.iso8601Week(pickerDate) +")");
+    $('#harvestDate').datepicker().datepicker("setDate", new Date());
+    var pickerDate = $("#harvestDate").datepicker('getDate');
+    $("#harvestDateWeek").html("(semaine : "+$.datepicker.iso8601Week(pickerDate) +")");
     this.calculateCrop();
 };
 

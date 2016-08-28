@@ -9,7 +9,7 @@
 
     <!-- ************************* CSS ************************* -->
     <link rel="stylesheet" type="text/css" href="../js/bootstrap-3.1.1-dist/css/bootstrap.min.css">
-<!--    <link rel="stylesheet" type="text/css" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">-->
+    <!--    <link rel="stylesheet" type="text/css" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">-->
     <!--    <link rel="stylesheet" type="text/css" href="../js/select2/select2.css"/>-->
     <link rel="stylesheet" type="text/css" href="../css/dc.css">
     <link rel="stylesheet" type="text/css" href="../css/home.css">
@@ -22,6 +22,7 @@
     <script type="text/javascript" src="../js/library/d3.js"></script>
     <script type="text/javascript" src="../js/library/dc.js"></script>
     <script type="text/javascript" src="../js/library/crossfilter.js"></script>
+    <script type="text/javascript" src="../js/library/d3.tip.min.js"></script>
     <script type="text/javascript" src="../js/bootstrap-3.1.1-dist/js/bootstrap.js"></script>
     <!--    <script type="text/javascript" src="../js/bootstrap-validator-master/js/validator.js"></script>-->
     <script type="text/javascript" src="../js/library/jquery.i18n.properties-1.0.9.js"></script>
@@ -42,9 +43,23 @@
         </div>
         <div class="text-center"><h2 class="statisticTitle">Récoltes statistiques</h2><BR/><BR/></div>
 
-        <div class="row">
-            <div id="vernacularName-pie-chart" class="dc-chart"></div>
-            <div id="variety-bar-chart" class="dc-chart"></div>
+        <div class="row col-sm-12 col-md-12">
+            <div class="col-xs-3 text-center"><h3>Nom vernaculaire</h3></div>
+            <div class="col-xs-5 text-center"><h3>Variété / quantité</h3></div>
+            <div class="col-xs-4 text-center"><h3>Variété / poids</h3></div>
+        </div>
+        <div class="row col-sm-12 col-md-12">
+            <div id="vernacularName-pie-chart" class="dc-chart col-xs-3"></div>
+            <div id="variety-weight-bar-chart" class="dc-chart col-xs-5"></div>
+            <div id="variety-quantity-bar-chart" class="dc-chart col-xs-4"></div>
+        </div>
+
+        <div id="harvest-time-chart" class="row dc-chart col-sm-12 col-md-12"></div>
+        <div id="harvest-volume-chart" class="row dc-chart col-sm-12 col-md-12"></div>
+
+        <div class="row col-sm-12 col-md-12">
+            <BR/><BR/>
+            <div class="col-xs-offset-1 col-lg-offset-1"><button id="resetButton" class="btn btn-info">Reset</button></div>
         </div>
 
         <div class="col-md-12 statisticSubTitle"><BR/><BR/>Données du fichier</div>

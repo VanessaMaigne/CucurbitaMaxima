@@ -1,11 +1,12 @@
-Nom vernaculaire|Variete|Date de plantation|Poids|Quantite|Commentaire|CreationDate
-Tomate|Coeur de Boeuf|25/08/2016|5|10|test||25/25/2016_11:16
-Pomme de terre|Var1|25/08/2016|2|12|azeaze||26/26/2016_15:06
-Tomate|Coeur de Boeuf|25/08/2016|3|9|||25/25/2016_14:56
-Figue|Var2|26/08/2016|2|22|||26/26/2016_14:51
-Pomme de terre|Var1|26/08/2016|4|54|||26/26/2016_14:51
-Figue|Var1|26/08/2016|6|45|||26/26/2016_14:51
-Pomme de terre|Charlotte|26/08/2016|5|55|||26/26/2016_14:51
-Pomme de terre|Rosabelle|26/08/2016|8|87|||26/26/2016_14:51
-Pomme de terre|Rosabelle|26/08/2016|1|11|||26/26/2016_14:51
-Pomme de terre|Rosabelle|26/08/2016|2|22|qsdqsd||26/26/2016_15:06
+Nom vernaculaire|Variete|Date de recolte|Poids|Quantite|Commentaire|CreationDate
+Tomate|Coeur de Boeuf|25/08/2016|5|10|test|25/08/2016_11:16
+Pomme de terre|Var1|25/08/2016|2|12|azeaze|26/08/2016_15:06
+Tomate|Coeur de Boeuf|25/08/2016|3|9||25/08/2016_14:56
+Figue|Var2|26/08/2016|2|22||26/08/2016_14:51
+Pomme de terre|Var1|26/08/2016|4|54||26/08/2016_14:51
+Figue|Var1|26/08/2016|6|45||26/08/2016_14:51
+Pomme de terre|Charlotte|26/08/2016|5|55||26/08/2016_14:51
+Pomme de terre|Rosabelle|26/08/2016|8|87||26/08/2016_14:51
+Pomme de terre|Rosabelle|26/08/2016|1|11||26/09/2016_14:51
+Pomme de terre|Rosabelle|26/08/2016|2|22|qsdqsd|26/09/2016_15:06
+Tomate|Ananas|15/08/2016|1|11|Date||28/08/2016_15:31
